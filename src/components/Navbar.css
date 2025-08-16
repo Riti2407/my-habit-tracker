@@ -51,6 +51,8 @@
 }
 
 .reset-btn {
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
   background: linear-gradient( #ed0e6b);
   color: white;
   border: none;
@@ -59,8 +61,6 @@
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
 }
 
 .reset-btn:hover {

@@ -6,6 +6,12 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
+import Footer from './components/Footer';
+import About from './components/About';
+import Foot from './components/Foot';
+// import withI18nReady from "./components/withI18nReady";
+import TrackerCard from './components/TrackerCard';
+import "./App.css";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Foot from "./components/Foot";
@@ -384,6 +390,9 @@ export default App;
 //     </Router>
 //   );
 // };
+
+// Wrap App with i18n loader
+export default App;
 
 // // Wrap App with i18n loader
 // export default App;
