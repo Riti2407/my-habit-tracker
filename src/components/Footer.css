@@ -55,12 +55,13 @@
 .connection {
   display: flex;
   flex: 1;
-  gap: 30px;
+  gap: 0px;
   flex-wrap: wrap;
+
 }
 
 .left {
-  flex: 1 1 300px;
+  flex: 1 1 0px;
 }
 
 .left p {

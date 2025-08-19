@@ -26,7 +26,7 @@ export default function Footer() {
                             We’re here to support your habit-tracking journey! Whether you have questions, feedback, or just want to share your progress, reach out—we’d love to hear from you. Your input helps us improve and create a better experience for everyone. Let’s build better habits, together!
                         </p>
                     </div>
-
+                   
                     {/* Right Form */}
                     {/* <div className="right">
                         <form className="contact-form">

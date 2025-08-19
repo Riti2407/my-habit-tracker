@@ -1,7 +1,7 @@
 /* Background animation */
 .contact-wrapper {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #ff9a9e, #fad0c4, #a6c1ee);
+  background:  radial-gradient(circle at 20% 20%, #a8e6cf, #bcf5bc, #e0f7fa);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,11 +64,11 @@
 .contact-container h2 {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #fff;
+  color: #ff2d82;
 }
 
 .contact-container p {
-  color: #f5f5f5;
+  color: #ff2d82;
   margin-bottom: 25px;
   font-size: 1rem;
 }
@@ -83,7 +83,7 @@
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #fff;
+  color: #ff2d82;
 }
 
 /* Inputs & textarea */
@@ -96,7 +96,7 @@
   font-size: 14px;
   outline: none;
   background: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: #ff2d82;
   box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
@@ -109,7 +109,7 @@
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.8);
+  color: #ff2d82;
 }
 
 .contact-form textarea {
@@ -120,7 +120,7 @@
 /* Error text */
 .error {
   display: block;
-  color: #ffdddd;
+  color: #ff2d82;
   font-size: 12px;
   margin-top: 4px;
 }
@@ -149,8 +149,14 @@
 
 /* Success animation */
 .success-message {
-  color: #fff;
+  color: #ff2d82;
   animation: fadeIn 0.6s ease-in-out;
+}
+
+#name,
+#email,
+#message {
+  color: pink;
 }
 
 .checkmark {
