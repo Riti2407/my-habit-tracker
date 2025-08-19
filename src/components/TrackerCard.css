@@ -1,106 +1,40 @@
+/* Define your CSS variables, typically in the :root scope, 
+  so they are available globally.
+*/
+:root {
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --text-color: #111;
+  --text-secondary: #555;
+  --bg-color: #f9f9f9;
+  --accent-color: #4caf50; /* Green accent */
+}
+
+/* Dark mode variable overrides */
+.dark {
+  --card-bg: #222;
+  --border-color: #444;
+  --text-color: #eee;
+  --text-secondary: #aaa;
+  --bg-color: #333;
+}
+
+/* --- Consolidated TrackerCard Styles --- */
 .TrackerCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 16px; /* slightly more rounded */
-  padding: 1.25rem;
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px; /* Using the more rounded value */
+  padding: 20px;
   margin: 0.5rem;
   width: 280px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Added transition */
 }
 
-.TrackerCard {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-=======
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-  cursor: pointer;
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
-}
-
+/* Re-integrated hover effect */
 .TrackerCard:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #fefefe, #f0f0f0);
-}
-
-<<<<<<< HEAD
-.dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;
-=======
-/* Dark mode version */
-.dark .tracker-card {
-  background-color: #1f1f1f;
-  border-color: #333;
-  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
-}
-
-.dark .tracker-card:hover {
-  background: linear-gradient(145deg, #222, #1a1a1a);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
-}
-
-.days-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-}
-
-.days-row label {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-
-.dark .days-row label {
-  color: #e5e5e5;
-}
-
-input[type="checkbox"] {
-  accent-color: #4caf50; /* Subtle green check */
-  margin-right: 5px;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-input[type="checkbox"]:checked {
-  transform: scale(1.1); /* small pop effect */
-}
-
-/* Progress bar container */
-.progress {
-  height: 0.5rem;
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-top: 0.75rem;
-}
-
-.dark .progress {
-  background-color: #333;
-}
-
-/* Progress indicator */
-.progress > div {
-  height: 100%;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
-}
-.TrackerCard {
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
 }
 
 .TrackerCard h3 {
@@ -110,10 +44,12 @@ input[type="checkbox"]:checked {
   color: var(--text-color);
 }
 
+/* --- Consolidated Days Row & Checkbox Styles --- */
 .days-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-around; /* Better for centering items */
   align-items: center;
+  gap: 0.25rem;
 }
 
 .days-row label {
@@ -122,28 +58,24 @@ input[type="checkbox"]:checked {
   align-items: center;
   cursor: pointer;
   font-size: 0.9rem;
+  color: var(--text-secondary);
 }
 
-/* Styling for the day label text (e.g., "Mon") */
 .days-row span {
   margin-top: 5px;
-  color: var(--text-secondary);
   font-weight: 500;
 }
 
-/* Custom checkbox styles */
+/* Custom circular checkbox styles */
 .days-row input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
   background-color: var(--bg-color);
   margin: 0;
-  font: inherit;
-  color: currentColor;
   width: 2em;
   height: 2em;
   border: 2px solid var(--border-color);
-  border-radius: 50%; /* Make it circular */
-  transform: translateY(0);
+  border-radius: 50%;
   display: grid;
   place-content: center;
   cursor: pointer;
@@ -166,4 +98,21 @@ input[type="checkbox"]:checked {
 
 .days-row input[type="checkbox"]:checked::before {
   transform: scale(1);
+}
+
+/* --- Consolidated Progress Bar Styles --- */
+.progress {
+  height: 0.5rem;
+  width: 100%;
+  background-color: var(--border-color); /* Using a variable */
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+/* The inner, colored part of the progress bar */
+.progress > div {
+  height: 100%;
+  background-color: var(--accent-color);
+  transition: width 0.3s ease;
 }

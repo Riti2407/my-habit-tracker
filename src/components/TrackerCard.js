@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import "./TrackerCard.css";
+import "./TrackerCard.css"; // Assumes you have some styles here
 
 function TrackerCard({
   habit,
   habitKey,
   completedDays,
   onCheck,
-  weekDates,
+  weekDates = [], // Default to an empty array to prevent errors
   emoji,
   onEdit,
   darkMode,
@@ -16,26 +16,28 @@ function TrackerCard({
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(habit?.label || habit);
 
-  if (!ready) return null;
+  // --- All logic should be placed before the final return statement ---
 
-  // Helper: get day abbreviation from a date string
+  // 1. Helper function for displaying day labels
   const getDayLabel = (dateString) => {
     const date = new Date(dateString);
+    // Note: Manual timezone adjustments can be tricky. A library like date-fns is more robust.
     const offset = date.getTimezoneOffset() * 60000;
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
-  return (
-    <div className="tracker-card">
-      <h3>
-
-
-  // Completion progress
+  // 2. Derived state: Calculate completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
-  const totalDays = weekDates ? weekDates.length : 7;
-  const progressPercent = Math.round((completedCount / totalDays) * 100);
+  const totalDays = weekDates.length || 7; // Avoid division by zero
+  const progressPercent = totalDays > 0 ? Math.round((completedCount / totalDays) * 100) : 0;
 
+  // Early return for when translation is not ready
+  if (!ready) {
+    return null;
+  }
+
+  // --- The single, final return statement for the component ---
   return (
     <div
       style={{
@@ -45,19 +47,19 @@ function TrackerCard({
         transition: "transform 0.3s",
         backgroundColor: darkMode ? "#1f2937" : "#ffffff",
         color: darkMode ? "#f9fafb" : "#111827",
-        cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+      className="tracker-card-hover" // Use a class for hover effects for cleaner JSX
     >
-      {/* Habit name with edit option */}
-      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
+      {/* Habit name with edit functionality */}
+      <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "1rem" }}>
         {emoji}{" "}
         {isEditing ? (
           <>
             <input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
+              // Add some basic styling
+              style={{ marginRight: '8px' }}
             />
             <button
               onClick={() => {
@@ -71,7 +73,7 @@ function TrackerCard({
           </>
         ) : (
           <>
-            {habit?.label || habit}{" "}
+            <span>{habit?.label || habit}</span>
             {onEdit && (
               <button onClick={() => setIsEditing(true)} style={{ marginLeft: "0.5rem" }}>
                 Edit
@@ -81,50 +83,22 @@ function TrackerCard({
         )}
       </h3>
 
-      <div className="days-row">
-        {/* Map over the weekDates array passed in as a prop */}
+      {/* Days of the week checkboxes (using only one map) */}
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
         {weekDates.map((dateString) => (
-          <label key={dateString} className="day-label">
+          <label
+            key={dateString}
+            style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+          >
             <input
               type="checkbox"
-              // Check for completion using the full date string
               checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
               onChange={() => onCheck(habitKey, dateString)}
+              className="day-checkbox" // Use CSS for styling checkboxes
             />
-            {/* Display the short day name (e.g., Mon, Tue) */}
-            <span>{getDayLabel(dateString)}</span>
+            <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{getDayLabel(dateString)}</span>
           </label>
         ))}
-      </div>
-
-      {/* Days checkboxes */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
-        {(weekDates || []).map((dateString) => {
-          const label = getDayLabel(dateString);
-          return (
-            <label
-              key={dateString}
-              style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
-            >
-              <input
-                type="checkbox"
-                checked={!!completedDays[dateString]}
-                onChange={() => onCheck(dateString)}
-                style={{
-                  width: "1.25rem",
-                  height: "1.25rem",
-                  borderRadius: "0.25rem",
-                  border: "1px solid",
-                  borderColor: completedDays[dateString] ? "#22c55e" : "#d1d5db",
-                  backgroundColor: completedDays[dateString] ? "#22c55e" : "#e5e7eb",
-                  transition: "all 0.2s",
-                }}
-              />
-              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{label}</span>
-            </label>
-          );
-        })}
       </div>
 
       {/* Progress bar */}
@@ -132,7 +106,7 @@ function TrackerCard({
         style={{
           height: "0.5rem",
           width: "100%",
-          backgroundColor: "#d1d5db",
+          backgroundColor: darkMode ? "#4b5563" : "#d1d5db",
           borderRadius: "9999px",
           overflow: "hidden",
         }}
@@ -142,7 +116,7 @@ function TrackerCard({
             height: "100%",
             width: `${progressPercent}%`,
             backgroundColor: "#22c55e",
-            transition: "width 0.3s",
+            transition: "width 0.3s ease-in-out",
           }}
         />
       </div>
@@ -151,4 +125,3 @@ function TrackerCard({
 }
 
 export default TrackerCard;
-
