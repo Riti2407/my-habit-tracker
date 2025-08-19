@@ -1,119 +1,51 @@
-.TrackerCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 16px; /* slightly more rounded */
-  padding: 1.25rem;
+/* Base styles for the tracker card */
+.tracker-card {
+  background-color: var(--card-bg, #fff);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--border-color, #ddd);
   margin: 0.5rem;
   width: 280px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
-}
-
-.TrackerCard {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-=======
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
   cursor: pointer;
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
 }
 
-.TrackerCard:hover {
+.tracker-card:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #fefefe, #f0f0f0);
 }
 
-<<<<<<< HEAD
-.dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;
-=======
-/* Dark mode version */
+.tracker-card h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  color: var(--text-color, #000);
+}
+
+/* Dark mode styles */
 .dark .tracker-card {
-  background-color: #1f1f1f;
-  border-color: #333;
+  --card-bg: #1f1f1f;
+  --border-color: #333;
+  --text-color: #e5e5e5;
+  --text-secondary: #aaa;
+  --bg-color: #333;
+  --accent-color: #4caf50;
   box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
 }
 
 .dark .tracker-card:hover {
   background: linear-gradient(145deg, #222, #1a1a1a);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
 }
 
-.days-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-}
-
-.days-row label {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-
-.dark .days-row label {
-  color: #e5e5e5;
-}
-
-input[type="checkbox"] {
-  accent-color: #4caf50; /* Subtle green check */
-  margin-right: 5px;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-input[type="checkbox"]:checked {
-  transform: scale(1.1); /* small pop effect */
-}
-
-/* Progress bar container */
-.progress {
-  height: 0.5rem;
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-top: 0.75rem;
-}
-
-.dark .progress {
-  background-color: #333;
-}
-
-/* Progress indicator */
-.progress > div {
-  height: 100%;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
-}
-.TrackerCard {
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
-}
-
-.TrackerCard h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  color: var(--text-color);
-}
-
+/* Layout for the days */
 .days-row {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
 }
 
 .days-row label {
@@ -124,10 +56,9 @@ input[type="checkbox"]:checked {
   font-size: 0.9rem;
 }
 
-/* Styling for the day label text (e.g., "Mon") */
 .days-row span {
   margin-top: 5px;
-  color: var(--text-secondary);
+  color: var(--text-secondary, #555);
   font-weight: 500;
 }
 
@@ -135,18 +66,16 @@ input[type="checkbox"]:checked {
 .days-row input[type="checkbox"] {
   -webkit-appearance: none;
   appearance: none;
-  background-color: var(--bg-color);
+  background-color: var(--bg-color, #eee);
   margin: 0;
   font: inherit;
   color: currentColor;
   width: 2em;
   height: 2em;
-  border: 2px solid var(--border-color);
-  border-radius: 50%; /* Make it circular */
-  transform: translateY(0);
+  border: 2px solid var(--border-color, #ccc);
+  border-radius: 50%;
   display: grid;
   place-content: center;
-  cursor: pointer;
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
@@ -157,11 +86,11 @@ input[type="checkbox"]:checked {
   border-radius: 50%;
   transform: scale(0);
   transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--accent-color);
+  box-shadow: inset 1em 1em var(--accent-color, #4caf50);
 }
 
 .days-row input[type="checkbox"]:checked {
-  border-color: var(--accent-color);
+  border-color: var(--accent-color, #4caf50);
 }
 
 .days-row input[type="checkbox"]:checked::before {

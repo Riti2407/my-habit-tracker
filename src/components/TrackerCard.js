@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
@@ -66,11 +66,6 @@ function TrackerCard({
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
-
-  return (
-    <div className="tracker-card">
-      <h3>
-
 
   // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
