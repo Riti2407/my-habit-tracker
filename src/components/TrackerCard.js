@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
+import "./TrackerCard.css";
 
 function TrackerCard({
   habit,
@@ -27,6 +28,12 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
+  return (
+    <div className="tracker-card">
+      <h3>
+
+
+  // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
   const totalDays = weekDates ? weekDates.length : 7;
   const progressPercent = Math.round((completedCount / totalDays) * 100);
@@ -158,7 +165,25 @@ function TrackerCard({
         </div>
       </div>
 
-      {/* Days */}
+      <div className="days-row">
+        {/* Map over the weekDates array passed in as a prop */}
+        {weekDates.map((dateString) => (
+          <label key={dateString} className="day-label">
+            <input
+              type="checkbox"
+              // Check for completion using the full date string
+              checked={!!completedDays[dateString]}
+              // Pass the habit's key and the full date string to the onCheck handler
+              onChange={() => onCheck(habitKey, dateString)}
+            />
+            {/* Display the short day name (e.g., Mon, Tue) */}
+            <span>{getDayLabel(dateString)}</span>
+          </label>
+        ))}
+      </div>
+
+      {/* Days checkboxes */}
+
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
         {(weekDates || []).map((dateString) => {
           const label = getDayLabel(dateString);

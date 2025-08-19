@@ -1,8 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
-import About from "./About";
-import Contact from "./Contact";
 
 const handleReset = () => {
   if (window.confirm("Are you sure you want to reset everything?")) {
@@ -11,22 +9,44 @@ const handleReset = () => {
 };
 
 const Navbar = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <nav className="navbar">
-      <div className="nav-logo">Habit Tracker</div>
-      <ul className="nav-links">
-        <li><Link to="/">Home</Link></li>
-
-        <li><Link to="/summary">Monthly Summary</Link></li>
-        
-
-          <li><Link to="/About">About</Link></li>
-
-        <li><Link to="/contact">Contact Us</Link></li>
-        <li><button onClick={handleReset} style={{ marginLeft: "10px" }} className="reset-btn">
-  Reset Page
-</button>
-</li>
+    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+      <div className="nav-logo">
+        <NavLink to="/">Habit Tracker</NavLink>
+      </div>
+      <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={toggleMenu}>
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
+      <ul className={isMenuOpen ? "nav-links active" : "nav-links"}>
+        <li><NavLink to="/" exact onClick={toggleMenu}>Home</NavLink></li>
+        <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
+        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+        <li><NavLink to="/contact" onClick={toggleMenu}>Contact Us</NavLink></li>
+        <li>
+          <button onClick={handleReset} className="reset-btn">
+            Reset Page
+          </button>
+        </li>
       </ul>
     </nav>
   );
