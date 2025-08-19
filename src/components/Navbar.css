@@ -4,27 +4,27 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #2C3E50; /* Dark Charcoal Background */
   position: sticky;
   top: 0;
   z-index: 1000;
-  transition: box-shadow 0.3s ease;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid #34495E;
 }
 
 .navbar.scrolled {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  background-color: #233140; /* Slightly darker on scroll */
 }
 
-.nav-logo {
+.nav-logo a {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #6b46c1;
+  color: #ECF0F1; /* Soft White Text */
   text-decoration: none;
   transition: transform 0.3s ease;
 }
 
-.nav-logo:hover {
+.nav-logo a:hover {
   transform: scale(1.05);
 }
 
@@ -42,10 +42,10 @@
 
 .nav-links a {
   text-decoration: none;
-  color: #343a40;
+  color: #ECF0F1; /* Soft White Text */
   font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   position: relative;
   transition: color 0.3s ease;
 }
@@ -56,19 +56,27 @@
   width: 0;
   height: 2px;
   bottom: 0;
-  left: 0;
-  background-color: #6b46c1;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #ECF0F1;
   transition: width 0.3s ease;
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links a:hover::after {
   width: 100%;
 }
 
+/* Active link style with background highlight */
 .nav-links a.active {
-  color: #6b46c1;
-  font-weight: 600;
+  background-color: #34495E; /* Lighter charcoal for active link */
+  color: #fff;
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+}
+
+/* Remove underline for active link since it has a background */
+.nav-links a.active::after {
+  width: 0;
 }
 
 /* Hamburger Menu Icon */
@@ -84,42 +92,51 @@
 .hamburger .bar {
   width: 100%;
   height: 3px;
-  background-color: #343a40;
+  background-color: #ECF0F1; /* Soft White Bars */
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
-/* Responsive styles */
+/* Responsive Styles for Slide-In Menu */
 @media (max-width: 768px) {
   .nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background-color: #fff;
+    position: fixed;
+    top: 0;
+    right: -100%; /* Start off-screen */
+    width: 70%;
+    max-width: 300px;
+    height: 100vh;
+    background-color: #2C3E50;
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 0;
+    justify-content: center;
+    padding: 2rem 0;
     margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: right 0.4s ease-in-out;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+    display: flex; 
   }
 
   .nav-links.active {
-    max-height: 500px; /* Adjust as needed */
-    padding: 1.5rem 0;
+    right: 0; /* Slide in */
   }
 
   .nav-links li {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+  }
+  
+  .nav-links a,
+  .nav-links a.active {
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem; /* Consistent padding in mobile */
   }
 
   .hamburger {
     display: flex;
+    z-index: 1001; /* Ensure hamburger is on top */
   }
-
+  
+  /* Animation for hamburger turning into an 'X' */
   .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
@@ -131,16 +148,11 @@
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
-
-  .nav-logo {
-    font-size: 1.5rem;
-  }
 }
 
+/* Reset Button styles for the new theme */
 .reset-btn {
-  transition: all 0.3s ease;
-  box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
-  background: linear-gradient( #ed0e6b);
+  background: #E74C3C; /* A contrasting red */
   color: white;
   border: none;
   padding: 8px 16px;
@@ -148,15 +160,17 @@
   font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .reset-btn:hover {
-  background: linear-gradient(#ff73b3);
-  box-shadow: 0px 6px 15px rgba(168, 85, 247, 0.6);
+  background: #C0392B; /* Darker red on hover */
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
   transform: translateY(-2px);
 }
 
 .reset-btn:active {
   transform: translateY(0);
-  box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }

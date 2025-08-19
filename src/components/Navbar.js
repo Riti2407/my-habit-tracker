@@ -27,6 +27,17 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('body-no-scroll');
+    } else {
+      document.body.classList.remove('body-no-scroll');
+    }
+    return () => {
+      document.body.classList.remove('body-no-scroll');
+    };
+  }, [isMenuOpen]);
+
   return (
     <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <div className="nav-logo">
