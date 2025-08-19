@@ -2,6 +2,44 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
+// ---------- Streak Calculation ----------
+function computeStreaks(dates) {
+  if (!dates || dates.length === 0)
+    return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
+
+  const sorted = [...dates].sort();
+  let currentStreak = 1;
+  let bestStreak = 1;
+  let streakDates = [sorted[0]];
+  let bestStreakDates = [...streakDates];
+
+  for (let i = 1; i < sorted.length; i++) {
+    const prev = new Date(sorted[i - 1]);
+    const curr = new Date(sorted[i]);
+    const diff = (curr - prev) / (1000 * 60 * 60 * 24);
+
+    if (diff === 1) {
+      currentStreak++;
+      streakDates.push(sorted[i]);
+    } else {
+      if (currentStreak > bestStreak) {
+        bestStreak = currentStreak;
+        bestStreakDates = [...streakDates];
+      }
+      currentStreak = 1;
+      streakDates = [sorted[i]];
+    }
+  }
+
+  if (currentStreak > bestStreak) {
+    bestStreak = currentStreak;
+    bestStreakDates = [...streakDates];
+  }
+
+  return { currentStreak, bestStreak, streakDates: new Set(bestStreakDates) };
+}
+
+// ---------- TrackerCard Component ----------
 function TrackerCard({
   habit,
   habitKey,
@@ -18,6 +56,15 @@ function TrackerCard({
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(habit?.label || habit);
 
+  const completedDates = Object.keys(completedDays || {}).filter(
+    (d) => completedDays[d]
+  );
+  const {
+    currentStreak,
+    bestStreak,
+    streakDates: streakDateSet,
+  } = computeStreaks(completedDates);
+
   if (!ready) return null;
 
   // Day label helper (avoid UTC shift)
@@ -28,15 +75,12 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
-  return (
-    <div className="tracker-card">
-      <h3>
-
-
-  // Completion progress
-  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  // Progress bar calculation (safe)
+  const completedCount = Object.values(completedDays || {}).filter(Boolean)
+    .length;
   const totalDays = weekDates ? weekDates.length : 7;
-  const progressPercent = Math.round((completedCount / totalDays) * 100);
+  const progressPercent =
+    totalDays > 0 ? Math.round((completedCount / totalDays) * 100) : 0;
 
   return (
     <div
@@ -52,7 +96,7 @@ function TrackerCard({
       onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
     >
-      {/* Header: name + actions */}
+      {/* Header: Habit name + actions */}
       <div
         style={{
           display: "flex",
@@ -64,20 +108,18 @@ function TrackerCard({
         <h3 style={{ fontSize: "1.125rem", fontWeight: 600, margin: 0 }}>
           {emoji}{" "}
           {isEditing ? (
-            <>
-              <input
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                style={{
-                  padding: "0.25rem 0.4rem",
-                  borderRadius: "0.5rem",
-                  border: "1px solid",
-                  borderColor: darkMode ? "#374151" : "#d1d5db",
-                  background: darkMode ? "#111827" : "#fff",
-                  color: darkMode ? "#f9fafb" : "#111827",
-                }}
-              />
-            </>
+            <input
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+              style={{
+                padding: "0.25rem 0.4rem",
+                borderRadius: "0.5rem",
+                border: "1px solid",
+                borderColor: darkMode ? "#374151" : "#d1d5db",
+                background: darkMode ? "#111827" : "#fff",
+                color: darkMode ? "#f9fafb" : "#111827",
+              }}
+            />
           ) : (
             <>{habit?.label || habit}</>
           )}
@@ -165,54 +207,79 @@ function TrackerCard({
         </div>
       </div>
 
-      <div className="days-row">
-        {/* Map over the weekDates array passed in as a prop */}
-        {weekDates.map((dateString) => (
-          <label key={dateString} className="day-label">
-            <input
-              type="checkbox"
-              // Check for completion using the full date string
-              checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
-              onChange={() => onCheck(habitKey, dateString)}
-            />
-            {/* Display the short day name (e.g., Mon, Tue) */}
-            <span>{getDayLabel(dateString)}</span>
-          </label>
-        ))}
+      {/* Streak badges */}
+      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
+        <span
+          style={{
+            fontSize: "0.85rem",
+            padding: "2px 6px",
+            borderRadius: "12px",
+            backgroundColor:
+              currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
+            fontWeight: currentStreak > 0 ? "600" : "400",
+          }}
+        >
+          🔥 {t("Current Streak")}: {currentStreak}
+        </span>
+        <span
+          style={{
+            fontSize: "0.85rem",
+            padding: "2px 6px",
+            borderRadius: "12px",
+            backgroundColor: "#e5e7eb",
+          }}
+        >
+          🏆 {t("Best Streak")}: {bestStreak}
+        </span>
       </div>
 
       {/* Days checkboxes */}
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0.5rem",
+          marginBottom: "1rem",
+        }}
+      >
         {(weekDates || []).map((dateString) => {
           const label = getDayLabel(dateString);
+          const isDone = !!completedDays[dateString];
+          const inStreak = streakDateSet.has(dateString);
           return (
             <label
               key={dateString}
-              style={{ display: "flex", alignItems: "center", gap: "0.25rem", cursor: "pointer" }}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                cursor: "pointer",
+              }}
             >
               <input
                 type="checkbox"
-                checked={!!completedDays[dateString]}
-                onChange={() => onCheck(dateString)}
+                checked={isDone}
+                onChange={() => onCheck(habitKey, dateString)}
                 style={{
                   width: "1.25rem",
                   height: "1.25rem",
                   borderRadius: "0.25rem",
                   border: "1px solid",
-                  borderColor: completedDays[dateString] ? "#22c55e" : "#d1d5db",
-                  backgroundColor: completedDays[dateString] ? "#22c55e" : "#e5e7eb",
+                  borderColor: isDone ? "#22c55e" : "#d1d5db",
+                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",
+                  outline: inStreak ? "2px solid tomato" : "none",
                   transition: "all 0.2s",
                 }}
               />
-              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>{label}</span>
+              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>
+                {label}
+              </span>
             </label>
           );
         })}
       </div>
 
-      {/* Progress */}
+      {/* Progress bar */}
       <div
         style={{
           height: "0.5rem",
