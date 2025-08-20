@@ -7,16 +7,35 @@ function LanguageSwitcher() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Return null if translations aren't ready
+  // Get base language code (e.g., "ar-SA" → "ar")
+  const getBaseLanguageCode = (code) => {
+    return code.split('-')[0];
+  };
 
   const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    setIsDropdownOpen(false); // Close dropdown after selection
+    console.log("Changing language to:", lng);
+    i18n.changeLanguage(lng)
+      .then(() => {
+        console.log("Language changed successfully to:", lng);
+        setIsDropdownOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error changing language:", error);
+      });
   };
-  // Effect to handle language change
+
+  // Effect to handle language change and RTL layout
   useEffect(() => {
-    document.body.dir = i18n.dir();
-  }, [i18n, i18n.language]);
+    const currentLang = getBaseLanguageCode(i18n.language);
+    console.log("Current language:", currentLang);
+    
+    // Set document direction based on language
+    const isRTL = currentLang === 'ar' || currentLang === 'he' || currentLang === 'fa';
+    document.body.dir = isRTL ? 'rtl' : 'ltr';
+    
+    // Also update html lang attribute
+    document.documentElement.lang = currentLang;
+  }, [i18n.language]);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -39,10 +58,11 @@ function LanguageSwitcher() {
     { code: "ar", name: t("languageSwitcher.arabic"), flag: "🇸🇦" },
   ];
 
-  const currentLanguage =
-    languages.find((lang) => lang.code === i18n.language) || languages[0];
-  if (!ready) return null;
+  // Get current language using base code comparison
+  const currentLanguageCode = getBaseLanguageCode(i18n.language);
+  const currentLanguage = languages.find(lang => lang.code === currentLanguageCode) || languages[0];
 
+  if (!ready) return null;
 
   return (
     <div className="language-switcher" ref={dropdownRef}>
@@ -63,7 +83,7 @@ function LanguageSwitcher() {
             <button
               key={language.code}
               className={`dropdown-item ${
-                i18n.language === language.code ? "active" : ""
+                currentLanguageCode === language.code ? "active" : ""
               }`}
               onClick={() => changeLanguage(language.code)}
             >

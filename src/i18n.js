@@ -20,40 +20,45 @@ const resources = {
   },
 };
 
-// Initialize i18next with synchronous configuration
-const initPromise = i18n
+// Initialize i18next
+i18n
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: "en", // if another language fails, English will display
-    debug: false,
+    fallbackLng: "en",
+    debug: process.env.NODE_ENV === 'development', // Only debug in development
+    supportedLngs: ["en", "hi", "ar"], // Explicitly define supported languages
 
-    // Ensure synchronous initialization
-    initImmediate: false,
-
-    // Load translations synchronously
-    load: "languageOnly",
-
-    // Allow empty values to fallback to fallback language
-    returnEmptyString: false,
+    // Detection settings
+    detection: {
+      order: ["localStorage", "navigator", "htmlTag"],
+      lookupLocalStorage: "i18nextLng",
+      caches: ["localStorage"],
+    },
 
     interpolation: {
       escapeValue: false, // React already escapes values
     },
 
-    detection: {
-      order: ["localStorage", "navigator", "htmlTag"],
-      lookupLocalStorage: "language",
-      caches: ["localStorage"],
+    // React i18next settings
+    react: {
+      useSuspense: false,
+      bindI18n: "languageChanged loaded",
+      bindI18nStore: "added removed",
     },
 
-    react: {
-      useSuspense: false, // Disable suspense to avoid React context issues
-    },
+    // Performance optimizations
+    saveMissing: false,
+    parseMissingKeyHandler: (key) => {
+      console.warn(`Missing translation: ${key}`);
+      return key;
+    }
   });
 
-// Export both the i18n instance and the initialization promise
-export { initPromise };
+// Add error handling
+i18n.on('failedLoading', (lng, ns, msg) => {
+  console.error(`Failed to load language ${lng}:`, msg);
+});
 
 export default i18n;
