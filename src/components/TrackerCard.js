@@ -54,8 +54,13 @@ function TrackerCard({
   const completedDates = Object.keys(completedDays || {}).filter(
     (d) => completedDays[d]
   );
-  const { currentStreak, bestStreak, streakDates: streakDateSet} = 
-  computeStreaks(completedDates);
+  const { currentStreak, bestStreak, streakDates: streakDateSet } = 
+    computeStreaks(completedDates);
+
+  // Completion progress
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const totalDays = weekDates ? weekDates.length : 7;
+  const progressPercent = Math.round((completedCount / totalDays) * 100);
 
   if (!ready) return null;
 
@@ -66,16 +71,6 @@ function TrackerCard({
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
-
-  return (
-    <div className="tracker-card">
-      <h3>
-
-
-  // Completion progress
-  const completedCount = Object.values(completedDays).filter(Boolean).length;
-  const totalDays = weekDates ? weekDates.length : 7;
-  const progressPercent = Math.round((completedCount / totalDays) * 100);
 
   return (
     <div
@@ -91,7 +86,6 @@ function TrackerCard({
       onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
     > 
-
       {/* Habit name with edit option */}
       <h3 style={{ fontSize: "1.125rem", fontWeight: 600, marginBottom: "0.75rem" }}>
         {emoji}{" "}
@@ -123,7 +117,7 @@ function TrackerCard({
         )}
       </h3>
 
-            {/*  NEW: Streak badges */}
+      {/* Streak badges */}
       <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
         <span
           style={{
@@ -148,25 +142,6 @@ function TrackerCard({
         </span>
       </div>
 
-
-      <div className="days-row">
-        {/* Map over the weekDates array passed in as a prop */}
-        {weekDates.map((dateString) => (
-          <label key={dateString} className="day-label">
-            <input
-              type="checkbox"
-              // Check for completion using the full date string
-              checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
-              onChange={() => onCheck(habitKey, dateString)}
-            />
-            {/* Display the short day name (e.g., Mon, Tue) */}
-            <span>{getDayLabel(dateString)}</span>
-          </label>
-        ))}
-      </div>
-
-
       {/* Days checkboxes */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
         {(weekDates || []).map((dateString) => {
@@ -180,15 +155,15 @@ function TrackerCard({
             >
               <input
                 type="checkbox"
-                checked={!!completedDays[dateString]}
-                onChange={() => onCheck(dateString)}
+                checked={isDone}
+                onChange={() => onCheck(habitKey, dateString)}
                 style={{
                   width: "1.25rem",
                   height: "1.25rem",
                   borderRadius: "0.25rem",
                   border: "1px solid",
-                  borderColor: isDone ? "#22c55e" : "#d1d5db",          //  CHANGED
-                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",      //  CHANGED
+                  borderColor: isDone ? "#22c55e" : "#d1d5db",
+                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",
                   outline: inStreak ? "2px solid tomato" : "none", 
                   transition: "all 0.2s",
                 }}
@@ -223,4 +198,3 @@ function TrackerCard({
 }
 
 export default TrackerCard;
-
