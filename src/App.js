@@ -52,11 +52,11 @@ const habitEmojis = {
 };
 
 // --- RESET FUNCTION ---
-const handleReset = () => {
-  if (window.confirm("Are you sure you want to reset everything?")) {
-    window.location.reload();
-  }
-};
+// const handleReset = () => {
+//   if (window.confirm("Are you sure you want to reset everything?")) {
+//     window.location.reload();
+//   }
+// };
 
 function App() {
   const { t } = useTranslation();
