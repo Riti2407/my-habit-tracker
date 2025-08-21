@@ -1,3 +1,8 @@
+:root{
+  --text-color: #ff4081;
+  --text-color2: #511010;
+}
+
 /* Background animation */
 .contact-wrapper {
   min-height: 100vh;
@@ -64,11 +69,11 @@
 .contact-container h2 {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #ff2d82;
+  color: #ff4081;
 }
 
 .contact-container p {
-  color: #ff2d82;
+  color: #ff4081;
   margin-bottom: 25px;
   font-size: 1rem;
 }
@@ -83,7 +88,7 @@
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #ff2d82;
+  color: #ff4081;
 }
 
 /* Inputs & textarea */
@@ -96,7 +101,7 @@
   font-size: 14px;
   outline: none;
   background: rgba(255, 255, 255, 0.2);
-  color: #ff2d82;
+  color: rgb(73, 66, 66)!important;
   box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
 }
@@ -104,12 +109,15 @@
 .contact-form input:focus,
 .contact-form textarea:focus {
   background: rgba(255, 255, 255, 0.4);
+  color: rgb(73, 66, 66)!important;
   box-shadow: 0px 0px 15px rgba(255, 126, 185, 0.8);
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #ff2d82;
+  color: #ff4081;
+  font-family: Arial, Helvetica, sans-serif;
+  opacity: 0.7; /* Added opacity to make placeholder text slightly lighter */
 }
 
 .contact-form textarea {
@@ -120,7 +128,7 @@
 /* Error text */
 .error {
   display: block;
-  color: #ff2d82;
+  color: #910b0b;
   font-size: 12px;
   margin-top: 4px;
 }
@@ -128,8 +136,8 @@
 /* Button */
 .submit-btn {
   width: 100%;
-  background: linear-gradient(135deg, #ff4f9c, #ff7eb9);
-  color: white;
+  background: linear-gradient(#ed0e6b)!important;
+  color: white!important;
   padding: 14px;
   border: none;
   border-radius: 25px;
@@ -138,13 +146,13 @@
   font-weight: bold;
   letter-spacing: 1px;
   transition: all 0.3s ease;
-  box-shadow: 0px 4px 15px rgba(255, 126, 185, 0.6);
+  box-shadow: 0px 4px 15px rgba(255, 126, 185, 0.6)!important;
 }
 
 .submit-btn:hover {
-  background: linear-gradient(135deg, #ff2d82, #ff6fa5);
+  background: linear-gradient(135deg, #ff2d82, #ff6fa5)!important;
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0px 6px 20px rgba(255, 126, 185, 0.8);
+  box-shadow: 0px 6px 20px rgba(255, 126, 185, 0.8)!important;
 }
 
 /* Success animation */
