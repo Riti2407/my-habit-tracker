@@ -6,15 +6,10 @@
   margin: 0.5rem;
   width: 280px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-<<<<<<< HEAD
 }
 
 .TrackerCard {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-=======
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-  cursor: pointer;
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
 }
 
 .TrackerCard:hover {
@@ -23,22 +18,9 @@
   background: linear-gradient(145deg, #fefefe, #f0f0f0);
 }
 
-<<<<<<< HEAD
 .dark .TrackerCard {
   background-color: #222;
   border-color: #444;
-=======
-/* Dark mode version */
-.dark .tracker-card {
-  background-color: #1f1f1f;
-  border-color: #333;
-  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
-}
-
-.dark .tracker-card:hover {
-  background: linear-gradient(145deg, #222, #1a1a1a);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
->>>>>>> 404a9d7dbd71eaac01112b2223e02f8e172d99ec
 }
 
 .days-row {

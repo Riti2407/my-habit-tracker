@@ -75,9 +75,14 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
+
   // Progress bar calculation (safe)
   const completedCount = Object.values(completedDays || {}).filter(Boolean)
     .length;
+
+
+  // Completion progress
+  const completedCount = Object.values(completedDays).filter(Boolean).length;
   const totalDays = weekDates ? weekDates.length : 7;
   const progressPercent =
     totalDays > 0 ? Math.round((completedCount / totalDays) * 100) : 0;
@@ -93,8 +98,11 @@ function TrackerCard({
         color: darkMode ? "#f9fafb" : "#111827",
         cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "translateY(-8px)")
+      }
       onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+
     >
       {/* Header: Habit name + actions */}
       <div
@@ -108,6 +116,21 @@ function TrackerCard({
         <h3 style={{ fontSize: "1.125rem", fontWeight: 600, margin: 0 }}>
           {emoji}{" "}
           {isEditing ? (
+
+    > 
+
+      {/* Habit name with edit option */}
+      <h3
+        style={{
+          fontSize: "1.125rem",
+          fontWeight: 600,
+          marginBottom: "0.75rem",
+        }}
+      >
+        {emoji}{" "}
+        {isEditing ? (
+          <>
+
             <input
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
@@ -119,6 +142,7 @@ function TrackerCard({
                 background: darkMode ? "#111827" : "#fff",
                 color: darkMode ? "#f9fafb" : "#111827",
               }}
+
             />
           ) : (
             <>{habit?.label || habit}</>
@@ -188,6 +212,23 @@ function TrackerCard({
                 }}
               >
                 Save
+
+            >
+              Save
+            </button>
+            <button onClick={() => setIsEditing(false)}>Cancel</button>
+          </>
+        ) : (
+          <>
+            {/* {t(habit?.label || habit)} */}
+            {habit?.label || habit}{" "}
+            {onEdit && (
+              <button
+                onClick={() => setIsEditing(true)}
+                style={{ marginLeft: "0.5rem" }}
+              >
+                Edit
+
               </button>
               <button
                 onClick={() => setIsEditing(false)}
