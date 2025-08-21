@@ -1,0 +1,72 @@
+/* Container centers the form on the screen */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to right, #667eea, #764ba2);
+  font-family: Arial, sans-serif;
+}
+
+/* Card look */
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  width: 350px;
+  box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+  text-align: center;
+}
+
+.auth-card h2 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* Form inputs */
+.auth-form input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.auth-form input:focus {
+  border: 1px solid #667eea;
+}
+
+/* Button */
+.auth-form button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 1rem;
+  background: #667eea;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.auth-form button:hover {
+  background: #5a67d8;
+}
+
+/* Link text */
+.auth-card p {
+  margin-top: 1rem;
+  font-size: 14px;
+}
+
+.auth-card a {
+  color: #667eea;
+  text-decoration: none;
+}
+
+.auth-card a:hover {
+  text-decoration: underline;
+}
