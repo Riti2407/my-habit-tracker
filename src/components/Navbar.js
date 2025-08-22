@@ -38,6 +38,8 @@ const Navbar = () => {
         <span className="bar"></span>
       </div>
       <ul className={isMenuOpen ? "nav-links active" : "nav-links"}>
+        <li><NavLink to="/login" exact onClick={toggleMenu}>Login</NavLink></li>
+        <li><NavLink to="/signup" exact onClick={toggleMenu}>Signup</NavLink></li>
         <li><NavLink to="/" exact onClick={toggleMenu}>Home</NavLink></li>
         <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
         <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
