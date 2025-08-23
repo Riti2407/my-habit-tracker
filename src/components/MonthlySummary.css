@@ -46,7 +46,7 @@
 
 .month-navigator button:hover {
   background-color: var(--accent-color);
-  color: #f04d44;
+  color: #f14f47;
   transform: translateY(-3px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
