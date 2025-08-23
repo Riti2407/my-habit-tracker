@@ -1,5 +1,7 @@
 /* General Navbar styles */
 .navbar {
+  position: relative;
+  overflow: visible;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,7 +10,7 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 10;
   transition: box-shadow 0.3s ease;
 }
 
@@ -96,7 +98,7 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: #fff;
+    background-color: #fffbfb;
     flex-direction: column;
     align-items: center;
     padding: 1.5rem 0;
@@ -160,3 +162,38 @@
   transform: translateY(0);
   box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* .navbar {
+  color: black;
+  background-color: white;
+} */
