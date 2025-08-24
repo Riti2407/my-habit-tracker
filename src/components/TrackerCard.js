@@ -30,7 +30,11 @@ function computeStreaks(dates) {
     bestStreak = currentStreak;
     bestStreakDates = [...streakDates];
   }
-  return { currentStreak, bestStreak, bestStreakDates: new Set(bestStreakDates) };
+  return {
+    currentStreak,
+    bestStreak,
+    bestStreakDates: new Set(bestStreakDates),
+  };
 }
 
 function TrackerCard({
@@ -42,7 +46,7 @@ function TrackerCard({
   emoji,
   onEdit,
   darkMode,
-  todayString
+  todayString,
 }) {
   const { t, ready } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
@@ -51,8 +55,8 @@ function TrackerCard({
   const completedDates = Object.keys(completedDays || {}).filter(
     (d) => completedDays[d]
   );
- const { currentStreak, bestStreak, bestStreakDates } = computeStreaks(completedDates);
-
+  const { currentStreak, bestStreak, bestStreakDates } =
+    computeStreaks(completedDates);
 
   if (!ready) return null;
 
@@ -135,14 +139,16 @@ function TrackerCard({
         {(weekDates || []).map((dateString) => {
           const label = getDayLabel(dateString);
           const isDone = !!completedDays[dateString];
-     const inStreak = bestStreakDates?.has(dateString);
+          const inStreak = bestStreakDates?.has(dateString);
 
           const isToday = dateString === todayString;
-          
+
           return (
             <label
               key={dateString}
-              className={`day-checkbox ${isDone ? "checked" : ""} ${isToday ? "today" : ""} ${inStreak ? "in-streak" : ""}`}
+              className={`day-checkbox ${isDone ? "checked" : ""} ${
+                isToday ? "today" : ""
+              } ${inStreak ? "in-streak" : ""}`}
             >
               <input
                 type="checkbox"

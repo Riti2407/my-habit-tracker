@@ -5,7 +5,7 @@
   background: linear-gradient(135deg, #fff, #ffe6f0);
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  font-family: 'Segoe UI', Tahoma, sans-serif;
+  font-family: "Segoe UI", Tahoma, sans-serif;
   line-height: 1.7;
   color: #333;
   animation: fadeIn 0.8s ease-in-out;
@@ -38,7 +38,7 @@
 
 .app-container.dark .about-container {
   background: linear-gradient(135deg, #232526, #414345);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
   color: #f3f3f3;
   border-radius: 12px;
   animation: fadeIn 0.8s ease-in-out;
@@ -84,5 +84,74 @@
   .about-container li {
     font-size: 0.95rem;
     line-height: 1.5;
+  }
+}
+
+/* About Us Section */
+.dark .about-container {
+  background: linear-gradient(135deg, #1c1c1c, #252525);
+  color: #e0e0e0;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.65);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.dark .about-container h1 {
+  color: #ff9ab8; /* soft energetic pink */
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.dark .about-container h2 {
+  color: #f2a3b5; /* soft pink for subheadings */
+  border-left: 4px solid rgba(255, 150, 180, 0.5);
+  padding-left: 0.5rem;
+  margin-top: 2rem;
+}
+
+.dark .about-container p {
+  color: #d0d0d0; /* light gray for body text */
+  line-height: 1.7;
+}
+
+.dark .about-container ul {
+  padding-left: 1.2rem;
+  margin: 1rem 0;
+}
+
+.dark .about-container li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+.dark .about-container li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #ff9ab8; /* soft pink checkmarks */
+}
+
+.dark .about-container a {
+  color: #f2a3b5;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.dark .about-container a:hover {
+  color: #ff9ab8;
+  text-decoration: underline;
+}
+
+/* Fade-in animation remains unchanged */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
