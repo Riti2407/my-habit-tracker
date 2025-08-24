@@ -245,4 +245,3 @@ function TrackerCard({
 }
 
 export default TrackerCard;
-

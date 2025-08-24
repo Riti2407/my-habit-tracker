@@ -29,7 +29,7 @@ const About = () => {
       <h2>Contact Us</h2>
       <p>
         Have questions, feedback, or suggestions ? Feel free to{" "}
-        <a href="/contact">reach out to us</a>. 
+        <a href="/contact" style={{textDecoration:'underline'}}>reach out to us</a>. 
         We’d love to hear from you..!!
       </p>
     </div>
