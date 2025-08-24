@@ -138,8 +138,9 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
+            backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : (darkMode ? "#374151" : "#e5e7eb"),
             fontWeight: currentStreak > 0 ? "600" : "400",
+            color: darkMode ? "#f9fafb" : "#333333",
           }}
         >
           🔥 {t("Current Streak")}: {currentStreak}
@@ -149,7 +150,8 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: "#e5e7eb",
+            backgroundColor: darkMode ? "#374151" : "#e5e7eb",
+            color: darkMode ? "#f9fafb" : "#333333",
           }}
         >
           🏆 {t("Best Streak")}: {bestStreak}

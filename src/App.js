@@ -12,6 +12,8 @@ import About from './components/About';
 import Foot from './components/Foot';
 // import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
+import Achievements from './components/Achievements';
+import PointsDisplay from './components/PointsDisplay';
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
@@ -138,6 +140,11 @@ function App() {
               path="/"
               element={
                 <div>
+                  <PointsDisplay 
+                    habitList={editableHabits} 
+                    completedData={completed} 
+                    darkMode={darkMode}
+                  />
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
                       <TrackerCard
@@ -177,6 +184,16 @@ function App() {
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route 
+              path="/achievements" 
+              element={
+                <Achievements 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  darkMode={darkMode}
+                />
+              } 
+            />
           </Routes>
         </main>
 

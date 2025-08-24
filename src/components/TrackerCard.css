@@ -1,35 +1,43 @@
+/* CSS Variables for consistent theming */
+:root {
+  --card-bg: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --border-color: #e5e7eb;
+  --bg-color: #f8f9fa;
+  --accent-color: #4caf50;
+  --hover-bg: #f5f5f5;
+}
+
+.dark {
+  --card-bg: #1f2937;
+  --text-color: #f9fafb;
+  --text-secondary: #d1d5db;
+  --border-color: #374151;
+  --bg-color: #111827;
+  --accent-color: #4caf50;
+  --hover-bg: #374151;
+}
+
 .TrackerCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 16px; /* slightly more rounded */
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
   padding: 1.25rem;
   margin: 0.5rem;
   width: 280px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.TrackerCard {
+  color: var(--text-color);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .TrackerCard:hover {
   transform: translateY(-5px) scale(1.02);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #fefefe, #f0f0f0);
 }
 
-.dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;
-  color: #e0e0e0;
-}
-
-.dark .TrackerCard h3 {
-  color: #e0e0e0;
-}
-
-.dark .days-row span {
-  color: #b0b0b0;
+.dark .TrackerCard:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .days-row {
@@ -45,11 +53,8 @@
   align-items: center;
   margin-top: 0.5rem;
   font-size: 0.9rem;
+  color: var(--text-color);
   transition: color 0.3s;
-}
-
-.dark .days-row label {
-  color: #e5e5e5;
 }
 
 input[type="checkbox"] {
@@ -69,57 +74,34 @@ input[type="checkbox"]:checked {
 .progress {
   height: 0.5rem;
   width: 100%;
-  background-color: #e0e0e0;
+  background-color: var(--border-color);
   border-radius: 9999px;
   overflow: hidden;
   margin-top: 0.75rem;
 }
 
-.dark .progress {
-  background-color: #333;
-}
-
 /* Progress indicator */
 .progress > div {
   height: 100%;
-  background-color: #4caf50;
+  background-color: var(--accent-color);
   transition: width 0.3s ease;
 }
-.TrackerCard {
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
-}
 
+/* Habit title styling */
 .TrackerCard h3 {
   margin-top: 0;
   margin-bottom: 15px;
   font-size: 1.2rem;
   color: var(--text-color);
+  font-weight: 600;
 }
 
-.days-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.days-row label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-/* Styling for the day label text (e.g., "Mon") */
+/* Day label text styling */
 .days-row span {
   margin-top: 5px;
   color: var(--text-secondary);
   font-weight: 500;
+  font-size: 0.85rem;
 }
 
 /* Custom checkbox styles */
@@ -133,7 +115,7 @@ input[type="checkbox"]:checked {
   width: 2em;
   height: 2em;
   border: 2px solid var(--border-color);
-  border-radius: 50%; /* Make it circular */
+  border-radius: 50%;
   transform: translateY(0);
   display: grid;
   place-content: center;
@@ -153,8 +135,36 @@ input[type="checkbox"]:checked {
 
 .days-row input[type="checkbox"]:checked {
   border-color: var(--accent-color);
+  background-color: var(--accent-color);
 }
 
 .days-row input[type="checkbox"]:checked::before {
   transform: scale(1);
+  box-shadow: inset 1em 1em #ffffff;
+}
+
+/* Edit button styling */
+button {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+/* Input field styling for edit mode */
+input[type="text"] {
+  background: var(--bg-color);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.9rem;
 }
