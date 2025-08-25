@@ -1,0 +1,230 @@
+/* Points Display Component Styles */
+.points-display-container {
+  background: var(--card-bg, white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.points-display-container.dark {
+  background: var(--dark-card-bg, #1f2937);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Level and Points Section */
+.level-points-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.level-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.level-badge {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.level-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.level-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-color, #333);
+  margin-bottom: 0.25rem;
+}
+
+.dark .level-title {
+  color: var(--dark-text, #f0f0f0);
+}
+
+.points-count {
+  font-size: 0.9rem;
+  color: var(--primary-color, #4CAF50);
+  font-weight: 600;
+}
+
+.level-progress {
+  flex: 1;
+  max-width: 300px;
+  margin-left: auto;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-light, #e5e7eb);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.dark .progress-bar {
+  background: var(--dark-bg-light, #374151);
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4CAF50, #45a049);
+  border-radius: 3px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  color: var(--text-secondary, #666);
+  text-align: right;
+}
+
+.dark .progress-text {
+  color: var(--dark-text-secondary, #9ca3af);
+}
+
+/* Recent Achievements */
+.recent-achievements {
+  border-top: 1px solid var(--border-color, #e5e7eb);
+  padding-top: 1rem;
+}
+
+.dark .recent-achievements {
+  border-color: var(--dark-border, #374151);
+}
+
+.recent-achievements h4 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-color, #333);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark .recent-achievements h4 {
+  color: var(--dark-text, #f0f0f0);
+}
+
+.recent-achievements h4::before {
+  content: '🏆';
+  font-size: 1rem;
+}
+
+.achievements-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mini-achievement {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem;
+  background: var(--bg-light, #f8f9fa);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+}
+
+.mini-achievement:hover {
+  background: var(--hover-bg, #e9ecef);
+  transform: translateX(4px);
+}
+
+.dark .mini-achievement {
+  background: var(--dark-bg-light, #374151);
+}
+
+.dark .mini-achievement:hover {
+  background: var(--dark-hover-bg, #4b5563);
+}
+
+.mini-achievement .achievement-icon {
+  font-size: 1.5rem;
+}
+
+.mini-achievement .achievement-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mini-achievement .achievement-name {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-color, #333);
+  line-height: 1.2;
+}
+
+.dark .mini-achievement .achievement-name {
+  color: var(--dark-text, #f0f0f0);
+}
+
+.mini-achievement .achievement-points {
+  font-size: 0.75rem;
+  color: var(--primary-color, #4CAF50);
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .level-points-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .level-progress {
+    width: 100%;
+    max-width: none;
+    margin-left: 0;
+  }
+
+  .progress-text {
+    text-align: left;
+  }
+
+  .achievements-list {
+    max-height: 120px;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .points-display-container {
+    padding: 1rem;
+  }
+
+  .level-badge {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .level-title {
+    font-size: 1rem;
+  }
+
+  .points-count {
+    font-size: 0.8rem;
+  }
+}

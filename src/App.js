@@ -6,11 +6,14 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
+import Dashboard from "./components/Dashboard";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
 // import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
+import Achievements from './components/Achievements';
+import PointsDisplay from './components/PointsDisplay';
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
@@ -55,11 +58,11 @@ const habitEmojis = {
 };
 
 // --- RESET FUNCTION ---
-const handleReset = () => {
-  if (window.confirm("Are you sure you want to reset everything?")) {
-    window.location.reload();
-  }
-};
+// const handleReset = () => {
+//   if (window.confirm("Are you sure you want to reset everything?")) {
+//     window.location.reload();
+//   }
+// };
 
 function App() {
   const { t } = useTranslation();
@@ -137,6 +140,11 @@ function App() {
               path="/"
               element={
                 <div>
+                  <PointsDisplay 
+                    habitList={editableHabits} 
+                    completedData={completed} 
+                    darkMode={darkMode}
+                  />
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
                       <TrackerCard
@@ -164,8 +172,28 @@ function App() {
                 <MonthlySummary habitList={editableHabits} completedData={completed} />
               }
             />
+            <Route 
+              path="/dashboard" 
+              element={
+                <Dashboard 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  habitEmojis={habitEmojis}
+                />
+              } 
+            />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route 
+              path="/achievements" 
+              element={
+                <Achievements 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  darkMode={darkMode}
+                />
+              } 
+            />
           </Routes>
         </main>
 
