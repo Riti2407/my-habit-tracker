@@ -14,7 +14,7 @@ import TrackerCard from './components/TrackerCard';
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
-
+import Landing from "./components/Landing";
 import "./App.css";
 
 // --- HABIT KEYS + EMOJIS ---
@@ -133,8 +133,9 @@ function App() {
 
         <main>
           <Routes>
+             <Route path="/" element={<Landing />} />
             <Route
-              path="/"
+              path="/home"
               element={
                 <div>
                   <div className="trackers">
