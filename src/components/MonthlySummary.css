@@ -1,209 +1,178 @@
-/* --- GENERAL CONTAINER & TYPOGRAPHY --- */
+/* === MonthlySummary.css === */
+
 .monthly-summary-container {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-  color: var(--text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding: 1rem;
+  max-width: 900px;
+  margin: 8px;
+  
 }
 
+/* Header */
 .monthly-summary-container h2 {
   text-align: center;
-  margin-bottom: 16px;
-  font-size: 2.25rem;
+  color: #ff4081;
   font-weight: 700;
-  letter-spacing: -1px;
+  margin-bottom: 1rem;
 }
 
-/* --- MONTH NAVIGATOR --- */
+/* --- Month Navigator --- */
 .month-navigator {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  margin-bottom: 40px;
+  margin: 1rem 0;
+  gap: 10px;
 }
 
 .month-navigator h3 {
-  margin: 0 24px;
-  font-size: 1.75rem;
-  font-weight: 600;
-  min-width: 220px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #444;
+  margin: 0;
+  flex-grow: 1;
   text-align: center;
 }
 
 .month-navigator button {
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  padding: 12px 24px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
   font-weight: 600;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  color: #ff4081;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
 }
 
 .month-navigator button:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background: #ffe6f0;
 }
 
-/* --- TOTAL COMPLETION BANNER --- */
+/* --- Completion Banner --- */
 .total-completion-banner {
-    text-align: center;
-    font-size: 1.25rem;
-    padding: 20px;
-    background-color: rgba(76, 175, 80, 0.1); /* Light green background */
-    color: #388E3C; /* Darker green text */
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    border-radius: 12px;
-    margin-bottom: 40px;
-    font-weight: 500;
+  text-align: center;
+  background: #e8f9e9;
+  color: #2d7a2d;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 1rem 0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.08);
 }
 
-.total-completion-banner strong {
-    font-weight: 700;
-}
-
-
-/* --- SUMMARY CARD GRID --- */
+/* --- Summary Grid --- */
 .summary-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 .summary-card {
-  background-color: var(--card-bg);
-  border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.summary-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  background: #fff;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .summary-card h4 {
-  margin-top: 0;
-  margin-bottom: 16px;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--accent-color);
+  color: #ff4081;
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
 }
 
-/* --- PROGRESS BAR --- */
+.summary-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Progress Bar */
 .progress-bar-container {
-    width: 100%;
-    background-color: var(--border-color);
-    border-radius: 10px;
-    height: 12px;
-    margin: 16px 0;
-    overflow: hidden;
+  background: #f0f0f0;
+  border-radius: 6px;
+  height: 8px;
+  width: 100%;
+  overflow: hidden;
 }
 
 .progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #4CAF50, #81C784);
-    border-radius: 10px;
-    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  background: linear-gradient(90deg, #ff80ab, #ff4081);
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.4s ease-in-out;
 }
 
-/* --- STATS ROW --- */
+/* Stats row */
 .stats-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 0.8rem;
+  color: #444;
 }
 
-.stats-row span {
-    text-align: center;
+.stats-row span strong {
+  color: #ff4081;
 }
 
-.stats-row strong {
-    color: var(--text-color);
-    font-weight: 600;
-    display: block;
-    font-size: 1.2rem;
-    margin-top: 4px;
-}
-
-
-/* --- MODERN EXPORT SECTION --- */
+/* --- Export Section --- */
 .export-section {
-    margin-top: 80px;
-    padding: 40px;
-    background: linear-gradient(145deg, var(--bg-color), var(--card-bg));
-    border: 5px solid var(--border-color);
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+  margin-top: 2rem;
+  text-align: center;
 }
 
 .export-section h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.export-section p {
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    max-width: 450px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
+  font-size: 1.2rem;
+  color: #444;
+  margin-bottom: 0.5rem;
 }
 
 .export-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .export-buttons button {
+  background: #ff4081;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s ease-in-out;
+}
+
+.export-buttons button:hover {
+  background: #e63670;
+}
+
+/* === Mobile Improvements === */
+@media (max-width: 600px) {
+  .month-navigator {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .month-navigator h3 {
     font-size: 1rem;
-    font-weight: 600;
-    padding: 14px 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border: 2px solid transparent; /* Reserve space for border on hover */
-}
+  }
 
-/* FIX: Primary JSON button is now clearly visible */
-.export-buttons button:first-child {
-    background-color: var(--accent-color);
-    color: #0a0a0a;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+  .stats-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 
-.export-buttons button:first-child:hover {
-    background-color: #3aa862; /* Darker shade on hover */
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* FIX: Secondary CSV button now has a visible border */
-.export-buttons button:last-child {
-    background-color: var(--accent-color);
-    color: #0a0a0a;
-    border: 2px solid var(--accent-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* FIX: Clear hover effect for CSV button */
-.export-buttons button:last-child:hover {
-    background-color: #3aa862;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
 }

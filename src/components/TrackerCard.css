@@ -1,151 +1,161 @@
+/* Card container */
 .TrackerCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 16px; /* slightly more rounded */
-  padding: 1.25rem;
-  margin: 0.5rem;
-  width: 280px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.TrackerCard {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: var(--card-bg, #fff);
+  border: 1px solid var(--border-color, #eee);
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin: 1rem auto;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .TrackerCard:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #fefefe, #f0f0f0);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;
+  background-color: #1e1e1e;
+  border-color: #333;
 }
 
-.days-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-}
-
-.days-row label {
-  width: 30%;
+/* Card title */
+.TrackerCard h3 {
+  margin: 0 0 0.75rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color, #222);
   display: flex;
   align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  transition: color 0.3s;
+  justify-content: space-between;
 }
 
-.dark .days-row label {
-  color: #e5e5e5;
+/* Edit button next to title */
+.TrackerCard h3 button {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.6rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--accent-color, #4caf50);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.TrackerCard h3 button:hover {
+  background: #43a047;
 }
 
-input[type="checkbox"] {
-  accent-color: #4caf50; /* Subtle green check */
-  margin-right: 5px;
-  width: 18px;
-  height: 18px;
+/* Days row → neat circles in grid */
+.days-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.day-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: transform 0.15s ease;
 }
 
-input[type="checkbox"]:checked {
-  transform: scale(1.1); /* small pop effect */
+.day-label:hover {
+  transform: scale(1.1);
 }
 
-/* Progress bar container */
+/* Day text below checkboxes */
+.day-label span {
+  margin-top: 4px;
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--text-secondary, #555);
+}
+
+/* Custom circular checkboxes */
+.days-row input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: var(--bg-color, #fff);
+  margin: 0;
+  width: 1.7em;
+  height: 1.7em;
+  border: 2px solid var(--border-color, #bbb);
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.days-row input[type="checkbox"]:hover {
+  border-color: var(--accent-color, #4caf50);
+}
+
+.days-row input[type="checkbox"]::before {
+  content: "";
+  width: 0.9em;
+  height: 0.9em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--accent-color, #4caf50);
+}
+
+.days-row input[type="checkbox"]:checked {
+  border-color: var(--accent-color, #4caf50);
+  background-color: #e8f5e9;
+}
+
+.days-row input[type="checkbox"]:checked::before {
+  transform: scale(1);
+}
+
+/* Progress bar */
 .progress {
-  height: 0.5rem;
+  height: 0.6rem;
   width: 100%;
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
   border-radius: 9999px;
   overflow: hidden;
-  margin-top: 0.75rem;
+  margin-top: 1rem;
 }
 
 .dark .progress {
   background-color: #333;
 }
 
-/* Progress indicator */
 .progress > div {
   height: 100%;
-  background-color: #4caf50;
+  background: linear-gradient(90deg, #4caf50, #66bb6a);
   transition: width 0.3s ease;
 }
-.TrackerCard {
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .TrackerCard {
+    padding: 1rem;
+  }
+  .days-row {
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  }
 }
 
-.TrackerCard h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  color: var(--text-color);
-}
-
-.days-row {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-.days-row label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-/* Styling for the day label text (e.g., "Mon") */
-.days-row span {
-  margin-top: 5px;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-/* Custom checkbox styles */
-.days-row input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: var(--bg-color);
-  margin: 0;
-  font: inherit;
-  color: currentColor;
-  width: 2em;
-  height: 2em;
-  border: 2px solid var(--border-color);
-  border-radius: 50%; /* Make it circular */
-  transform: translateY(0);
-  display: grid;
-  place-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
-}
-
-.days-row input[type="checkbox"]::before {
-  content: "";
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--accent-color);
-}
-
-.days-row input[type="checkbox"]:checked {
-  border-color: var(--accent-color);
-}
-
-.days-row input[type="checkbox"]:checked::before {
-  transform: scale(1);
+@media (max-width: 480px) {
+  .TrackerCard {
+    padding: 0.8rem;
+    font-size: 0.85rem;
+  }
+  .TrackerCard h3 {
+    font-size: 1rem;
+  }
+  .day-label span {
+    font-size: 0.7rem;
+  }
 }
