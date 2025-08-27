@@ -2,40 +2,159 @@ import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
-function computeStreaks(dates) {
-  if (!dates || dates.length === 0) return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
+// NoteModal component for editing notes
+const NoteModal = ({ note, onSave, onCancel, darkMode }) => {
+  const [text, setText] = useState(note);
 
-  const sorted = [...dates].sort();
-  let currentStreak = 1;
-  let bestStreak = 1;
-  let streakDates = [sorted[0]];
+  const modalStyle = {
+    ...modalStyles.modal,
+    backgroundColor: darkMode ? '#2d3748' : 'white',
+    color: darkMode ? '#f9fafb' : '#111827',
+  };
 
-  let bestStreakDates = [...streakDates];
+  return (
+    <div style={modalStyles.overlay}>
+      <div style={modalStyle}>
+        <h3>Edit Note</h3>
+        <textarea
+          style={{...modalStyles.textarea, backgroundColor: darkMode ? '#4a5568' : '#f9fafb', color: darkMode ? 'white' : 'black'}}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Add a note..."
+        />
+        <div style={modalStyles.buttons}>
+          <button onClick={() => onSave(text)} style={modalStyles.saveButton}>Save</button>
+          <button onClick={onCancel} style={modalStyles.cancelButton}>Cancel</button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-  for (let i = 1; i < sorted.length; i++) {
-    const prev = new Date(sorted[i - 1]);
-    const curr = new Date(sorted[i]);
-    const diff = (curr - prev) / (1000 * 60 * 60 * 24);
+// Styles for the modal
+const modalStyles = {
+  overlay: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 1000,
+  },
+  modal: {
+    padding: '20px',
+    borderRadius: '8px',
+    width: '300px',
+    boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+  },
+  textarea: {
+    width: '100%',
+    height: '100px',
+    marginBottom: '10px',
+    padding: '8px',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+    boxSizing: 'border-box',
+  },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '10px',
+  },
+  saveButton: {
+    background: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    padding: '8px 12px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  },
+  cancelButton: {
+    background: '#f44336',
+    color: 'white',
+    border: 'none',
+    padding: '8px 12px',
+    borderRadius: '4px',
+    cursor: 'pointer',
+  }
+};
 
-    if (diff === 1) {
-      currentStreak++;
-      streakDates.push(sorted[i]);
-    } else {
-      if (currentStreak > bestStreak) {
-        bestStreak = currentStreak;
-        bestStreakDates = [...streakDates];
+function computeStreaks(completedDays) {
+    const completedDates = Object.keys(completedDays || {}).filter(
+        (d) => completedDays[d] && completedDays[d].completed
+    );
+
+  if (!completedDates || completedDates.length === 0) return { currentStreak: 0, bestStreak: 0 };
+
+  const sorted = [...completedDates].sort();
+  let currentStreak = 0;
+  let bestStreak = 0;
+
+  // Calculate best streak
+  if (sorted.length > 0) {
+      let currentBest = 0;
+      let lastDate = null;
+      for (const dateStr of sorted) {
+          const date = new Date(dateStr);
+          if (lastDate) {
+              const diff = (date - lastDate) / (1000 * 60 * 60 * 24);
+              if (diff === 1) {
+                  currentBest++;
+              } else {
+                  currentBest = 1;
+              }
+          } else {
+              currentBest = 1;
+          }
+          if (currentBest > bestStreak) {
+              bestStreak = currentBest;
+          }
+          lastDate = date;
       }
-      currentStreak = 1;
-      streakDates = [sorted[i]];
+  }
+
+  // Calculate current streak
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+
+  if (completedDays[todayStr]?.completed) {
+    currentStreak = 1;
+    let d = new Date(today);
+    while (true) {
+      d.setDate(d.getDate() - 1);
+      const dStr = d.toISOString().split('T')[0];
+      if (completedDays[dStr]?.completed) {
+        currentStreak++;
+      } else {
+        break;
+      }
     }
+  } else {
+      // Check if streak ended yesterday
+      const yesterday = new Date();
+      yesterday.setDate(today.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+      if(completedDays[yesterdayStr]?.completed) {
+        currentStreak = 1;
+        let d = new Date(yesterday);
+        while (true) {
+          d.setDate(d.getDate() - 1);
+          const dStr = d.toISOString().split('T')[0];
+          if (completedDays[dStr]?.completed) {
+            currentStreak++;
+          } else {
+            break;
+          }
+        }
+      }
   }
 
-  if (currentStreak > bestStreak) {
-    bestStreak = currentStreak;
-    bestStreakDates = [...streakDates];
-  }
 
-  return { currentStreak, bestStreak, streakDates: new Set(bestStreakDates) };
+  return { currentStreak, bestStreak };
 }
 
 function TrackerCard({
@@ -43,6 +162,7 @@ function TrackerCard({
   habitKey,
   completedDays,
   onCheck,
+  onNoteSave,
   weekDates,
   emoji,
   onEdit,
@@ -51,53 +171,52 @@ function TrackerCard({
   const { t, ready } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(habit?.label || habit);
-  const completedDates = Object.keys(completedDays || {}).filter(
-    (d) => completedDays[d]
-  );
-  const { currentStreak, bestStreak, streakDates: streakDateSet} = 
-  computeStreaks(completedDates);
+  const [noteModal, setNoteModal] = useState({ isOpen: false, date: null, note: '' });
+
+  const { currentStreak, bestStreak } = computeStreaks(completedDays);
 
   if (!ready) return null;
 
-  // Helper: get day abbreviation from a date string
   const getDayLabel = (dateString) => {
     const date = new Date(dateString);
+    // Adjust for timezone to get the correct day
     const offset = date.getTimezoneOffset() * 60000;
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
+  const handleNoteClick = (dateString) => {
+    const note = completedDays[dateString]?.note || '';
+    setNoteModal({ isOpen: true, date: dateString, note });
+  };
 
-  // Completion progress
-  const completedCount = Object.values(completedDays).filter(Boolean).length;
+  const handleSaveNote = (noteText) => {
+    onNoteSave(habitKey, noteModal.date, noteText);
+    setNoteModal({ isOpen: false, date: null, note: '' });
+  };
+
+  const completedCount = Object.values(completedDays).filter(day => day && day.completed).length;
   const totalDays = weekDates ? weekDates.length : 7;
-  const progressPercent = Math.round((completedCount / totalDays) * 100);
+  const progressPercent = totalDays > 0 ? Math.round((completedCount / totalDays) * 100) : 0;
 
   return (
     <div
+      className="tracker-card-container"
       style={{
-        padding: "1.25rem",
-        borderRadius: "1rem",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        transition: "transform 0.3s",
         backgroundColor: darkMode ? "#1f2937" : "#ffffff",
         color: darkMode ? "#f9fafb" : "#111827",
-        cursor: "pointer",
       }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.transform = "translateY(-8px)")
-      }
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-    > 
+    >
+      {noteModal.isOpen && (
+        <NoteModal
+          note={noteModal.note}
+          onSave={handleSaveNote}
+          onCancel={() => setNoteModal({ isOpen: false, date: null, note: '' })}
+          darkMode={darkMode}
+        />
+      )}
 
-      {/* Habit name with edit option */}
-      <h3
-        style={{
-          fontSize: "1.125rem",
-          fontWeight: 600,
-          marginBottom: "0.75rem",
-        }}
-      >
+      <h3 className="habit-title">
         {emoji}{" "}
         {isEditing ? (
           <>
@@ -117,127 +236,54 @@ function TrackerCard({
           </>
         ) : (
           <>
-            {/* {t(habit?.label || habit)} */}
             {habit?.label || habit}{" "}
             {onEdit && (
               <button
                 onClick={() => setIsEditing(true)}
-                style={{ marginLeft: "0.5rem" }}
+                className="edit-button"
               >
-                Edit
+                ✏️
               </button>
             )}
           </>
         )}
       </h3>
 
-            {/*  NEW: Streak badges */}
-      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
-        <span
-          style={{
-            fontSize: "0.85rem",
-            padding: "2px 6px",
-            borderRadius: "12px",
-            backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
-            fontWeight: currentStreak > 0 ? "600" : "400",
-          }}
-        >
-          🔥 {t("Current Streak")}: {currentStreak}
+      <div className="streaks-container">
+        <span className={`streak-badge ${currentStreak > 0 ? 'active' : ''}`}>
+          � {t("Current Streak")}: {currentStreak}
         </span>
-        <span
-          style={{
-            fontSize: "0.85rem",
-            padding: "2px 6px",
-            borderRadius: "12px",
-            backgroundColor: "#e5e7eb",
-          }}
-        >
+        <span className="streak-badge">
           🏆 {t("Best Streak")}: {bestStreak}
         </span>
       </div>
 
-
       <div className="days-row">
-        {/* Map over the weekDates array passed in as a prop */}
-        {weekDates.map((dateString) => (
-          <label key={dateString} className="day-label">
-            <input
-              type="checkbox"
-              // Check for completion using the full date string
-              checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
-              onChange={() => onCheck(habitKey, dateString)}
-            />
-            {/* Display the short day name (e.g., Mon, Tue) */}
-            <span>{getDayLabel(dateString)}</span>
-          </label>
-        ))}
-      </div>
-
-
-      {/* Days checkboxes */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-          marginBottom: "1rem",
-        }}
-      >
-        {(weekDates || []).map((dateString) => {
-          const label = getDayLabel(dateString);
-          const isDone = !!completedDays[dateString];
-          const inStreak = streakDateSet.has(dateString);
+        {weekDates.map((dateString) => {
+          const dayData = completedDays[dateString] || { completed: false, note: "" };
+          const hasNote = dayData.note && dayData.note.trim() !== '';
           return (
-            <label
-              key={dateString}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.25rem",
-                cursor: "pointer",
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={!!completedDays[dateString]}
-                onChange={() => onCheck(dateString)}
-                style={{
-                  width: "1.25rem",
-                  height: "1.25rem",
-                  borderRadius: "0.25rem",
-                  border: "1px solid",
-                  borderColor: isDone ? "#22c55e" : "#d1d5db",          //  CHANGED
-                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",      //  CHANGED
-                  outline: inStreak ? "2px solid tomato" : "none", 
-                  transition: "all 0.2s",
-                }}
-              />
-              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>
-                {label}
-              </span>
-            </label>
+            <div key={dateString} className="day-container">
+              <label className="day-label">
+                <span>{getDayLabel(dateString)}</span>
+                <input
+                  type="checkbox"
+                  checked={!!dayData.completed}
+                  onChange={() => onCheck(dateString)}
+                />
+              </label>
+              <button className="note-button" onClick={() => handleNoteClick(dateString)} title={hasNote ? "Edit Note" : "Add Note"}>
+                {hasNote ? '📝' : '🗒️'}
+              </button>
+            </div>
           );
         })}
       </div>
 
-      {/* Progress bar */}
-      <div
-        style={{
-          height: "0.5rem",
-          width: "100%",
-          backgroundColor: "#d1d5db",
-          borderRadius: "9999px",
-          overflow: "hidden",
-        }}
-      >
+      <div className="progress-bar-container">
         <div
-          style={{
-            height: "100%",
-            width: `${progressPercent}%`,
-            backgroundColor: "#22c55e",
-            transition: "width 0.3s",
-          }}
+          className="progress-bar"
+          style={{ width: `${progressPercent}%` }}
         />
       </div>
     </div>
@@ -245,4 +291,3 @@ function TrackerCard({
 }
 
 export default TrackerCard;
-

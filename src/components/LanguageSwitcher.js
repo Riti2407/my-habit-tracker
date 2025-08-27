@@ -39,8 +39,6 @@ function LanguageSwitcher() {
     { code: "ar", name: t("languageSwitcher.arabic"), flag: "🇸🇦" },
   ];
 
-  const currentLanguage =
-    languages.find((lang) => lang.code === i18n.language) || languages[0];
   if (!ready) return null;
 
 
