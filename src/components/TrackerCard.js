@@ -139,6 +139,7 @@ function TrackerCard({
             padding: "2px 6px",
             borderRadius: "12px",
             backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
+            color: currentStreak > 0 ? "tomato" : "#6b7280",
             fontWeight: currentStreak > 0 ? "600" : "400",
           }}
         >
@@ -149,7 +150,7 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: "#e5e7eb",
+            backgroundColor: "rgba(255,215,0,0.2)",
           }}
         >
           🏆 {t("Best Streak")}: {bestStreak}
