@@ -1,0 +1,102 @@
+/* src/components/NotificationSettings.css */
+
+.notification-toggle {
+  animation: pulse 2s infinite;
+}
+
+.notification-toggle:hover {
+  transform: scale(1.05);
+  animation: none;
+}
+
+.notification-toggle.active {
+  background-color: #3b82f6 !important;
+  color: white !important;
+  animation: none;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.notification-settings-overlay {
+  backdrop-filter: blur(4px);
+}
+
+.notification-settings-panel {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .notification-settings-panel {
+    width: 95% !important;
+    margin: 1rem;
+    max-height: 85vh !important;
+  }
+  
+  .notification-toggle {
+    top: 15px !important;
+    right: 15px !important;
+    width: 45px !important;
+    height: 45px !important;
+    font-size: 18px !important;
+  }
+}
+
+/* Smooth transitions */
+.notification-settings-panel * {
+  transition: all 0.2s ease;
+}
+
+.notification-settings-panel button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.notification-settings-panel input[type="time"]:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6;
+}
+
+/* Dark mode adjustments */
+.dark .notification-settings-panel {
+  box-shadow: 0 20px 25px -5px rgba(255,255,255,0.1);
+}
+
+/* Scrollbar styling */
+.notification-settings-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-settings-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notification-settings-panel::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.3);
+  border-radius: 3px;
+}
+
+.notification-settings-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.5);
+}
