@@ -51,11 +51,11 @@ function TrackerCard({
   const { t, ready } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const [inputValue, setInputValue] = useState(habit?.label || habit);
+
   const completedDates = Object.keys(completedDays || {}).filter(
     (d) => completedDays[d]
   );
-  const { currentStreak, bestStreak, streakDates: streakDateSet} = 
-  computeStreaks(completedDates);
+  const { currentStreak, bestStreak, streakDates: streakDateSet } = computeStreaks(completedDates);
 
   if (!ready) return null;
 
@@ -66,7 +66,6 @@ function TrackerCard({
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
-
 
   // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
@@ -84,12 +83,9 @@ function TrackerCard({
         color: darkMode ? "#f9fafb" : "#111827",
         cursor: "pointer",
       }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.transform = "translateY(-8px)")
-      }
+      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
       onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
-    > 
-
+    >
       {/* Habit name with edit option */}
       <h3
         style={{
@@ -117,7 +113,6 @@ function TrackerCard({
           </>
         ) : (
           <>
-            {/* {t(habit?.label || habit)} */}
             {habit?.label || habit}{" "}
             {onEdit && (
               <button
@@ -131,14 +126,15 @@ function TrackerCard({
         )}
       </h3>
 
-            {/*  NEW: Streak badges */}
+      {/* Streak badges */}
       <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
         <span
           style={{
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
+            backgroundColor:
+              currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
             fontWeight: currentStreak > 0 ? "600" : "400",
           }}
         >
@@ -156,26 +152,21 @@ function TrackerCard({
         </span>
       </div>
 
-
+      {/* Days row */}
       <div className="days-row">
-        {/* Map over the weekDates array passed in as a prop */}
         {weekDates.map((dateString) => (
           <label key={dateString} className="day-label">
             <input
               type="checkbox"
-              // Check for completion using the full date string
               checked={!!completedDays[dateString]}
-              // Pass the habit's key and the full date string to the onCheck handler
               onChange={() => onCheck(habitKey, dateString)}
             />
-            {/* Display the short day name (e.g., Mon, Tue) */}
             <span>{getDayLabel(dateString)}</span>
           </label>
         ))}
       </div>
 
-
-      {/* Days checkboxes */}
+      {/* Days checkboxes with streak highlight */}
       <div
         style={{
           display: "flex",
@@ -200,16 +191,16 @@ function TrackerCard({
             >
               <input
                 type="checkbox"
-                checked={!!completedDays[dateString]}
-                onChange={() => onCheck(dateString)}
+                checked={isDone}
+                onChange={() => onCheck(habitKey, dateString)}
                 style={{
                   width: "1.25rem",
                   height: "1.25rem",
                   borderRadius: "0.25rem",
                   border: "1px solid",
-                  borderColor: isDone ? "#22c55e" : "#d1d5db",          //  CHANGED
-                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",      //  CHANGED
-                  outline: inStreak ? "2px solid tomato" : "none", 
+                  borderColor: isDone ? "#22c55e" : "#d1d5db",
+                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",
+                  outline: inStreak ? "2px solid tomato" : "none",
                   transition: "all 0.2s",
                 }}
               />
@@ -245,4 +236,3 @@ function TrackerCard({
 }
 
 export default TrackerCard;
-
