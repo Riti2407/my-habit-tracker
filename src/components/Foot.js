@@ -13,7 +13,7 @@ const Foot = () => {
         {/* Navigation Links */}
         <nav style={{ marginBottom: '15px' }}>
           <Link to="/" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Home</Link>
-          <Link to="/About" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>About</Link>
+          <Link to="/about" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>About</Link>
           <Link to="/add-habit" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Contact</Link>
           {/* <Link to="/privacy" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Privacy Policy</Link>
           <Link to="/terms" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Terms</Link> */}
@@ -33,7 +33,7 @@ const Foot = () => {
           <a href="https://instagram.com" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
             <i className="bi bi-instagram" style={{ fontSize: '20px' }}></i>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
+          <a href="https://www.linkedin.com/in/riti-273b36322" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
             <i className="bi bi-linkedin" style={{ fontSize: '20px' }}></i>
           </a>
         </div>
