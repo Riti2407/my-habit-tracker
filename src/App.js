@@ -14,6 +14,7 @@ import TrackerCard from './components/TrackerCard';
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
+import Profile from "./components/Profile"; // Import the Profile component
 
 import "./App.css";
 
@@ -164,8 +165,9 @@ function App() {
                 <MonthlySummary habitList={editableHabits} completedData={completed} />
               }
             />
-            <Route path="/About" element={<About />} />
+            <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
 
