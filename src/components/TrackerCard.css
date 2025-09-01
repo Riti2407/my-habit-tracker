@@ -12,6 +12,8 @@
   /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
   cursor: pointer;
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .TrackerCard:hover {
@@ -24,6 +26,8 @@
 .dark .TrackerCard {
   background-color: #222;
   border-color: #444;
+}
+
 /* Dark mode version */
 .dark .tracker-card {
   background-color: #1f1f1f;
@@ -34,6 +38,11 @@
 .dark .tracker-card:hover {
   background: linear-gradient(145deg, #222, #1a1a1a);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+}
+
+.dark .TrackerCard {
+  background-color: #222;
+  border-color: #444;
 }
 
 .days-row {
@@ -161,5 +170,4 @@ input[type="checkbox"]:checked {
 
 .days-row input[type="checkbox"]:checked::before {
   transform: scale(1);
-}
 }
