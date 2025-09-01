@@ -9,6 +9,7 @@ import MonthlySummary from "./components/MonthlySummary";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
+import QuoteWidget from "./components/QuoteWidget";
 // import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
 import "./App.css";
@@ -137,6 +138,9 @@ function App() {
               path="/"
               element={
                 <div>
+                  {/* ✅ Motivational Quote Widget */}
+                  <QuoteWidget />
+                  
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
                       <TrackerCard
