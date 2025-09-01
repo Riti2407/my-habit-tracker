@@ -89,7 +89,7 @@ const Contact = () => {
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Write your feedback..."
+                  placeholder="Leave your feedback"
                 />
                 {errors.message && <span className="error">{errors.message}</span>}
               </div>

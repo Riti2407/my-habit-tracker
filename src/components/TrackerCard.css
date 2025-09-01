@@ -20,10 +20,9 @@
   background: linear-gradient(145deg, #fefefe, #f0f0f0);
 }
 
-
 .dark .TrackerCard {
   background-color: #222;
-  border-color: #444;
+  border-color: #444;}
 /* Dark mode version */
 .dark .tracker-card {
   background-color: #1f1f1f;
@@ -161,5 +160,4 @@ input[type="checkbox"]:checked {
 
 .days-row input[type="checkbox"]:checked::before {
   transform: scale(1);
-}
 }
