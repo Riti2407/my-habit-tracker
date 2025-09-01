@@ -12,7 +12,7 @@ import Foot from './components/Foot';
 // import withI18nReady from "./components/withI18nReady";
 import TrackerCard from './components/TrackerCard';
 import "./App.css";
-import TrackerCard from "./components/TrackerCard";
+
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
@@ -178,7 +178,6 @@ function App() {
 };
 
 // Wrap App with i18n loader
-export default App;
 
 // // Wrap App with i18n loader
 // export default App;
