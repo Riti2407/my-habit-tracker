@@ -1,0 +1,98 @@
+/* src/components/AddHabitForm.css */
+
+/* Light theme (default) */
+.add-habit {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 1rem 0 1.25rem;
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;         /* gray-200 */
+  border-radius: 1rem;                /* rounded-2xl */
+  background: #ffffff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+}
+
+.add-habit__input {
+  flex: 1;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #d1d5db;         /* gray-300 */
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  outline: none;
+  background: #ffffff;
+  color: #111827;                     /* gray-900 */
+  transition: border-color 150ms, box-shadow 150ms, transform 150ms;
+}
+
+.add-habit__input::placeholder {
+  color: #9ca3af;                     /* gray-400 */
+}
+
+.add-habit__input:focus {
+  border-color: #22c55e;              /* green-500 */
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.15);
+  transform: translateY(-1px);
+}
+
+.add-habit__btn {
+  padding: 0.7rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: #22c55e;
+  color: #ffffff;
+  transition: transform 120ms ease, box-shadow 120ms ease, opacity 120ms;
+  white-space: nowrap;
+}
+
+.add-habit__btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(34,197,94,0.25);
+}
+
+.add-habit__btn:active {
+  transform: translateY(0);
+  box-shadow: none;
+  opacity: 0.95;
+}
+
+/* Small screens */
+@media (max-width: 520px) {
+  .add-habit {
+    padding: 0.6rem;
+    border-radius: 0.9rem;
+  }
+  .add-habit__btn {
+    padding: 0.6rem 0.9rem;
+    font-weight: 600;
+  }
+}
+
+/* Dark theme (toggled via App's .dark) */
+.add-habit--dark {
+  background: #111827;                /* gray-900 */
+  border-color: #374151;              /* gray-700 */
+  box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+}
+
+.add-habit--dark .add-habit__input {
+  background: #0b1220;                /* deep gray/indigo mix */
+  border-color: #374151;
+  color: #f3f4f6;                     /* gray-100 */
+}
+
+.add-habit--dark .add-habit__input::placeholder {
+  color: #9ca3af;
+}
+
+.add-habit--dark .add-habit__btn {
+  background: #22c55e;
+  color: #0b1220;
+  font-weight: 800;
+}
+
+.add-habit--dark .add-habit__btn:hover {
+  box-shadow: 0 8px 18px rgba(34,197,94,0.35);
+}
