@@ -3,10 +3,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: linear-gradient(to top, #2c2c54, #3a3a7a); /* dark gradient */
-  color: #f0f0f0;
+  background: var(--bg-color);
+  color: var(--text-color);
   padding: 50px 20px;
   position: relative;
+  border-top: 1px solid var(--border-color);
 }
 
 .img-container {
@@ -38,18 +39,19 @@
   backdrop-filter: blur(10px);
   padding: 30px;
   border-radius: 16px;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
 }
 
 .headings h2 {
   font-size: 2rem;
   margin-bottom: 10px;
-  color: #ffcc66; /* accent color */
+  color: var(--accent-color);
 }
 
 .headings h3 {
   font-weight: 400;
-  color: #f0f0f0;
+  color: var(--text-color);
 }
 
 .connection {
@@ -65,7 +67,7 @@
 
 .left p {
   line-height: 1.6;
-  color: #e0e0e0;
+  color: var(--text-secondary);
 }
 
 .right {
@@ -80,39 +82,42 @@
 
 .contact-form label {
   font-weight: 500;
+  color: var(--text-color);
 }
 
 .contact-form input,
 .contact-form textarea {
   padding: 12px 15px;
   border-radius: 12px;
-  border: none;
+  border: 1px solid var(--border-color);
   outline: none;
   transition: all 0.3s ease;
+  background-color: var(--card-bg);
+  color: var(--text-color);
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  box-shadow: 0 4px 12px rgba(255, 204, 102, 0.4);
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  box-shadow: 0 4px 12px var(--shadow);
+  border-color: var(--accent-color);
 }
 
 .contact-form button {
   padding: 12px 20px;
   border: none;
   border-radius: 12px;
-  background: #ffcc66;
-  color: #2c2c54;
+  background: var(--accent-color);
+  color: white;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(255, 204, 102, 0.3);
+  box-shadow: 0 4px 12px var(--shadow);
 }
 
 .contact-form button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(255, 204, 102, 0.5);
+  box-shadow: 0 6px 18px var(--shadow);
+  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
