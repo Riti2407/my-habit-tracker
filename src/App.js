@@ -6,15 +6,23 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
-import Footer from './components/Footer';
-import About from './components/About';
-import Foot from './components/Foot';
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Foot from "./components/Foot";
 // import withI18nReady from "./components/withI18nReady";
-import TrackerCard from './components/TrackerCard';
+import TrackerCard from "./components/TrackerCard";
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
+// Authentication components
+import { AuthProvider } from "./contexts/AuthContext";
+import Login from "./components/auth/Login";
+import Signup from "./components/auth/Signup";
+import UserProfile from "./components/auth/UserProfile";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 // --- HABIT KEYS + EMOJIS ---
@@ -62,6 +70,8 @@ const handleReset = () => {
 };
 
 function App() {
+  <ToastContainer position="top-right" autoClose={3000} />
+
   const { t } = useTranslation();
 
   // Editable habit labels
@@ -126,60 +136,76 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className={`app-container ${darkMode ? "dark" : ""}`}>
-        <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
+    <AuthProvider>
+      <Router>
+        <div className={`app-container ${darkMode ? "dark" : ""}`}>
+          <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
+          <Navbar />
 
-        <main>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <div>
-                  <div className="trackers">
-                    {editableHabits.map((habit, idx) => (
-                      <TrackerCard
-                        key={idx}
-                        habit={habit}
-                        habitKey={habit.key}
-                        completedDays={completed[habit.key] || {}}
-                        onCheck={(date) => handleCompletion(habit.key, date)}
-                        weekDates={getWeekDates()}
-                        emoji={habitEmojis[habit.key]}
-                        onEdit={(newLabel) =>
-                          handleHabitEdit(habit.key, newLabel)
-                        }
-                        darkMode={darkMode}
-                      />
-                    ))}
+          <main>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <div>
+                    <div className="trackers">
+                      {editableHabits.map((habit, idx) => (
+                        <TrackerCard
+                          key={idx}
+                          habit={habit}
+                          habitKey={habit.key}
+                          completedDays={completed[habit.key] || {}}
+                          onCheck={(date) => handleCompletion(habit.key, date)}
+                          weekDates={getWeekDates()}
+                          emoji={habitEmojis[habit.key]}
+                          onEdit={(newLabel) =>
+                            handleHabitEdit(habit.key, newLabel)
+                          }
+                          darkMode={darkMode}
+                        />
+                      ))}
+                    </div>
+                    <TreeGrowth completedCount={totalCompleted} />
                   </div>
-                  <TreeGrowth completedCount={totalCompleted} />
-                </div>
-              }
-            />
-            <Route
-              path="/summary"
-              element={
-                <MonthlySummary habitList={editableHabits} completedData={completed} />
-              }
-            />
-            <Route path="/About" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </main>
+                }
+              />
+              <Route
+                path="/summary"
+                element={
+                  <MonthlySummary
+                    habitList={editableHabits}
+                    completedData={completed}
+                  />
+                }
+              />
+              <Route path="/About" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
 
-        {/* Footer always visible */}
-        <Footer />
-        <Foot />
-        <BackToTop />
-      </div>
-    </Router>
+              {/* Authentication Routes */}
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <UserProfile />
+                  </ProtectedRoute>
+                }
+              />
+            </Routes>
+          </main>
+
+          {/* Footer always visible */}
+          <Footer />
+          <Foot />
+          <BackToTop />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
 export default App;
-
 
 // import React, { useState, useEffect } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -214,8 +240,6 @@ export default App;
 //   'Goal Setting',
 //   'Skincare'
 // ];
-
-
 
 // const habitEmojis = {
 //   wakeUpTime: '⏰',
@@ -319,7 +343,6 @@ export default App;
 //   return week;
 // };
 
-
 //   return (
 //     <Router>
 //       <div className={`app-container ${darkMode ? "dark" : ""}`}>
@@ -351,13 +374,13 @@ export default App;
 
 //                     weekDates={getWeekDates()}
 //                     emoji={habitEmojis[habit.key]}
-//                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
+//                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)}
 //                   />
 //                 ))}
 //                 </div>
 //                 <TreeGrowth completedCount={totalCompleted} />
 //               </div>
-                
+
 //               </div>
 //               <TreeGrowth completedCount={totalCompleted} />
 //                 </div>
