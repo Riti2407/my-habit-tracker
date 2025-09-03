@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../contexts/AuthContext";
 import "./Navbar.css";
 
 const handleReset = () => {
@@ -9,6 +10,7 @@ const handleReset = () => {
 };
 
 const Navbar = () => {
+  const { isAuthenticated, currentUser, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -32,16 +34,70 @@ const Navbar = () => {
       <div className="nav-logo">
         <NavLink to="/">Habit Tracker</NavLink>
       </div>
-      <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={toggleMenu}>
+      <div
+        className={`hamburger ${isMenuOpen ? "active" : ""}`}
+        onClick={toggleMenu}
+      >
         <span className="bar"></span>
         <span className="bar"></span>
         <span className="bar"></span>
       </div>
       <ul className={isMenuOpen ? "nav-links active" : "nav-links"}>
-        <li><NavLink to="/" exact onClick={toggleMenu}>Home</NavLink></li>
-        <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
-        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
-        <li><NavLink to="/contact" onClick={toggleMenu}>Contact Us</NavLink></li>
+        <li>
+          <NavLink to="/" exact onClick={toggleMenu}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/summary" onClick={toggleMenu}>
+            Monthly Summary
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/About" onClick={toggleMenu}>
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact" onClick={toggleMenu}>
+            Contact Us
+          </NavLink>
+        </li>
+
+        {isAuthenticated ? (
+          <>
+            <li>
+              <NavLink to="/profile" onClick={toggleMenu}>
+                👤 Profile
+              </NavLink>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  logout();
+                  toggleMenu();
+                }}
+                className="logout-btn"
+              >
+                🚪 Logout
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <NavLink to="/login" onClick={toggleMenu}>
+                🔑 Login
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/signup" onClick={toggleMenu}>
+                📝 Sign Up
+              </NavLink>
+            </li>
+          </>
+        )}
+
         <li>
           <button onClick={handleReset} className="reset-btn">
             Reset Page
