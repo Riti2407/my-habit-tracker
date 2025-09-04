@@ -1,9 +1,9 @@
 /* ===== HEADER BASE ===== */
 .header {
   text-align: center;
-  padding: 0.75rem 1.5rem; /* reduced padding for better space usage */
+  padding: 0.75rem 1.5rem;
   background-color: #f8a5d7;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* subtle separation */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
@@ -14,34 +14,35 @@
 
 /* ===== HEADER FLEX LAYOUT ===== */
 .headerDisplay {
- display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap; /* allows wrapping for small screens */
+  flex-wrap: wrap;
 }
 
 /* ===== HEADER TITLE ===== */
 .header h1 {
   margin: 0;
   flex: 1;
-  font-size: 1.8rem; /* improved hierarchy */
+  font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: #222;
+  word-break: break-word; /* prevent overflow on long text */
 }
 
 .dark .header h1 {
   color: #fff;
-  transition: color 0.3s ease; /* smooth mode switch */
+  transition: color 0.3s ease;
 }
 
 /* ===== HEADER CONTROLS ===== */
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* balanced spacing */
-  flex-wrap: wrap; /* prevent overflow on small screens */
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 /* ===== MODE TOGGLE BUTTON ===== */
@@ -55,7 +56,7 @@
   cursor: pointer;
   background-color: #cfdff7;
   color: #222;
-  box-shadow: 2px 2px 6px rgba(34, 8, 50, 0.3); /* softer, modern shadow */
+  box-shadow: 2px 2px 6px rgba(34, 8, 50, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -79,23 +80,48 @@
 }
 
 /* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 1024px) {
+  .header h1 {
+    font-size: 1.5rem; /* slightly smaller for tablets */
+  }
+}
+
+/* ============================= */
+/* 📱 Mobile & Tablet Responsive */
+/* ============================= */
 @media (max-width: 768px) {
-  .headerDisplay {
+  .header {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 10px;
     text-align: center;
   }
 
-  .header h1 {
-    margin-bottom: 0.5rem;
+  .header-logo {
+    font-size: 16px;
+    margin-bottom: 8px;
   }
 
-  .header-controls {
-    justify-content: center;
+  .dark-mode-toggle {
+    width: 120px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0.5rem 1rem; /* tighter padding on small phones */
+  }
+
+  .header h1 {
+    font-size: 1.1rem;
   }
 
   .mode-toggle {
-    width: 100%; /* full width on mobile for easy tapping */
-    max-width: 200px; /* prevent it from being too wide */
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
   }
 }
