@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Contact.css";
+import Footer from "./Footer";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +41,7 @@ const Contact = () => {
   };
 
   return (
+    <div>
     <div className="contact-wrapper">
       <div className="floating-ring ring1"></div>
       <div className="floating-ring ring2"></div>
@@ -101,6 +103,9 @@ const Contact = () => {
           </>
         )}
       </div>
+    </div>
+
+    <Footer />
     </div>
   );
 };
