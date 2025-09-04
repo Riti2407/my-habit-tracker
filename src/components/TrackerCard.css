@@ -39,6 +39,15 @@
 .dark .TrackerCard {
   background-color: #222;
   border-color: #444;
+  color: #e0e0e0;
+}
+
+.dark .TrackerCard h3 {
+  color: #e0e0e0;
+}
+
+.dark .days-row span {
+  color: #b0b0b0;
 }
 
 .days-row {

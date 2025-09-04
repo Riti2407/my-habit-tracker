@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
+import Dashboard from "./components/Dashboard";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
@@ -61,11 +62,11 @@ const habitEmojis = {
 };
 
 // --- RESET FUNCTION ---
-const handleReset = () => {
-  if (window.confirm("Are you sure you want to reset everything?")) {
-    window.location.reload();
-  }
-};
+// const handleReset = () => {
+//   if (window.confirm("Are you sure you want to reset everything?")) {
+//     window.location.reload();
+//   }
+// };
 
 function App() {
   const { t } = useTranslation();
@@ -171,6 +172,16 @@ function App() {
                 <MonthlySummary habitList={editableHabits} completedData={completed} />
               }
             />
+            <Route 
+              path="/dashboard" 
+              element={
+                <Dashboard 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  habitEmojis={habitEmojis}
+                />
+              } 
+            />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login /> } />
@@ -179,7 +190,6 @@ function App() {
         </main>
 
         {/* Footer always visible */}
-        <Footer />
         <Foot />
         <BackToTop />
       </div>
