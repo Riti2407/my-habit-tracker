@@ -16,7 +16,8 @@ import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
-import "./App.css";
+import Signup from "./components/Signup";
+import Login from "./components/login";
 
 // --- HABIT KEYS + EMOJIS ---
 
@@ -163,6 +164,8 @@ function App() {
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login /> } />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
 
@@ -178,6 +181,7 @@ function App() {
 };
 
 // Wrap App with i18n loader
+
 
 // // Wrap App with i18n loader
 // export default App;

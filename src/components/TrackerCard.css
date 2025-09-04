@@ -13,7 +13,7 @@
   transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+
 
 .TrackerCard:hover {
   transform: translateY(-5px) scale(1.02);
@@ -27,6 +27,7 @@
   border-color: #444;
 }
 
+
 /* Dark mode version */
 .dark .tracker-card {
   background-color: #1f1f1f;
@@ -38,6 +39,7 @@
   background: linear-gradient(145deg, #222, #1a1a1a);
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
 }
+
 
 .dark .TrackerCard {
   background-color: #222;
