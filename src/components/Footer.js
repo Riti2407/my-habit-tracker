@@ -10,7 +10,7 @@ export default function Footer() {
                 <img className="image object-cover" src={footerImage} alt="Footer" />
             </div>
 
- ui-polish
+ 
             {/* Contact Section */}
             <div className="contact">
 {/* 

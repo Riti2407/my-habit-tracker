@@ -16,8 +16,13 @@ import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
+import Landing from "./components/Landing";
+import "./App.css";
+
+
 import Signup from "./components/Signup";
 import Login from "./components/login";
+
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -135,8 +140,9 @@ function App() {
 
         <main>
           <Routes>
+             <Route path="/" element={<Landing />} />
             <Route
-              path="/"
+              path="/home"
               element={
                 <div>
                   <div className="trackers">
