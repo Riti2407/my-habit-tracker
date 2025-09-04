@@ -49,8 +49,29 @@
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);}
 
 .dark .TrackerCard {
+ enhance-responsiveness
   background-color: #1e1e1e;
   border-color: #333;
+
+  background-color: #222;
+  border-color: #444;
+  color: #e0e0e0;
+}
+
+.dark .TrackerCard h3 {
+  color: #e0e0e0;
+}
+
+.dark .days-row span {
+  color: #b0b0b0;
+}
+
+.days-row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+ main
 }
 
 /* Card title */

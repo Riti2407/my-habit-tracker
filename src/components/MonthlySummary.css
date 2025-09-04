@@ -46,7 +46,14 @@
 }
 
 .month-navigator button:hover {
+ enhance-responsiveness
   background: #ffe6f0;
+
+  background-color: var(--accent-color);
+  color: #f14f47;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+ main
 }
 
 /* --- Completion Banner --- */
