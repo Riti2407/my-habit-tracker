@@ -14,8 +14,14 @@ import TrackerCard from './components/TrackerCard';
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
+
 import Landing from "./components/Landing";
 import "./App.css";
+
+
+import Signup from "./components/Signup";
+import Login from "./components/login";
+
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -167,6 +173,8 @@ function App() {
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login /> } />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
 
@@ -389,6 +397,7 @@ export default App;
 // };
 
 // Wrap App with i18n loader
+
 
 // // Wrap App with i18n loader
 // export default App;
