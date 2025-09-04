@@ -9,6 +9,7 @@ body {
 .app-container.dark {
   background-color: #121212; /* Slightly softer than pure black */
   color: #f0f0f0;
+  overflow: visible;
 }
 
 .trackers {

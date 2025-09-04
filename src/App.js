@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
+import Dashboard from "./components/Dashboard";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
@@ -15,7 +16,8 @@ import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
-import "./App.css";
+import Signup from "./components/Signup";
+import Login from "./components/login";
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -55,11 +57,11 @@ const habitEmojis = {
 };
 
 // --- RESET FUNCTION ---
-const handleReset = () => {
-  if (window.confirm("Are you sure you want to reset everything?")) {
-    window.location.reload();
-  }
-};
+// const handleReset = () => {
+//   if (window.confirm("Are you sure you want to reset everything?")) {
+//     window.location.reload();
+//   }
+// };
 
 function App() {
   const { t } = useTranslation();
@@ -164,14 +166,28 @@ function App() {
                 <MonthlySummary habitList={editableHabits} completedData={completed} />
               }
             />
+            <Route 
+              path="/dashboard" 
+              element={
+                <Dashboard 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  habitEmojis={habitEmojis}
+                />
+              } 
+            />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
               <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+
+            <Route path="/login" element={<Login /> } />
+            <Route path="/signup" element={<Signup />} />
+
           </Routes>
         </main>
 
         {/* Footer always visible */}
-        <Footer />
         <Foot />
         <BackToTop />
       </div>
@@ -389,6 +405,7 @@ export default App;
 // };
 
 // Wrap App with i18n loader
+
 
 // // Wrap App with i18n loader
 // export default App;

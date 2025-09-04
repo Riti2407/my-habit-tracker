@@ -67,8 +67,6 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
-
-  // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
   const totalDays = weekDates ? weekDates.length : 7;
   const progressPercent = Math.round((completedCount / totalDays) * 100);
