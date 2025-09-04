@@ -173,7 +173,6 @@ function App() {
         </main>
 
         {/* Footer always visible */}
-        <Footer />
         <Foot />
         <BackToTop />
       </div>
