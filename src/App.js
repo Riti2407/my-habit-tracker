@@ -178,8 +178,12 @@ function App() {
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
+              <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+
             <Route path="/login" element={<Login /> } />
             <Route path="/signup" element={<Signup />} />
+
           </Routes>
         </main>
 
