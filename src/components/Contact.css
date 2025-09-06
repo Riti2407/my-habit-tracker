@@ -1,12 +1,12 @@
 :root{
-  --text-color: #ff4081;
+  --text-color: #af0b41;
 
   --text-color2: #511010;
 }
 /* Background animation */
 .contact-wrapper {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #ff9a9e, #fad0c4, #a6c1ee);
+  background: radial-gradient(circle at 20% 20%, #f8f8f8, #fad0c4, #e6eaf1);
   display: flex;
   justify-content: center;
   align-items: center;
