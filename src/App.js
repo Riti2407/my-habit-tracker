@@ -6,6 +6,7 @@ import TreeGrowth from './components/TreeGrowth';
 import Navbar from './components/Navbar';
 import HabitTrackerApp from "./components/HabitTrackerApp";
 import MonthlySummary from "./components/MonthlySummary";
+import Dashboard from "./components/Dashboard";
 import Footer from './components/Footer';
 import About from './components/About';
 import Foot from './components/Foot';
@@ -62,6 +63,7 @@ const handleReset = () => {
     window.location.reload();
   }
 };
+=
 
 function App() {
   const { t } = useTranslation();
@@ -162,6 +164,16 @@ function App() {
                 />
               }
             />
+            <Route 
+              path="/dashboard" 
+              element={
+                <Dashboard 
+                  habitList={editableHabits} 
+                  completedData={completed} 
+                  habitEmojis={habitEmojis}
+                />
+              } 
+            />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/login" element={<Login /> } />
@@ -174,6 +186,7 @@ function App() {
         </Routes>
 
         <Footer />
+
         <Foot />
       </div>
     </Router>
