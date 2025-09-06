@@ -33,7 +33,7 @@ const Foot = () => {
           <a href="https://instagram.com" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
             <i className="bi bi-instagram" style={{ fontSize: '20px' }}></i>
           </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
+          <a href="https://www.linkedin.com/in/riti-273b36322" target="_blank" rel="noreferrer" style={{ color: '#ccc', margin: '0 10px' }}>
             <i className="bi bi-linkedin" style={{ fontSize: '20px' }}></i>
           </a>
         </div>
