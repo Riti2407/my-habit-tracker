@@ -6,12 +6,11 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
-import Dashboard from "./components/Dashboard";
-import Footer from './components/Footer';
-import About from './components/About';
-import Foot from './components/Foot';
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Foot from "./components/Foot";
 // import withI18nReady from "./components/withI18nReady";
-import TrackerCard from './components/TrackerCard';
+import TrackerCard from "./components/TrackerCard";
 import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
@@ -163,7 +162,10 @@ function App() {
             <Route
               path="/summary"
               element={
-                <MonthlySummary habitList={editableHabits} completedData={completed} />
+                <MonthlySummary
+                  habitList={editableHabits}
+                  completedData={completed}
+                />
               }
             />
             <Route 
@@ -192,7 +194,6 @@ function App() {
 }
 
 export default App;
-
 
 // import React, { useState, useEffect } from 'react';
 // import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -227,8 +228,6 @@ export default App;
 //   'Goal Setting',
 //   'Skincare'
 // ];
-
-
 
 // const habitEmojis = {
 //   wakeUpTime: '⏰',
@@ -332,7 +331,6 @@ export default App;
 //   return week;
 // };
 
-
 //   return (
 //     <Router>
 //       <div className={`app-container ${darkMode ? "dark" : ""}`}>
@@ -364,13 +362,13 @@ export default App;
 
 //                     weekDates={getWeekDates()}
 //                     emoji={habitEmojis[habit.key]}
-//                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
+//                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)}
 //                   />
 //                 ))}
 //                 </div>
 //                 <TreeGrowth completedCount={totalCompleted} />
 //               </div>
-                
+
 //               </div>
 //               <TreeGrowth completedCount={totalCompleted} />
 //                 </div>
