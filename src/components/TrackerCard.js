@@ -67,6 +67,8 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
+
+  // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
   const totalDays = weekDates ? weekDates.length : 7;
   const progressPercent = Math.round((completedCount / totalDays) * 100);
@@ -136,9 +138,11 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
-            color: currentStreak > 0 ? "tomato" : "#6b7280",
+            backgroundColor: currentStreak > 0 
+              ? (darkMode ? "rgba(255,100,100,0.3)" : "rgba(255,100,100,0.2)") 
+              : (darkMode ? "#444" : "#e5e7eb"),
             fontWeight: currentStreak > 0 ? "600" : "400",
+            color: darkMode ? "#f0f0f0" : "#333",
           }}
         >
           🔥 {t("Current Streak")}: {currentStreak}
@@ -148,7 +152,8 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: "rgba(255,215,0,0.2)",
+            backgroundColor: darkMode ? "#444" : "#e5e7eb",
+            color: darkMode ? "#f0f0f0" : "#333",
           }}
         >
           🏆 {t("Best Streak")}: {bestStreak}

@@ -1,16 +1,78 @@
+/* CSS Custom Properties for Light Mode */
+:root {
+  --bg-color: #fff;
+  --text-color: #333;
+  --text-secondary: #666;
+  --card-bg: #fff;
+  --border-color: #ddd;
+  --accent-color: #4caf50;
+  --header-bg: #f8a5d7;
+  --button-bg: #cfdff7;
+  --button-text: #222;
+  --progress-bg: #e0e0e0;
+  --shadow: rgba(0, 0, 0, 0.1);
+}
+
+/* CSS Custom Properties for Dark Mode */
+.app-container.dark {
+  --bg-color: #121212;
+  --text-color: #f0f0f0;
+  --text-secondary: #b0b0b0;
+  --card-bg: #222;
+  --border-color: #444;
+  --accent-color: #66bb6a;
+  --header-bg: #333;
+  --button-bg: #666;
+  --button-text: #fff;
+  --progress-bg: #333;
+  --shadow: rgba(0, 0, 0, 0.3);
+}
+
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  /* background-color: #fff; */
-  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
-  color: #333;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.app-container {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  min-height: 100vh;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-container.dark {
-  background-color: #121212; /*Slightly softer than pure black*/
-  color: #f0f0f0;
-  overflow: visible;
+  background-color: var(--bg-color); /* Slightly softer than pure black */
+  color: var(--text-color);
+}
+
+/* Ensure all text elements inherit proper colors in dark mode */
+.app-container h1,
+.app-container h2,
+.app-container h3,
+.app-container h4,
+.app-container h5,
+.app-container h6,
+.app-container p,
+.app-container span,
+.app-container div,
+.app-container label {
+  color: var(--text-color);
+}
+
+.app-container.dark h1,
+.app-container.dark h2,
+.app-container.dark h3,
+.app-container.dark h4,
+.app-container.dark h5,
+.app-container.dark h6,
+.app-container.dark p,
+.app-container.dark span,
+.app-container.dark div,
+.app-container.dark label {
+  color: var(--text-color);
 }
 
 .trackers {
