@@ -6,17 +6,18 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
-import Footer from './components/Footer';
-import About from './components/About';
-import Foot from './components/Foot';
-import TrackerCard from './components/TrackerCard';
+import Dashboard from "./components/Dashboard";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Foot from "./components/Foot";
+import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
-// NEW IMPORTS FOR NOTIFICATIONS
-import NotificationSettings from './components/NotificationSettings';
-import notificationManager from './components/NotificationManager';
+import NotificationSettings from "./components/NotificationSettings";
+import notificationManager from "./components/NotificationManager";
 
-import "./App.css";
+import Signup from "./components/Signup";
+import Login from "./components/login";
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -87,15 +88,13 @@ function App() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  // NEW: Initialize notifications on app load
+  // Initialize notifications on app load
   useEffect(() => {
     const initializeNotifications = async () => {
-      // Load saved notification settings
-      const savedSettings = localStorage.getItem('notificationSettings');
-      if (savedSettings && notificationManager.getPermission() === 'granted') {
+      const savedSettings = localStorage.getItem("notificationSettings");
+      if (savedSettings && notificationManager.getPermission() === "granted") {
         const settings = JSON.parse(savedSettings);
-        
-        // Reschedule all enabled notifications
+
         Object.entries(settings).forEach(([habitKey, setting]) => {
           if (setting.enabled && setting.time && setting.habitLabel) {
             notificationManager.scheduleNotification(
@@ -111,7 +110,7 @@ function App() {
     initializeNotifications();
   }, []);
 
-  // UPDATED: Track completion with notification feedback
+  // Track completion with notification feedback
   const handleCompletion = (habitKey, dateString) => {
     setCompleted((prev) => {
       const updated = {
@@ -122,18 +121,16 @@ function App() {
         },
       };
       localStorage.setItem("completedHabits", JSON.stringify(updated));
-      
-      // NEW: Send celebration notification when habit is completed
+
       if (updated[habitKey][dateString]) {
-        const habit = editableHabits.find(h => h.key === habitKey);
+        const habit = editableHabits.find((h) => h.key === habitKey);
         const habitName = habit?.label || habitKey;
-        const emoji = habitEmojis[habitKey] || '✅';
-        
-        // Calculate current streak for this habit
+        const emoji = habitEmojis[habitKey] || "✅";
+
         const completedDates = Object.keys(updated[habitKey] || {})
-          .filter(date => updated[habitKey][date])
+          .filter((date) => updated[habitKey][date])
           .sort();
-        
+
         let currentStreak = 0;
         if (completedDates.includes(dateString)) {
           currentStreak = 1;
@@ -142,7 +139,7 @@ function App() {
             const nextDate = new Date(completedDates[i + 1]);
             const diffTime = Math.abs(nextDate - prevDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
+
             if (diffDays === 1) {
               currentStreak++;
             } else {
@@ -150,22 +147,18 @@ function App() {
             }
           }
         }
-        
-        // Send celebratory notification
-        if (notificationManager.getPermission() === 'granted') {
+
+        if (notificationManager.getPermission() === "granted") {
           setTimeout(() => {
-            notificationManager.sendNotification(
-              `${emoji} Habit Completed!`,
-              {
-                body: `Great job! You completed "${habitName}". Current streak: ${currentStreak} days!`,
-                tag: `completion-${habitKey}`,
-                silent: false
-              }
-            );
+            notificationManager.sendNotification(`${emoji} Habit Completed!`, {
+              body: `Great job! You completed "${habitName}". Current streak: ${currentStreak} days!`,
+              tag: `completion-${habitKey}`,
+              silent: false,
+            });
           }, 500);
         }
       }
-      
+
       return updated;
     });
   };
@@ -175,7 +168,6 @@ function App() {
     return sum + Object.values(days).filter(Boolean).length;
   }, 0);
 
-  // Get week dates (Sun → Sat)
   const getWeekDates = () => {
     const today = new Date();
     const week = [];
@@ -187,28 +179,24 @@ function App() {
     return week;
   };
 
-  // NEW: Reset function that also clears notifications
+  // Reset function
   const handleReset = () => {
     if (window.confirm("Are you sure you want to reset everything?")) {
-      // Clear all notifications
       notificationManager.clearAllNotifications();
-      localStorage.removeItem('notificationSettings');
-      
-      // Reset other data
+      localStorage.removeItem("notificationSettings");
       localStorage.removeItem("completedHabits");
       setCompleted({});
-      
-      // Reload page
       window.location.reload();
     }
   };
 
-  // NEW: Calculate today's progress for better summary
-  const todayDate = new Date().toISOString().split('T')[0];
-  const todayCompleted = editableHabits.filter(habit => 
-    completed[habit.key]?.[todayDate]
+  const todayDate = new Date().toISOString().split("T")[0];
+  const todayCompleted = editableHabits.filter(
+    (habit) => completed[habit.key]?.[todayDate]
   ).length;
-  const todayPercent = Math.round((todayCompleted / editableHabits.length) * 100);
+  const todayPercent = Math.round(
+    (todayCompleted / editableHabits.length) * 100
+  );
 
   return (
     <Router>
@@ -216,11 +204,7 @@ function App() {
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Navbar />
 
-        {/* NEW: Notification Settings - This adds the bell icon */}
-        <NotificationSettings 
-          habitList={editableHabits} 
-          darkMode={darkMode} 
-        />
+        <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
 
         <main>
           <Routes>
@@ -228,49 +212,65 @@ function App() {
               path="/"
               element={
                 <div>
-                  {/* NEW: Enhanced summary with today's progress */}
-                  <div className="summary-section" style={{ 
-                    padding: '1rem', 
-                    marginBottom: '2rem',
-                    textAlign: 'center',
-                    backgroundColor: darkMode ? '#1f2937' : '#f9fafb',
-                    borderRadius: '1rem',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
-                  }}>
-                    <h2 style={{ marginBottom: '0.5rem', fontSize: '1.5rem' }}>
-                      Weekly Progress: {totalCompleted}/{editableHabits.length * 7} completed
+                  <div
+                    className="summary-section"
+                    style={{
+                      padding: "1rem",
+                      marginBottom: "2rem",
+                      textAlign: "center",
+                      backgroundColor: darkMode ? "#1f2937" : "#f9fafb",
+                      borderRadius: "1rem",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <h2
+                      style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
+                    >
+                      Weekly Progress: {totalCompleted}/
+                      {editableHabits.length * 7} completed
                     </h2>
-                    <p style={{ 
-                      color: darkMode ? '#d1d5db' : '#6b7280',
-                      fontSize: '1rem',
-                      marginBottom: '1rem'
-                    }}>
-                      Today: {todayCompleted}/{editableHabits.length} habits ({todayPercent}%)
+                    <p
+                      style={{
+                        color: darkMode ? "#d1d5db" : "#6b7280",
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      Today: {todayCompleted}/{editableHabits.length} habits (
+                      {todayPercent}%)
                     </p>
-                    <div style={{
-                      display: 'flex',
-                      justifyContent: 'center',
-                      gap: '1rem',
-                      alignItems: 'center'
-                    }}>
-                      <div style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: darkMode ? '#065f46' : '#ecfdf5',
-                        borderRadius: '0.5rem',
-                        fontSize: '0.875rem'
-                      }}>
-                        Week: {Math.round((totalCompleted / (editableHabits.length * 7)) * 100)}%
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: "0.5rem 1rem",
+                          backgroundColor: darkMode ? "#065f46" : "#ecfdf5",
+                          borderRadius: "0.5rem",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        Week:{" "}
+                        {Math.round(
+                          (totalCompleted / (editableHabits.length * 7)) * 100
+                        )}
+                        %
                       </div>
                       <button
                         onClick={handleReset}
                         style={{
-                          padding: '0.5rem 1rem',
-                          backgroundColor: '#ef4444',
-                          color: 'white',
-                          border: 'none',
-                          borderRadius: '0.5rem',
-                          cursor: 'pointer',
-                          fontSize: '0.875rem'
+                          padding: "0.5rem 1rem",
+                          backgroundColor: "#ef4444",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                          fontSize: "0.875rem",
                         }}
                       >
                         Reset Week
@@ -278,17 +278,19 @@ function App() {
                     </div>
                   </div>
 
-                  {/* Week dates display */}
                   <div className="week-header mb-4 text-center">
-                    <p style={{ 
-                      fontSize: '0.875rem',
-                      color: darkMode ? '#d1d5db' : '#6b7280'
-                    }}>
-                      Week of {new Date(getWeekDates()[0]).toLocaleDateString()} - {new Date(getWeekDates()[6]).toLocaleDateString()}
+                    <p
+                      style={{
+                        fontSize: "0.875rem",
+                        color: darkMode ? "#d1d5db" : "#6b7280",
+                      }}
+                    >
+                      Week of{" "}
+                      {new Date(getWeekDates()[0]).toLocaleDateString()} -{" "}
+                      {new Date(getWeekDates()[6]).toLocaleDateString()}
                     </p>
                   </div>
 
-                  {/* Habit Tracker Cards */}
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
                       <TrackerCard
@@ -296,7 +298,9 @@ function App() {
                         habit={habit}
                         habitKey={habit.key}
                         completedDays={completed[habit.key] || {}}
-                        onCheck={(dateString) => handleCompletion(habit.key, dateString)}
+                        onCheck={(dateString) =>
+                          handleCompletion(habit.key, dateString)
+                        }
                         weekDates={getWeekDates()}
                         emoji={habitEmojis[habit.key]}
                         onEdit={(newLabel) =>
@@ -306,23 +310,39 @@ function App() {
                       />
                     ))}
                   </div>
-                  <TreeGrowth completedCount={totalCompleted} darkMode={darkMode} />
+                  <TreeGrowth
+                    completedCount={totalCompleted}
+                    darkMode={darkMode}
+                  />
                 </div>
               }
             />
             <Route
               path="/summary"
               element={
-                <MonthlySummary habitList={editableHabits} completedData={completed} />
+                <MonthlySummary
+                  habitList={editableHabits}
+                  completedData={completed}
+                />
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                <Dashboard
+                  habitList={editableHabits}
+                  completedData={completed}
+                  habitEmojis={habitEmojis}
+                />
               }
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </main>
 
-        {/* Footer always visible */}
-        <Footer />
         <Foot />
         <BackToTop />
       </div>

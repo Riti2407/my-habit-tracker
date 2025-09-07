@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import "./TrackerCard.css";
 
 function computeStreaks(dates) {
-  if (!dates || dates.length === 0) return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
+  if (!dates || dates.length === 0)
+    return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
 
   const sorted = [...dates].sort();
   let currentStreak = 1;
   let bestStreak = 1;
   let streakDates = [sorted[0]];
-
   let bestStreakDates = [...streakDates];
 
   for (let i = 1; i < sorted.length; i++) {
@@ -55,11 +55,11 @@ function TrackerCard({
   const completedDates = Object.keys(completedDays || {}).filter(
     (d) => completedDays[d]
   );
-  const { currentStreak, bestStreak, streakDates: streakDateSet } = computeStreaks(completedDates);
+  const { currentStreak, bestStreak, streakDates: streakDateSet } =
+    computeStreaks(completedDates);
 
   if (!ready) return null;
 
-  // Helper: get day abbreviation from a date string
   const getDayLabel = (dateString) => {
     const date = new Date(dateString);
     const offset = date.getTimezoneOffset() * 60000;
@@ -67,7 +67,6 @@ function TrackerCard({
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
 
-  // Completion progress
   const completedCount = Object.values(completedDays).filter(Boolean).length;
   const totalDays = weekDates ? weekDates.length : 7;
   const progressPercent = Math.round((completedCount / totalDays) * 100);
@@ -83,8 +82,12 @@ function TrackerCard({
         color: darkMode ? "#f9fafb" : "#111827",
         cursor: "pointer",
       }}
-      onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-8px)")}
-      onMouseLeave={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+      onMouseEnter={(e) =>
+        (e.currentTarget.style.transform = "translateY(-8px)")
+      }
+      onMouseLeave={(e) =>
+        (e.currentTarget.style.transform = "translateY(0)")
+      }
     >
       {/* Habit name with edit option */}
       <h3
@@ -135,6 +138,7 @@ function TrackerCard({
             borderRadius: "12px",
             backgroundColor:
               currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
+            color: currentStreak > 0 ? "tomato" : "#6b7280",
             fontWeight: currentStreak > 0 ? "600" : "400",
           }}
         >
@@ -145,7 +149,9 @@ function TrackerCard({
             fontSize: "0.85rem",
             padding: "2px 6px",
             borderRadius: "12px",
-            backgroundColor: "#e5e7eb",
+            backgroundColor: "rgba(255,215,0,0.2)",
+            color: "#b45309",
+            fontWeight: "600",
           }}
         >
           🏆 {t("Best Streak")}: {bestStreak}
