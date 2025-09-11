@@ -6,11 +6,21 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
+
+import Footer from './components/Footer';
+import About from './components/About';
+import Foot from './components/Foot';
+import QuoteWidget from "./components/QuoteWidget";
+// import withI18nReady from "./components/withI18nReady";
+import TrackerCard from './components/TrackerCard';
+import "./App.css";
+
 import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Foot from "./components/Foot";
 import TrackerCard from "./components/TrackerCard";
+
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 import NotificationSettings from "./components/NotificationSettings";
@@ -212,6 +222,11 @@ function App() {
               path="/"
               element={
                 <div>
+
+                  {/* ✅ Motivational Quote Widget */}
+                  <QuoteWidget />
+                  
+
                   <div
                     className="summary-section"
                     style={{
@@ -290,6 +305,7 @@ function App() {
                       {new Date(getWeekDates()[6]).toLocaleDateString()}
                     </p>
                   </div>
+
 
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
