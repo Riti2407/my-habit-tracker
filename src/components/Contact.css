@@ -182,3 +182,34 @@
   0% { transform: scale(0); }
   100% { transform: scale(1); }
 }
+/* Success message */
+.success-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(255, 64, 129, 0.15); /* pinkish glass */
+  border: 2px solid var(--text-color);
+  color: var(--text-color);
+  padding: 20px;
+  border-radius: 15px;
+  font-weight: bold;
+  animation: fadeIn 0.6s ease-in-out;
+  margin-top: 15px;
+}
+
+/* Checkmark inside success message */
+.success-message .checkmark {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  color: var(--text-color);
+  animation: pop 0.5s ease forwards;
+}
+
+/* Disabled button (loading state) */
+.submit-btn:disabled {
+  background: #ccc !important;
+  color: #666 !important;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}

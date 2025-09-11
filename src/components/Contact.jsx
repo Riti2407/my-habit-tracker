@@ -10,6 +10,7 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const validate = () => {
     let tempErrors = {};
@@ -32,11 +33,19 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      setSubmitted(true);
+      setLoading(true);
+
+      // fake "sending" delay
       setTimeout(() => {
-        setSubmitted(false);
+        setLoading(false);
+        setSubmitted(true);
+
+        // clear form after submission
         setFormData({ name: "", email: "", message: "" });
-      }, 2500);
+
+        // hide success message after 3s
+        setTimeout(() => setSubmitted(false), 3000);
+      }, 1500);
     }
   };
 
@@ -51,12 +60,15 @@ const Contact = () => {
         {submitted ? (
           <div className="success-message">
             <div className="checkmark">✔</div>
-            <p>Feedback Sent Successfully!</p>
+            <p>✅ Feedback Sent Successfully!</p>
           </div>
         ) : (
           <>
             <h2>📩 Contact Us</h2>
-            <p>We’d love to hear your thoughts about <strong>My Weekly Habit Tracker</strong>!</p>
+            <p>
+              We’d love to hear your thoughts about{" "}
+              <strong>My Weekly Habit Tracker</strong>!
+            </p>
             <form onSubmit={handleSubmit} className="contact-form" noValidate>
               <div className="form-group">
                 <label htmlFor="name">👤 Name</label>
@@ -67,6 +79,8 @@ const Contact = () => {
                   value={formData.name}
                   onChange={handleChange}
                   placeholder="Enter your name"
+                  aria-label="Your name"
+                  required
                 />
                 {errors.name && <span className="error">{errors.name}</span>}
               </div>
@@ -80,6 +94,8 @@ const Contact = () => {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter your email"
+                  aria-label="Your email"
+                  required
                 />
                 {errors.email && <span className="error">{errors.email}</span>}
               </div>
@@ -92,12 +108,20 @@ const Contact = () => {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Leave your feedback"
+                  aria-label="Your message"
+                  required
                 />
-                {errors.message && <span className="error">{errors.message}</span>}
+                {errors.message && (
+                  <span className="error">{errors.message}</span>
+                )}
               </div>
 
-              <button type="submit" className="submit-btn">
-                Send Feedback
+              <button
+                type="submit"
+                className="submit-btn"
+                disabled={loading}
+              >
+                {loading ? "Sending..." : "Send Feedback"}
               </button>
             </form>
           </>
