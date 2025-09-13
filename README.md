@@ -16,6 +16,8 @@ This tracker helps you build consistency by logging your habits like **Sleep, Wa
 
 ## ✨ Features
 
+- 🤖 **AI Chatbot Assistant** - Get personalized habit and fitness advice powered by Gemini AI
+
 - ✅ Weekly checklist for multiple habits (**Sun → Sat**)
 - 🌙 Light/Dark mode toggle
 - 🌱 Interactive **tree that grows** as you complete habits
@@ -34,7 +36,7 @@ This tracker helps you build consistency by logging your habits like **Sleep, Wa
 - CSS — Styling (responsive design)
 - JavaScript — Functionality
 - Vercel — Deployment
-
+```
 
 ## 🚀 Getting Started
 
@@ -53,6 +55,26 @@ cd my-daily-habits-tracker
 npm install
 ```
 
+### Set Up Environment Variables
+
+1. Copy `.env.example` to `.env`
+   ```bash
+   cp .env.example .env
+   # On Windows (PowerShell)
+   Copy-Item .env.example .env
+   ```
+2. Get a Gemini API key from Google AI Studio and paste it into `.env`:
+   ```
+   REACT_APP_GEMINI_API_KEY=YOUR_GEMINI_API_KEY
+   ```
+   Never commit your real API key. The `.env` file is gitignored.
+
+### Start the Development Server
+
+```bash
+npm install
+```
+
 ### Start the App
 
 ```bash
@@ -60,6 +82,22 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to see it in action.
+
+---
+
+## 🤖 AI Chatbot (Gemini)
+
+This project includes an in-app AI assistant powered by Google's Gemini.
+
+- Path: `src/components/Chatbot/Chatbot.js`
+- Model: `gemini-1.5-flash`
+- Features:
+  - Floating chat button (bottom-right)
+  - Glassmorphism chat window with date dividers and typing indicators
+  - Context-aware replies with short recent history
+  - Error handling and safe logging (no API keys printed)
+
+To enable the chatbot, set `REACT_APP_GEMINI_API_KEY` in `.env` and restart `npm start`.
 
 ---
 
@@ -129,6 +167,18 @@ git push origin feature/your-feature-name
 
 
 Open a Pull Request 🎉
+
+---
+
+## ✅ PR Checklist
+
+Before opening a PR, please ensure:
+
+- [ ] `.env` is NOT committed (use `.env.example` for placeholders)
+- [ ] `npm install` and `npm start` work locally without errors
+- [ ] No console errors during basic usage; warnings minimized
+- [ ] `README.md` updated for any user-facing changes
+- [ ] UI changes include screenshots/GIFs in the PR description (if applicable)
 
 ## 📜 License
 
