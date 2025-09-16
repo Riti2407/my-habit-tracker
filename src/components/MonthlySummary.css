@@ -1,209 +1,118 @@
-/* --- GENERAL CONTAINER & TYPOGRAPHY --- */
-.monthly-summary-container {
-  padding: 24px;
-  max-width: 1200px;
-  margin: 20px auto;
-  color: var(--text-color);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+.ms-container {
+  padding: 20px;
+  max-width: 1100px;
+  margin: auto;
+  font-family: "Inter", sans-serif;
 }
 
-.monthly-summary-container h2 {
-  text-align: center;
-  margin-bottom: 16px;
-  font-size: 2.25rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
-
-/* --- MONTH NAVIGATOR --- */
-.month-navigator {
+.ms-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 40px;
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
-.month-navigator h3 {
-  margin: 0 24px;
+.ms-header h2 {
   font-size: 1.75rem;
-  font-weight: 600;
-  min-width: 220px;
-  text-align: center;
+  font-weight: 700;
 }
 
-.month-navigator button {
-  background-color: var(--card-bg);
-  color: var(--text-color);
-  border: 1px solid var(--border-color);
-  padding: 12px 24px;
-  border-radius: 10px;
+.ms-header button {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 999px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: all 0.2s ease-in-out;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: 0.2s;
 }
 
-.month-navigator button:hover {
-  background-color: var(--accent-color);
-  color: #fff;
-  transform: translateY(-3px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+.ms-header button:hover {
+  background: #15803d;
+
 }
 
-/* --- TOTAL COMPLETION BANNER --- */
-.total-completion-banner {
-    text-align: center;
-    font-size: 1.25rem;
-    padding: 20px;
-    background-color: rgba(76, 175, 80, 0.1); /* Light green background */
-    color: #388E3C; /* Darker green text */
-    border: 1px solid rgba(76, 175, 80, 0.2);
-    border-radius: 12px;
-    margin-bottom: 40px;
-    font-weight: 500;
-}
-
-.total-completion-banner strong {
-    font-weight: 700;
-}
-
-
-/* --- SUMMARY CARD GRID --- */
-.summary-grid {
+.ms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
 }
 
-.summary-card {
-  background-color: var(--card-bg);
+.ms-card {
+  background: white;
   border-radius: 16px;
-  padding: 24px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-  border: 1px solid var(--border-color);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+.ms-card:hover {
+  transform: translateY(-6px) scale(1.02);
 }
 
-.summary-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.08);
-}
-
-.summary-card h4 {
-  margin-top: 0;
-  margin-bottom: 16px;
+.ms-card h3 {
+  margin-bottom: 14px;
   font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--accent-color);
+  color: #16a34a;
 }
 
-/* --- PROGRESS BAR --- */
-.progress-bar-container {
-    width: 100%;
-    background-color: var(--border-color);
-    border-radius: 10px;
-    height: 12px;
-    margin: 16px 0;
-    overflow: hidden;
+.ms-chart-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
-.progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #4CAF50, #81C784);
-    border-radius: 10px;
-    transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+.ms-donut {
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+.ms-donut-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 700;
+  font-size: 1rem;
+  color: #0f172a;
 }
 
-/* --- STATS ROW --- */
-.stats-row {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    color: var(--text-secondary);
-    padding-top: 16px;
-    border-top: 1px solid var(--border-color);
+.ms-stats {
+  flex: 1;
+  font-size: 0.95rem;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.stats-row span {
-    text-align: center;
+/* MODAL */
+.ms-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.ms-modal {
+  background: white;
+  border-radius: 18px;
+  padding: 24px;
+  width: min(600px, 90%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.3s ease;
 }
 
-.stats-row strong {
-    color: var(--text-color);
-    font-weight: 600;
-    display: block;
-    font-size: 1.2rem;
-    margin-top: 4px;
-}
-
-
-/* --- MODERN EXPORT SECTION --- */
-.export-section {
-    margin-top: 80px;
-    padding: 40px;
-    background: linear-gradient(145deg, var(--bg-color), var(--card-bg));
-    border: 5px solid var(--border-color);
-    border-radius: 16px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-}
-
-.export-section h2 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 12px;
-}
-
-.export-section p {
-    color: var(--text-secondary);
-    margin-bottom: 32px;
-    max-width: 450px;
-    margin-left: auto;
-    margin-right: auto;
-    line-height: 1.6;
-}
-
-.export-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.export-buttons button {
-    font-size: 1rem;
-    font-weight: 600;
-    padding: 14px 30px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    border: 2px solid transparent; /* Reserve space for border on hover */
-}
-
-/* FIX: Primary JSON button is now clearly visible */
-.export-buttons button:first-child {
-    background-color: var(--accent-color);
-    color: #0a0a0a;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.export-buttons button:first-child:hover {
-    background-color: #3aa862; /* Darker shade on hover */
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-/* FIX: Secondary CSV button now has a visible border */
-.export-buttons button:last-child {
-    background-color: var(--accent-color);
-    color: #0a0a0a;
-    border: 2px solid var(--accent-color);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* FIX: Clear hover effect for CSV button */
-.export-buttons button:last-child:hover {
-    background-color: #3aa862;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
