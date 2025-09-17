@@ -15,7 +15,6 @@ import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 
 import Profile from "./components/Profile"; // Import the Profile component
-=======
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
 
@@ -344,7 +343,6 @@ function App() {
             <Route path="/contact" element={<Contact />} />
 
             <Route path="/profile" element={<Profile />} />
-=======
 
 
               <Route path="/contact" element={<Contact darkMode={darkMode} />} />
