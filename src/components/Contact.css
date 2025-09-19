@@ -1,85 +1,7 @@
-/* --- DARK MODE OVERRIDES FOR CONTACT PAGE --- */
-.app-container.dark .contact-wrapper {
-  background: radial-gradient(circle at 20% 20%, #232526, #414345, #232526);
-}
-
-.app-container.dark .floating-ring {
-  border: 2px solid rgba(255, 255, 255, 0.08);
-}
-
-.app-container.dark .contact-container {
-  background: rgba(34, 34, 34, 0.85);
-  color: #f3f3f3;
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0px 8px 32px rgba(0,0,0,0.7);
-}
-
-.app-container.dark .contact-container h2,
-.app-container.dark .contact-container p,
-.app-container.dark .contact-form label {
-  color: #ff4081;
-}
-
-.app-container.dark .contact-form .form-group {
-  background: transparent;
-}
-
-.app-container.dark .contact-form input,
-.app-container.dark .contact-form textarea {
-  background: rgba(44, 44, 44, 0.8);
-  color: #f3f3f3;
-  box-shadow: inset 0px 0px 5px rgba(44, 44, 44, 0.3);
-  border: 1px solid #444;
-}
-
-.app-container.dark .contact-form input:focus,
-.app-container.dark .contact-form textarea:focus {
-  background: rgba(44, 44, 44, 1);
-  color: #ff4081;
-  box-shadow: 0px 0px 15px rgba(255, 64, 129, 0.5);
-}
-
-.app-container.dark .contact-form input::placeholder,
-.app-container.dark .contact-form textarea::placeholder {
-  color: #bdbdbd;
-}
-
-.app-container.dark .error {
-  color: #ff4081;
-}
-
-.app-container.dark .submit-btn {
-  background: linear-gradient(135deg, #232526, #414345);
-  color: #ff4081;
-  box-shadow: 0px 4px 15px rgba(44, 44, 44, 0.6);
-}
-
-.app-container.dark .submit-btn:hover {
-  background: linear-gradient(135deg, #ff4081, #232526);
-  color: #fff;
-  box-shadow: 0px 6px 20px rgba(255, 64, 129, 0.8);
-}
-
-.app-container.dark .success-message {
-  color: #ff4081;
-}
-
-.app-container.dark .checkmark {
-  color: #ff4081;
-}
-:root{
-  --text-color: #ff4081;
-
-  --text-color2: #511010;
-}
 /* Background animation */
 .contact-wrapper {
   min-height: 100vh;
-  background: radial-gradient(circle at 20% 20%, #ff9a9e, #fad0c4, #a6c1ee);
-/* DARK MODE STYLES: Place at end for proper override */
-.app-container.dark .contact-wrapper {
-  background: radial-gradient(circle at 20% 20%, #232526, #414345, #232526);
-}
+  background: var(--bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,12 +45,12 @@
 .contact-container {
   width: 100%;
   max-width: 600px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--card-bg);
   backdrop-filter: blur(15px);
   padding: 35px;
   border-radius: 20px;
-  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0px 8px 32px var(--shadow);
+  border: 1px solid var(--border-color);
   text-align: center;
   transform-style: preserve-3d;
   transition: transform 0.3s ease;
@@ -140,7 +62,6 @@
 
 /* Heading */
 .contact-container h2 {
-
   font-size: 2rem;
   margin-bottom: 10px;
   color: var(--text-color);
@@ -170,26 +91,24 @@
 .contact-form textarea {
   width: 100%;
   padding: 12px 14px;
-  border: none;
+  border: 1px solid var(--border-color);
   border-radius: 12px;
   font-size: 14px;
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
-  color: rgb(73, 66, 66);
-  box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.3);
+  background: var(--card-bg);
+  color: var(--text-color);
   transition: all 0.3s ease;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
-  background: rgba(255, 255, 255, 0.4);
-  color: rgb(73, 66, 66);
-  box-shadow: 0px 0px 15px rgba(255, 126, 185, 0.8);
+  border-color: var(--accent-color);
+  box-shadow: 0px 0px 15px var(--shadow);
 }
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #7b7272;
+  color: var(--text-secondary);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -201,7 +120,7 @@
 /* Error text */
 .error {
   display: block;
-  color: #910b0b;
+  color: var(--accent-color);
   font-size: 12px;
   margin-top: 4px;
 }
@@ -209,34 +128,34 @@
 /* Button */
 .submit-btn {
   width: 100%;
-  background: linear-gradient(#ed0e6b);
+  background: var(--accent-color);
   color: white;
   padding: 14px;
   border: none;
   border-radius: 25px;
   font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-    letter-spacing: 1px;
-    transition: all 0.3s ease;
-    box-shadow: 0px 4px 15px rgba(255, 126, 185, 0.6);
+  cursor: pointer;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 15px var(--shadow);
 }
 
 .submit-btn:hover {
-  background: linear-gradient(135deg, #ff2d82, #ff6fa5);
+  opacity: 0.8;
   transform: translateY(-3px) scale(1.03);
-    box-shadow: 0px 6px 20px rgba(255, 126, 185, 0.8);
+  box-shadow: 0px 6px 20px var(--shadow);
 }
 
 /* Success animation */
 .success-message {
-  color: #fff;
+  color: var(--text-color);
   animation: fadeIn 0.6s ease-in-out;
 }
 
 .checkmark {
   font-size: 3rem;
-  color: #00ff99;
+  color: var(--accent-color);
   animation: pop 0.5s ease forwards;
   margin-bottom: 10px;
 }
@@ -255,35 +174,4 @@
 @keyframes pop {
   0% { transform: scale(0); }
   100% { transform: scale(1); }
-}
-/* Success message */
-.success-message {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(255, 64, 129, 0.15); /* pinkish glass */
-  border: 2px solid var(--text-color);
-  color: var(--text-color);
-  padding: 20px;
-  border-radius: 15px;
-  font-weight: bold;
-  animation: fadeIn 0.6s ease-in-out;
-  margin-top: 15px;
-}
-
-/* Checkmark inside success message */
-.success-message .checkmark {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
-  color: var(--text-color);
-  animation: pop 0.5s ease forwards;
-}
-
-/* Disabled button (loading state) */
-.submit-btn:disabled {
-  background: #ccc !important;
-  color: #666 !important;
-  cursor: not-allowed;
-  transform: none !important;
-  box-shadow: none !important;
 }
