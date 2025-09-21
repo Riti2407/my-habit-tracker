@@ -1,22 +1,23 @@
 /* Weekly Habit Heatmap Styles */
 .weekly-habit-heatmap {
-  background: #ffffff;
+  background: var(--card-bg);
   border-radius: 12px;
   padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 8px var(--shadow);
   margin: 10px;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border: 1px solid var(--border-color);
 }
 
 .weekly-habit-heatmap:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 6px 12px var(--shadow);
 }
 
 .habit-title {
   font-size: 1.25rem;
   font-weight: 600;
-  color: #2d3748;
+  color: var(--text-color);
   margin-bottom: 16px;
   text-align: center;
 }
@@ -47,7 +48,7 @@
 .heatmap-day:hover,
 .heatmap-day:focus-visible {
   transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 10px var(--shadow);
   outline: none;
 }
 
@@ -55,42 +56,44 @@
   font-size: 0.75rem;
   font-weight: 500;
   margin-bottom: 4px;
+  color: var(--text-secondary);
 }
 
 .intensity-indicator {
   font-size: 0.9rem;
   font-weight: bold;
+  color: var(--text-color);
 }
 
 /* Intensity Colors */
 .intensity-0 {
-  background-color: #f7fafc;
-  color: #a0aec0;
-  border-color: #e2e8f0;
+  background-color: var(--card-bg);
+  color: var(--text-secondary);
+  border-color: var(--border-color);
 }
 
 .intensity-1 {
-  background-color: #c6f6d5;
-  color: #22543d;
-  border-color: #9ae6b4;
+  background-color: rgba(102, 187, 106, 0.3);
+  color: var(--text-color);
+  border-color: var(--accent-color);
 }
 
 .intensity-2 {
-  background-color: #9ae6b4;
-  color: #22543d;
-  border-color: #68d391;
+  background-color: rgba(102, 187, 106, 0.5);
+  color: var(--text-color);
+  border-color: var(--accent-color);
 }
 
 .intensity-3 {
-  background-color: #68d391;
-  color: #ffffff;
-  border-color: #48bb78;
+  background-color: rgba(102, 187, 106, 0.7);
+  color: var(--text-color);
+  border-color: var(--accent-color);
 }
 
 .intensity-4 {
-  background-color: #38a169;
-  color: #ffffff;
-  border-color: #2f855a;
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
 }
 
 /* Responsive */
