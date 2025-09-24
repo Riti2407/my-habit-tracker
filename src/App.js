@@ -7,14 +7,14 @@ import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
 import Dashboard from "./components/Dashboard";
-import Footer from './components/Footer';
-import About from './components/About';
-import Foot from './components/Foot';
-// import withI18nReady from "./components/withI18nReady";
-import TrackerCard from './components/TrackerCard';
-import "./App.css";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Foot from "./components/Foot";
+import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
+import NotificationSettings from "./components/NotificationSettings";
+import notificationManager from "./components/NotificationManager";
 
 import Signup from "./components/Signup";
 import Login from "./components/login";
@@ -56,13 +56,6 @@ const habitEmojis = {
   skincare: "🧴",
 };
 
-// --- RESET FUNCTION ---
-// const handleReset = () => {
-//   if (window.confirm("Are you sure you want to reset everything?")) {
-//     window.location.reload();
-//   }
-// };
-
 function App() {
   const { t } = useTranslation();
 
@@ -95,7 +88,29 @@ function App() {
     localStorage.setItem("theme", darkMode ? "dark" : "light");
   }, [darkMode]);
 
-  // Track completion
+  // Initialize notifications on app load
+  useEffect(() => {
+    const initializeNotifications = async () => {
+      const savedSettings = localStorage.getItem("notificationSettings");
+      if (savedSettings && notificationManager.getPermission() === "granted") {
+        const settings = JSON.parse(savedSettings);
+
+        Object.entries(settings).forEach(([habitKey, setting]) => {
+          if (setting.enabled && setting.time && setting.habitLabel) {
+            notificationManager.scheduleNotification(
+              habitKey,
+              setting.habitLabel,
+              setting.time
+            );
+          }
+        });
+      }
+    };
+
+    initializeNotifications();
+  }, []);
+
+  // Track completion with notification feedback
   const handleCompletion = (habitKey, dateString) => {
     setCompleted((prev) => {
       const updated = {
@@ -106,6 +121,44 @@ function App() {
         },
       };
       localStorage.setItem("completedHabits", JSON.stringify(updated));
+
+      if (updated[habitKey][dateString]) {
+        const habit = editableHabits.find((h) => h.key === habitKey);
+        const habitName = habit?.label || habitKey;
+        const emoji = habitEmojis[habitKey] || "✅";
+
+        const completedDates = Object.keys(updated[habitKey] || {})
+          .filter((date) => updated[habitKey][date])
+          .sort();
+
+        let currentStreak = 0;
+        if (completedDates.includes(dateString)) {
+          currentStreak = 1;
+          for (let i = completedDates.length - 2; i >= 0; i--) {
+            const prevDate = new Date(completedDates[i]);
+            const nextDate = new Date(completedDates[i + 1]);
+            const diffTime = Math.abs(nextDate - prevDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 1) {
+              currentStreak++;
+            } else {
+              break;
+            }
+          }
+        }
+
+        if (notificationManager.getPermission() === "granted") {
+          setTimeout(() => {
+            notificationManager.sendNotification(`${emoji} Habit Completed!`, {
+              body: `Great job! You completed "${habitName}". Current streak: ${currentStreak} days!`,
+              tag: `completion-${habitKey}`,
+              silent: false,
+            });
+          }, 500);
+        }
+      }
+
       return updated;
     });
   };
@@ -115,7 +168,6 @@ function App() {
     return sum + Object.values(days).filter(Boolean).length;
   }, 0);
 
-  // Get week dates (Sun → Sat)
   const getWeekDates = () => {
     const today = new Date();
     const week = [];
@@ -127,11 +179,32 @@ function App() {
     return week;
   };
 
+  // Reset function
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to reset everything?")) {
+      notificationManager.clearAllNotifications();
+      localStorage.removeItem("notificationSettings");
+      localStorage.removeItem("completedHabits");
+      setCompleted({});
+      window.location.reload();
+    }
+  };
+
+  const todayDate = new Date().toISOString().split("T")[0];
+  const todayCompleted = editableHabits.filter(
+    (habit) => completed[habit.key]?.[todayDate]
+  ).length;
+  const todayPercent = Math.round(
+    (todayCompleted / editableHabits.length) * 100
+  );
+
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
         <Navbar />
+
+        <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
 
         <main>
           <Routes>
@@ -139,6 +212,85 @@ function App() {
               path="/"
               element={
                 <div>
+                  <div
+                    className="summary-section"
+                    style={{
+                      padding: "1rem",
+                      marginBottom: "2rem",
+                      textAlign: "center",
+                      backgroundColor: darkMode ? "#1f2937" : "#f9fafb",
+                      borderRadius: "1rem",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                    }}
+                  >
+                    <h2
+                      style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
+                    >
+                      Weekly Progress: {totalCompleted}/
+                      {editableHabits.length * 7} completed
+                    </h2>
+                    <p
+                      style={{
+                        color: darkMode ? "#d1d5db" : "#6b7280",
+                        fontSize: "1rem",
+                        marginBottom: "1rem",
+                      }}
+                    >
+                      Today: {todayCompleted}/{editableHabits.length} habits (
+                      {todayPercent}%)
+                    </p>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        gap: "1rem",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div
+                        style={{
+                          padding: "0.5rem 1rem",
+                          backgroundColor: darkMode ? "#065f46" : "#ecfdf5",
+                          borderRadius: "0.5rem",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        Week:{" "}
+                        {Math.round(
+                          (totalCompleted / (editableHabits.length * 7)) * 100
+                        )}
+                        %
+                      </div>
+                      <button
+                        onClick={handleReset}
+                        style={{
+                          padding: "0.5rem 1rem",
+                          backgroundColor: "#ef4444",
+                          color: "white",
+                          border: "none",
+                          borderRadius: "0.5rem",
+                          cursor: "pointer",
+                          fontSize: "0.875rem",
+                        }}
+                      >
+                        Reset Week
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="week-header mb-4 text-center">
+                    <p
+                      style={{
+                        fontSize: "0.875rem",
+                        color: darkMode ? "#d1d5db" : "#6b7280",
+                      }}
+                    >
+                      Week of{" "}
+                      {new Date(getWeekDates()[0]).toLocaleDateString()} -{" "}
+                      {new Date(getWeekDates()[6]).toLocaleDateString()}
+                    </p>
+                  </div>
+
                   <div className="trackers">
                     {editableHabits.map((habit, idx) => (
                       <TrackerCard
@@ -146,7 +298,9 @@ function App() {
                         habit={habit}
                         habitKey={habit.key}
                         completedDays={completed[habit.key] || {}}
-                        onCheck={(date) => handleCompletion(habit.key, date)}
+                        onCheck={(dateString) =>
+                          handleCompletion(habit.key, dateString)
+                        }
                         weekDates={getWeekDates()}
                         emoji={habitEmojis[habit.key]}
                         onEdit={(newLabel) =>
@@ -156,34 +310,47 @@ function App() {
                       />
                     ))}
                   </div>
-                  <TreeGrowth completedCount={totalCompleted} />
+                  <TreeGrowth
+                    completedCount={totalCompleted}
+                    darkMode={darkMode}
+                  />
                 </div>
               }
             />
             <Route
               path="/summary"
               element={
-                <MonthlySummary habitList={editableHabits} completedData={completed} />
+                <MonthlySummary
+                  habitList={editableHabits}
+                  completedData={completed}
+                />
               }
             />
-            <Route 
-              path="/dashboard" 
+            <Route
+              path="/dashboard"
               element={
-                <Dashboard 
-                  habitList={editableHabits} 
-                  completedData={completed} 
+                <Dashboard
+                  habitList={editableHabits}
+                  completedData={completed}
                   habitEmojis={habitEmojis}
                 />
-              } 
+              }
             />
             <Route path="/About" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
+
+              <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+
             <Route path="/login" element={<Login /> } />
+
+            <Route path="/login" element={<Login />} />
+
             <Route path="/signup" element={<Signup />} />
+
           </Routes>
         </main>
 
-        {/* Footer always visible */}
         <Foot />
         <BackToTop />
       </div>
@@ -192,216 +359,3 @@ function App() {
 }
 
 export default App;
-
-
-// import React, { useState, useEffect } from 'react';
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import { useTranslation } from "react-i18next";
-// import Header from './components/Header';
-// import TreeGrowth from './components/TreeGrowth';
-// import Navbar from './components/Navbar';
-// import HabitTrackerApp from "./components/HabitTrackerApp";
-// import MonthlySummary from "./components/MonthlySummary";
-// import Footer from './components/Footer';
-// import About from './components/About';
-// import Foot from './components/Foot';
-// // import withI18nReady from "./components/withI18nReady";
-// import TrackerCard from './components/TrackerCard';
-
-//  ui-polish
-// import "./App.css";
-// const habitList = [
-//   'Wake Up Time',
-//   'Water Intake',
-//   'Sleep',
-//   'Meditation',
-//   'Exercise',
-//   'Healthy Eating',
-//   'Gratitude',
-//   'Journaling',
-//   'Screen Time',
-//   'Study',
-//   'Workout',
-//   'Steps',
-//   'Self-Care',
-//   'Goal Setting',
-//   'Skincare'
-// ];
-
-
-
-// const habitEmojis = {
-//   wakeUpTime: '⏰',
-//   waterIntake: '💧',
-//   sleep: '🛌',
-//   meditation: '🧘‍♂️',
-//   exercise: '🏋️‍♀️',
-//   healthyEating: '🥗',
-//   gratitude: '🙏',
-//   journaling: '📝',
-//   screenTime: '📱',
-//   study: '📚',
-//   workout: '💪',
-//   steps: '🚶‍♂️',
-//   selfCare: '🛁',
-//   goalSetting: '🎯',
-//   skincare: '🧴'
-// };
-
-// const habitKeys = [
-//   'wakeUpTime',
-//   'waterIntake',
-//   'sleep',
-//   'meditation',
-//   'exercise',
-//   'healthyEating',
-//   'gratitude',
-//   'journaling',
-//   'screenTime',
-//   'study',
-//   'workout',
-//   'steps',
-//   'selfCare',
-//   'goalSetting',
-//   'skincare'
-// ];
-
-// const handleReset = () => {
-//   if (window.confirm("Are you sure you want to reset everything?")) {
-//     window.location.reload();
-//   }
-// };
-
-// function App() {
-//   const { t } = useTranslation();
-
-//   const [editableHabits, setEditableHabits] = useState(
-//     habitKeys.map(key => ({ key, label: t(`habits.${key}`) }))
-//   );
-
-//   const handleHabitEdit = (habitKey, newLabel) => {
-//     setEditableHabits(prev =>
-//       prev.map(habit =>
-//         habit.key === habitKey ? { ...habit, label: newLabel } : habit
-//       )
-//     );
-//   }
-
-//   // --- STATE MANAGEMENT ---
-//   const [darkMode, setDarkMode] = useState(() => localStorage.getItem("theme") === "dark");
-//   const [completed, setCompleted] = useState(() => {
-//     const saved = localStorage.getItem("completedHabits");
-//     return saved ? JSON.parse(saved) : {};
-//   });
-
-//   const habitList = habitKeys.map(key => ({ key, label: t(`habits.${key}`) }));
-
-//   // --- FUNCTIONS ---
-//   const toggleDarkMode = () => setDarkMode(prev => !prev);
-
-//   useEffect(() => {
-//     localStorage.setItem("theme", darkMode ? "dark" : "light");
-//   }, [darkMode]);
-
-//   const handleCompletion = (habitKey, dateString) => {
-//     setCompleted(prev => {
-//       const updated = {
-//         ...prev,
-//         [habitKey]: {
-//           ...prev[habitKey],
-//           [dateString]: !prev[habitKey]?.[dateString],
-//         },
-//       };
-//       localStorage.setItem("completedHabits", JSON.stringify(updated));
-//       return updated;
-//     });
-//   };
-
-//   const totalCompleted = Object.values(completed).reduce((sum, days) => {
-//     return sum + Object.values(days).filter(Boolean).length;
-//   }, 0);
-
-//   const getWeekDates = () => {
-//   const today = new Date();
-//   const week = [];
-//   for (let i = 0; i < 7; i++) {
-//     const d = new Date(today);
-//     d.setDate(today.getDate() - today.getDay() + i); // Sunday → Saturday
-//     week.push(d.toISOString().split('T')[0]);
-//   }
-//   return week;
-// };
-
-
-//   return (
-//     <Router>
-//       <div className={`app-container ${darkMode ? "dark" : ""}`}>
-//         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-//         <Navbar />
-
-//         <main>
-//           <Routes>
-//             <Route
-//               path="/"
-//               element={
-//                 <div>
-//                 <div className="trackers">
-
-//                 {/* <HabitTrackerApp
-//                   habitList={habitList}
-//                   completedData={completed}
-//                   onCheck={handleCompletion}
-//                 /> */}
-//                 <div className="trackers">
-//                 {/* {habitList.map((habit, idx) => ( */}
-//                 {editableHabits.map((habit, idx) => (
-//                   <TrackerCard
-//                     key={idx}
-//                     habit={habit}
-//                     habitKey={habit.key}
-//                     completedDays={completed[habit.key] || {}}
-//                     onCheck={handleCompletion}
-
-//                     weekDates={getWeekDates()}
-//                     emoji={habitEmojis[habit.key]}
-//                     onEdit={(newLabel) => handleHabitEdit(habit.key , newLabel)} 
-//                   />
-//                 ))}
-//                 </div>
-//                 <TreeGrowth completedCount={totalCompleted} />
-//               </div>
-                
-//               </div>
-//               <TreeGrowth completedCount={totalCompleted} />
-//                 </div>
-//               }
-//             />
-//             <Route
-//               path="/summary"
-//               element={
-//                 <MonthlySummary
-//                   habitList={habitList}
-//                   completedData={completed}
-//                 />
-//               }
-//             />
-//             <Route path="/About" element={<About />} />
-//           </Routes>
-//         </main>
-
-//         <Routes>
-//           <Route path="/Footer" element={<Footer />} />
-//         </Routes>
-
-//         <Footer />
-//         <Foot />
-//       </div>
-//     </Router>
-//   );
-// };
-
-// Wrap App with i18n loader
-
-
-// // Wrap App with i18n loader
-// export default App;
