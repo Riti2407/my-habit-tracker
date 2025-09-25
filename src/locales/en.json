@@ -38,6 +38,45 @@
   "treeGrowth": {
     "title": "Your Habit Tree",
     "habitsCompleted": "{{count}} habits completed this week!",
-    "habitsCompletedPlural": "{{count}} habits completed this week!"
+    "habitsCompletedPlural": "{{count}} habits completed this week!",
+    "stages": {
+      "empty": {
+        "name": "Empty Plot",
+        "description": "Start your habit journey!",
+        "message": "Plant your first seed by completing a habit!"
+      },
+      "seed": {
+        "name": "Seed",
+        "description": "A small beginning",
+        "message": "Great start! Keep going to see growth!"
+      },
+      "sprout": {
+        "name": "Sprout", 
+        "description": "Growing strong",
+        "message": "Your habits are taking root!"
+      },
+      "tree": {
+        "name": "Tree",
+        "description": "Well established", 
+        "message": "Excellent consistency! You're thriving!"
+      },
+      "blossom": {
+        "name": "Blossoming Tree",
+        "description": "Full bloom",
+        "message": "Amazing! You've mastered your habits!"
+      }
+    },
+    "streak": {
+      "current": "Current Streak",
+      "best": "Best Streak", 
+      "days": "days",
+      "nextGoal": "Next goal: {{requirement}}"
+    },
+    "congratulations": {
+      "seed": "🎉 You planted your first seed! {{streak}}-day streak!",
+      "sprout": "🌱 Your habits are sprouting! {{streak}}-day streak!",
+      "tree": "🌳 You've grown into a strong tree! {{streak}}-day streak!", 
+      "blossom": "🌸 Magnificent! Your habits are in full bloom! {{streak}}-day streak!"
+    }
   }
 }
