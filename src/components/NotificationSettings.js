@@ -5,7 +5,7 @@ import notificationManager from "./NotificationManager";
 import "./NotificationSettings.css";
 
 const NotificationSettings = ({ habitList, darkMode }) => {
-  const { t, ready } = useTranslation();
+  const { ready } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [permission, setPermission] = useState('default');
   const [habitSettings, setHabitSettings] = useState({});
@@ -137,8 +137,8 @@ const NotificationSettings = ({ habitList, darkMode }) => {
         title={isBlocked ? "Notifications Blocked - Click for help" : "Notification Settings"}
         style={{
           position: 'fixed',
-          top: '14px',
-          right: '233px',
+          top: '70px',
+          right: '20px',
           width: '40px',
           height: '40px',
           borderRadius: '50%',
@@ -150,7 +150,7 @@ const NotificationSettings = ({ habitList, darkMode }) => {
           fontSize: '20px',
           cursor: 'pointer',
           boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-          zIndex: 1000,
+          zIndex: 999,
           transition: 'all 0.3s ease',
         }}
       >

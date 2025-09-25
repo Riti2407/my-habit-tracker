@@ -1,9 +1,140 @@
 .tree-container {
   text-align: center;
   margin-top: 2rem;
+  position: relative;
 }
 
 .tree {
   font-size: 4rem;
   margin: 1rem 0;
+  transition: all 0.3s ease;
+}
+
+.tree-card {
+  position: relative;
+  overflow: visible;
+}
+
+.stage-indicator {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.streak-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.progress-section {
+  margin-top: 1.5rem;
+}
+
+.progress-bar {
+  height: 0.6rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: #e5e7eb;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 1s ease-out;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+}
+
+.popup {
+  position: absolute;
+  top: -4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  white-space: nowrap;
+}
+
+@keyframes celebrate {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+.celebration-tree {
+  animation: celebrate 0.6s ease-in-out;
+}
+
+@keyframes glow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 10px rgba(236, 72, 153, 0.3));
+  }
+  50% { 
+    filter: drop-shadow(0 0 20px rgba(236, 72, 153, 0.6));
+  }
+}
+
+.blossom-glow {
+  animation: glow 2s ease-in-out infinite;
+}
+.tree-tooltip {
+  position: relative;
+  cursor: help;
+}
+
+.tree-tooltip:hover .tooltip-content {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-content {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 1000;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+.tooltip-content::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 4px solid transparent;
+  border-top-color: rgba(0, 0, 0, 0.9);
+}
+
+@media (max-width: 640px) {
+  .tree {
+    font-size: 3rem;
+  }
+  
+  .streak-info {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .congratulations-popup {
+    top: -3rem;
+    font-size: 0.8rem;
+  }
 }

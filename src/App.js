@@ -311,7 +311,8 @@ function App() {
                     ))}
                   </div>
                   <TreeGrowth
-                    completedCount={totalCompleted}
+                    completedHabits={completed}
+                    habitKeys={editableHabits.map(h => h.key)}
                     darkMode={darkMode}
                   />
                 </div>

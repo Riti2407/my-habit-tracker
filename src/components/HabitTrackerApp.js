@@ -238,7 +238,11 @@ function HabitTrackerApp() {
 
       {/* Tree Growth visualization */}
       <div className="mt-10">
-        <TreeGrowth completedCount={totalCompleted} darkMode={darkMode} />
+        <TreeGrowth 
+          completedHabits={completed} 
+          habitKeys={habits.map(h => h.key)}
+          darkMode={darkMode} 
+        />
       </div>
     </div>
   );
