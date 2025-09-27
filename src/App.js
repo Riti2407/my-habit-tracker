@@ -202,8 +202,7 @@ function App() {
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
         <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
-
+        <Navbar  darkMode={darkMode} />
         <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
 
         <main>
