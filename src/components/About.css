@@ -75,8 +75,9 @@
 /* --- DARK MODE FOR ABOUT PAGE --- */
 
 .app-container.dark {
-  background: #232526;
+  background: radial-gradient(circle at 30% 30%, #232526, #414345, #232526);
 }
+
 
 .app-container.dark .about-container {
   background: linear-gradient(135deg, #232526, #414345);

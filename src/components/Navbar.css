@@ -176,8 +176,9 @@
   box-shadow: 0 4px 16px rgba(0,0,0,0.65);
 }
 
-.app-container.dark .nav-logo  a{
+.app-container.dark .nav-logo a{
   color: #ff4081 !important;
+  text-decoration: none;
 }
 
 .app-container.dark .nav-links a {
