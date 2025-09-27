@@ -336,11 +336,13 @@ function App() {
                 />
               }
             />
+            <Route path="/About" element={<About />} />
             <Route path="/About" element={<About  darkMode = {darkMode}/>} />
+            
             <Route path="/contact" element={<Contact />} />
 
 
-              <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+            <Route path="/contact" element={<Contact darkMode={darkMode} />} />
 
             <Route path="/login" element={<Login /> } />
 
