@@ -84,13 +84,29 @@ const Home = ({
   //const dailyStreak = getDailyStreak(completed, weekDates, editableHabits);
 
   // Show encouragement/notification when all or no habits done today
-  // useEffect(() => {
-  //   if (todayCompletedCount === editableHabits.length && editableHabits.length > 0) {
-  //     alert("Awesome! You finished all habits today! 🎉");
-  //   } else if (todayCompletedCount === 0 && editableHabits.length > 0) {
-  //     alert("Let's start a habit today! 🚀");
-  //   }
-  // }, [todayCompletedCount, editableHabits.length]);
+useEffect(() => {
+  const todayKey = new Date().toISOString().split("T")[0];
+
+  // Keys for today’s alerts
+  const startedKey = `startedAlert-${todayKey}`;
+  const finishedKey = `finishedAlert-${todayKey}`;
+
+  if (
+    todayCompletedCount === editableHabits.length &&
+    editableHabits.length > 0 &&
+    !localStorage.getItem(finishedKey)
+  ) {
+    alert("Awesome! You finished all habits today! 🎉");
+    localStorage.setItem(finishedKey, "true");
+  } else if (
+    todayCompletedCount === 0 &&
+    editableHabits.length > 0 &&
+    !localStorage.getItem(startedKey)
+  ) {
+    alert("Let's start a habit today! 🚀");
+    localStorage.setItem(startedKey, "true");
+  }
+}, [todayCompletedCount, editableHabits.length]);
 
   return (
     <div>

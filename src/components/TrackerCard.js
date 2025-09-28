@@ -111,6 +111,7 @@ function TrackerCard({
             {habit?.label || habit}{" "}
             {onEdit && (
               <button
+                className="edit-btn"
                 onClick={() => setIsEditing(true)}
                 style={{ marginLeft: "0.5rem" }}
               >
