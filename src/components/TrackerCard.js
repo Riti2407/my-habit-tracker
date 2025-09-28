@@ -5,18 +5,15 @@ import "./TrackerCard.css";
 function computeStreaks(dates) {
   if (!dates || dates.length === 0)
     return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
-
   const sorted = [...dates].sort();
   let currentStreak = 1;
   let bestStreak = 1;
   let streakDates = [sorted[0]];
   let bestStreakDates = [...streakDates];
-
   for (let i = 1; i < sorted.length; i++) {
     const prev = new Date(sorted[i - 1]);
     const curr = new Date(sorted[i]);
     const diff = (curr - prev) / (1000 * 60 * 60 * 24);
-
     if (diff === 1) {
       currentStreak++;
       streakDates.push(sorted[i]);
@@ -29,12 +26,10 @@ function computeStreaks(dates) {
       streakDates = [sorted[i]];
     }
   }
-
   if (currentStreak > bestStreak) {
     bestStreak = currentStreak;
     bestStreakDates = [...streakDates];
   }
-
   return { currentStreak, bestStreak, streakDates: new Set(bestStreakDates) };
 }
 
@@ -47,6 +42,7 @@ function TrackerCard({
   emoji,
   onEdit,
   darkMode,
+  todayString
 }) {
   const { t, ready } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
@@ -66,10 +62,6 @@ function TrackerCard({
     const adjusted = new Date(date.getTime() + offset);
     return adjusted.toLocaleDateString("en-US", { weekday: "short" });
   };
-
-  const completedCount = Object.values(completedDays).filter(Boolean).length;
-  const totalDays = weekDates ? weekDates.length : 7;
-  const progressPercent = Math.round((completedCount / totalDays) * 100);
 
   return (
     <div
@@ -131,48 +123,15 @@ function TrackerCard({
 
       {/* Streak badges */}
       <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
-        <span
-          style={{
-            fontSize: "0.85rem",
-            padding: "2px 6px",
-            borderRadius: "12px",
-            backgroundColor:
-              currentStreak > 0 ? "rgba(255,100,100,0.2)" : "#e5e7eb",
-            color: currentStreak > 0 ? "tomato" : "#6b7280",
-            fontWeight: currentStreak > 0 ? "600" : "400",
-          }}
-        >
+        <span className="streak-badge">
           🔥 {t("Current Streak")}: {currentStreak}
         </span>
-        <span
-          style={{
-            fontSize: "0.85rem",
-            padding: "2px 6px",
-            borderRadius: "12px",
-            backgroundColor: "rgba(255,215,0,0.2)",
-            color: "#b45309",
-            fontWeight: "600",
-          }}
-        >
+        <span className="best-streak-badge">
           🏆 {t("Best Streak")}: {bestStreak}
         </span>
       </div>
 
-      {/* Days row */}
-      <div className="days-row">
-        {weekDates.map((dateString) => (
-          <label key={dateString} className="day-label">
-            <input
-              type="checkbox"
-              checked={!!completedDays[dateString]}
-              onChange={() => onCheck(habitKey, dateString)}
-            />
-            <span>{getDayLabel(dateString)}</span>
-          </label>
-        ))}
-      </div>
-
-      {/* Days checkboxes with streak highlight */}
+      {/* Days checkboxes with streak highlight & today's highlight */}
       <div
         style={{
           display: "flex",
@@ -185,20 +144,25 @@ function TrackerCard({
           const label = getDayLabel(dateString);
           const isDone = !!completedDays[dateString];
           const inStreak = streakDateSet.has(dateString);
+          const isToday = dateString === todayString;
           return (
             <label
               key={dateString}
+              className={`card-day-label${isToday ? " today" : ""}${inStreak ? " streak" : ""}`}
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "0.25rem",
                 cursor: "pointer",
+                fontWeight: isToday ? "bold" : "normal",
+                color: isToday ? "#ff4081" : undefined,
+                borderBottom: isToday ? "2px solid #ff4081" : "",
               }}
             >
               <input
                 type="checkbox"
                 checked={isDone}
-                onChange={() => onCheck(habitKey, dateString)}
+                onChange={() => onCheck(dateString)}
                 style={{
                   width: "1.25rem",
                   height: "1.25rem",
@@ -210,32 +174,17 @@ function TrackerCard({
                   transition: "all 0.2s",
                 }}
               />
-              <span style={{ fontSize: "0.875rem", userSelect: "none" }}>
+              <span style={{
+                fontSize: "0.875rem",
+                userSelect: "none",
+                fontWeight: isToday ? "bold" : undefined,
+                color: isToday ? "#ff4081" : undefined
+              }}>
                 {label}
               </span>
             </label>
           );
         })}
-      </div>
-
-      {/* Progress bar */}
-      <div
-        style={{
-          height: "0.5rem",
-          width: "100%",
-          backgroundColor: "#d1d5db",
-          borderRadius: "9999px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            height: "100%",
-            width: `${progressPercent}%`,
-            backgroundColor: "#22c55e",
-            transition: "width 0.3s",
-          }}
-        />
       </div>
     </div>
   );
