@@ -28,7 +28,7 @@ const Navbar = ({darkMode}) => {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""} ${darkMode ? "dark" : ""}`}>
+    <nav className={`navbar  ${darkMode ? "dark" : ""}`}>
       <div className="nav-logo">
         <NavLink to="/">Habit Tracker</NavLink>
       </div>
