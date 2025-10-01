@@ -38,6 +38,18 @@
 
 .dark .TrackerCard {
   background-color: #222;
+  border-color: #444;}
+/* Dark mode version */
+.dark .tracker-card {
+  background-color: #1f1f1f;
+  border-color: #333;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+}
+
+.dark .tracker-card:hover {
+  background: linear-gradient(145deg, #222, #1a1a1a);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+
   border-color: #444;
   color: #e0e0e0;
 }
