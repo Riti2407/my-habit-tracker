@@ -8,7 +8,7 @@ const handleReset = () => {
   }
 };
 
-const Navbar = () => {
+const Navbar = ({darkMode}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -28,7 +28,7 @@ const Navbar = () => {
   }, []);
 
   return (
-    <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
+    <nav className={`navbar  ${darkMode ? "dark" : ""}`}>
       <div className="nav-logo">
         <NavLink to="/">Habit Tracker</NavLink>
       </div>
@@ -44,6 +44,8 @@ const Navbar = () => {
         <li><NavLink to="/dashboard" onClick={toggleMenu}>Dashboard</NavLink></li>
         <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
         <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+
         <li><NavLink to="/contact" onClick={toggleMenu}>Contact Us</NavLink></li>
         <li>
           <button onClick={handleReset} className="reset-btn">

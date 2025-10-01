@@ -70,3 +70,71 @@
     transform: translateY(0);
   }
 }
+
+
+/* --- DARK MODE FOR ABOUT PAGE --- */
+
+.app-container.dark {
+  background: radial-gradient(circle at 30% 30%, #232526, #414345, #232526);
+}
+
+
+.app-container.dark .about-container {
+  background: linear-gradient(135deg, #232526, #414345);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  color: #f3f3f3;
+  border-radius: 12px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.app-container.dark .about-container h1 {
+  color: #ff4081;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.app-container.dark .about-container h2 {
+  color: #ff4081;
+  margin-top: 2rem;
+  font-size: 1.5rem;
+  border-left: 4px solid #ff4081;
+  padding-left: 0.5rem;
+}
+
+.app-container.dark .about-container p {
+  font-size: 1.05rem;
+  margin-top: 0.5rem;
+  color: #d7cbde;
+}
+
+.app-container.dark .about-container ul {
+  margin: 1rem 0;
+  padding-left: 1.2rem;
+}
+
+.app-container.dark .about-container li {
+  margin-bottom: 0.5rem;
+  position: relative;
+  padding-left: 1.5rem;
+  color: #e5d9f6;
+}
+
+.app-container.dark .about-container li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: #ff4081;
+}
+
+.app-container.dark .about-container a {
+  color: #ff4081;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.app-container.dark .about-container a:hover {
+  text-decoration: underline;
+  color: #ffb2db;
+}

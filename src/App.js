@@ -19,7 +19,7 @@ import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
-
+import Home  from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/login";
 
@@ -67,6 +67,7 @@ const handleReset = () => {
   }
 };
 
+
 function App() {
   const { t } = useTranslation();
 
@@ -88,6 +89,7 @@ function App() {
     const saved = localStorage.getItem("completedHabits");
     return saved ? JSON.parse(saved) : {};
   });
+  console.log("Completed state:", completed);
 
   const habitList = habitKeys.map(key => ({ key, label: t(`habits.${key}`) }));
 
@@ -211,10 +213,13 @@ function App() {
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
-        <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
-
-        <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
+        <Header 
+          toggleDarkMode={toggleDarkMode} 
+          darkMode={darkMode} 
+          habitList={editableHabits}
+        />
+        <Navbar  darkMode={darkMode} />
+        {/* <NotificationSettings habitList={editableHabits} darkMode={darkMode} /> */}
 
         <main>
           <Routes>
@@ -335,13 +340,29 @@ function App() {
                   </div>
                   <TreeGrowth
                     completedCount={totalCompleted}
+                path="/"
+                element={
+                  <Home
+                    editableHabits={editableHabits}
+                    completed={completed}
+                    handleCompletion={handleCompletion}
+                    handleHabitEdit={handleHabitEdit}
+                    habitEmojis={habitEmojis}
                     darkMode={darkMode}
+                    totalCompleted={totalCompleted}
+                    getWeekDates={getWeekDates}
+                    todayCompleted={todayCompleted}
+                    todayPercent={todayPercent}
+                    handleReset={handleReset}
+                    
                   />
                 </div>
                 <TreeGrowth completedCount={totalCompleted} />
               </div>
               }
             />
+                }
+              />
             <Route
               path="/summary"
               element={
@@ -362,9 +383,19 @@ function App() {
               }
             />
             <Route path="/About" element={<About />} />
+            <Route path="/About" element={<About  darkMode = {darkMode}/>} />
+            
             <Route path="/contact" element={<Contact />} />
+
+
+            <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+
+            <Route path="/login" element={<Login /> } />
+
             <Route path="/login" element={<Login />} />
+
             <Route path="/signup" element={<Signup />} />
+
           </Routes>
         </main>
 
