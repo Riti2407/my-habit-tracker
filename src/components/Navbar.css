@@ -6,7 +6,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #fff;
+  /* background-color:gainsboro; */
+  background: linear-gradient(120deg, #89f7fe, #66a6ff);
+
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
@@ -163,8 +165,70 @@
   box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
 }
 
+/* --- DARK MODE OVERRIDES FOR NAVBAR --- */
+.app-container.dark .navbar {
+  background: linear-gradient(120deg, #232526, #414345);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  transition: box-shadow 0.3s, background 0.3s;
+}
 
+.app-container.dark .navbar.scrolled {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.65);
+}
 
+.app-container.dark .nav-logo a{
+  color: #ff4081 !important;
+  text-decoration: none;
+}
+
+.app-container.dark .nav-links a {
+  color: #e5d9f6 !important;
+}
+
+.app-container.dark .nav-links a.active {
+  color: #ff4081 !important;
+}
+
+.app-container.dark .nav-links a::after {
+  background-color: #ff4081 !important;
+}
+
+/* Hamburger bars */
+.app-container.dark .hamburger .bar {
+  background-color: #e5d9f6;
+}
+
+/* Responsive nav background */
+@media (max-width: 768px) {
+  .app-container.dark .nav-links {
+    background-color: #2d2f36;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  }
+}
+
+/* Reset button dark mode */
+.app-container.dark .reset-btn {
+  background: linear-gradient(120deg, #ff4081, #232526);
+  color: #fff;
+  box-shadow: 0px 4px 15px rgba(255, 64, 129, 0.22);
+}
+
+.app-container.dark .reset-btn:hover {
+  background: linear-gradient(120deg, #ed0e6b, #414345);
+  box-shadow: 0px 6px 15px rgba(255, 64, 129, 0.35);
+}
+
+.app-container.dark .nav-links a {
+  color: #e5d9f6;
+}
+.app-container.dark .nav-links a.active,
+.app-container.dark .nav-links a:hover {
+  color: #ff4081;
+}
+.app-container.dark .nav-links a::after,
+.app-container.dark .nav-links a.active::after {
+  background-color: #ff4081;
+}
 
 
 

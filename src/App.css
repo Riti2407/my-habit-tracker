@@ -1,13 +1,14 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #fff;
+  /* background-color: #fff; */
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
   color: #333;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-container.dark {
-  background-color: #121212; /* Slightly softer than pure black */
+  background-color: #121212; /*Slightly softer than pure black*/
   color: #f0f0f0;
   overflow: visible;
 }
