@@ -13,11 +13,20 @@ import Foot from "./components/Foot";
 import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
+
+
+import Landing from "./components/Landing";
+import "./App.css";
+
+
+
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
 import Home  from "./components/Home";
+
 import Signup from "./components/Signup";
 import Login from "./components/login";
+
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -213,7 +222,34 @@ function App() {
 
         <main>
           <Routes>
+             <Route path="/" element={<Landing />} />
             <Route
+
+              path="/home"
+              element={
+                <div>
+                  <div className="trackers">
+                    {editableHabits.map((habit, idx) => (
+                      <TrackerCard
+                        key={idx}
+                        habit={habit}
+                        habitKey={habit.key}
+                        completedDays={completed[habit.key] || {}}
+                        onCheck={(date) => handleCompletion(habit.key, date)}
+                        weekDates={getWeekDates()}
+                        emoji={habitEmojis[habit.key]}
+                        onEdit={(newLabel) =>
+                          handleHabitEdit(habit.key, newLabel)
+                        }
+                        darkMode={darkMode}
+                      />
+                    ))}
+                  </div>
+                  <TreeGrowth completedCount={totalCompleted} />
+                </div>
+              }
+            />
+
                 path="/"
                 element={
                   <Home
@@ -232,6 +268,7 @@ function App() {
                   />
                 }
               />
+
             <Route
               path="/summary"
               element={
