@@ -1,9 +1,9 @@
 import React from "react";
 import "./About.css"; 
 
-const About = () => {
+const About = ({darkMode}) => {
   return (
-    <div className="about-container">
+     <div className={`about-container ${darkMode ? "dark" : ""}`}>
       <h1>About HabitTracker</h1>
       <p>
         HabitTracker is a simple yet powerful tool to help you build good habits

@@ -2,6 +2,7 @@
 
 .notification-toggle {
   animation: pulse 2s infinite;
+  position: relative;
 }
 
 .notification-toggle:hover {
