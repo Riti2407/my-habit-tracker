@@ -1,10 +1,16 @@
 /* ===== HEADER BASE ===== */
 .header {
   text-align: center;
-  padding: 0.75rem 1.5rem; /* reduced padding for better space usage */
+  padding: 0.75rem 1rem; /* ✅ reduced side padding */
   background-color: #f8a5d7;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.1); /* subtle separation */
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, border-color 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;         /* ✅ ensures header never overflows */
+  box-sizing: border-box;
+  overflow-x: hidden;  /* ✅ hides any tiny overflow */
 }
 
 .dark .header {
@@ -14,39 +20,42 @@
 
 /* ===== HEADER FLEX LAYOUT ===== */
 .headerDisplay {
- display: flex;
+  display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-  flex-wrap: wrap; /* allows wrapping for small screens */
+  flex-wrap: wrap;
+  max-width: 100%;  /* ✅ prevents flex children from overflowing */
 }
 
 /* ===== HEADER TITLE ===== */
 .header h1 {
   margin: 0;
-  flex: 1;
-  font-size: 1.8rem; /* improved hierarchy */
+  flex: 1 1 auto; /* ✅ allows shrinking */
+  min-width: 0;   /* ✅ fixes flex overflow issue */
+  font-size: 1.8rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   color: #222;
+  word-break: break-word; /* ✅ wrap long titles instead of overflowing */
 }
 
 .dark .header h1 {
-  color: #fff;
-  transition: color 0.3s ease; /* smooth mode switch */
+  color: #f0f0f0;
+  transition: color 0.3s ease;
 }
 
 /* ===== HEADER CONTROLS ===== */
 .header-controls {
   display: flex;
   align-items: center;
-  gap: 0.75rem; /* balanced spacing */
-  flex-wrap: wrap; /* prevent overflow on small screens */
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  min-width: 0;   /* ✅ prevents pushing layout wider */
 }
 
 /* ===== MODE TOGGLE BUTTON ===== */
 .mode-toggle {
-  margin-top: 0;
   padding: 0.4rem 1rem;
   font-size: 1rem;
   font-weight: 500;
@@ -55,8 +64,9 @@
   cursor: pointer;
   background-color: #cfdff7;
   color: #222;
-  box-shadow: 2px 2px 6px rgba(34, 8, 50, 0.3); /* softer, modern shadow */
+  box-shadow: 2px 2px 6px rgba(34, 8, 50, 0.3);
   transition: all 0.3s ease;
+  max-width: 100%; /* ✅ prevent overflow on small screens */
 }
 
 .mode-toggle:hover {
@@ -95,7 +105,17 @@
   }
 
   .mode-toggle {
-    width: 100%; /* full width on mobile for easy tapping */
-    max-width: 200px; /* prevent it from being too wide */
+    width: 100%;
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header h1 {
+    font-size: 1.4rem;
+  }
+
+  .headerDisplay {
+    gap: 0.5rem;
   }
 }
