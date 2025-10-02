@@ -13,6 +13,63 @@ This tracker helps you build consistency by logging your habits like **Sleep, Wa
 👉 [**Try It Out Here**](https://my-habit-tracker-k4bc.vercel.app/)
 
 ---
+# Project/ File Structure
+
+    📂 my-habit-tracker/\
+    │
+    ├── 📂 .github/\
+    │   ├── pull_request_template.md\
+    │   ├── 📂 Issue_Template/\
+    │   │   ├── bug_report.md\
+    │   │   ├── config.yml\
+    │   │   ├── custom_issue.md\
+    │   │   ├── documentation_issue.md\
+    │   │   └── feature_request.md\
+    │   │
+    │   └── 📂 workflows/\
+    │       └── deploy.yml\
+    │
+    ├── 📂 public/\
+    │   ├── favicon.ico\
+    │   ├── favicon.svg\
+    │   ├── index.html\
+    │   ├── logo192.png\
+    │   ├── logo512.png\
+    │   ├── manifest.json\
+    │   └── robots.txt\
+    │
+    ├── 📂 src/\
+    │   ├── 📂 components/\
+    │   │   ├── About.css\
+    │   │   ├── About.jsx\
+    │   │   ├── Auth.css\
+    │   │   ├── BackToTop.css\
+    │   │   ├── BackToTop.js\
+    │   │   └── ... (more components)\
+    │   │
+    │   ├── App.css\
+    │   ├── App.js\
+    │   ├── App.test.js\
+    │   ├── i18n.js\
+    │   ├── index.css\
+    │   ├── index.js\
+    │   ├── logo.svg\
+    │   ├── privacy.html\
+    │   ├── reportWebVitals.js\
+    │   ├── setupTests.js\
+    │   └── terms.html\
+    │
+    ├── .gitignore\
+    ├── CODE_OF_CONDUCT.md\
+    ├── Contributing.md\
+    ├── HabitStreakTracker.html\
+    ├── License\
+    ├── README.md\
+    ├── heatmap-demo.html\
+    ├── package-lock.json\
+    ├── package.json\
+    └── todolist.html\
+
 
 ## ✨ Features
 
@@ -26,6 +83,7 @@ This tracker helps you build consistency by logging your habits like **Sleep, Wa
   - **Study / Workout / Steps / Screen Time** → Hours, steps, yes/no, all with dates  
 
 ---
+
 
 ## 🛠️ Tech Stack
 
