@@ -1,20 +1,25 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import "./Header.css";
 import NotificationSettings from "./NotificationSettings";
 
-function Header({ toggleDarkMode, darkMode ,habitList: editableHabits}) {
-const { t, ready } = useTranslation();
+function Header({ toggleDarkMode, darkMode, habitList: editableHabits }) {
+  const { t, ready } = useTranslation();
   const [display, setDisplay] = useState("");
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   useEffect(() => {
     if (!ready) return;
-        const translated = t("header.title");
+    
+    const translated = t("header.title");
     const cleanedText = translated.trim();
-        if (!cleanedText) return;
-        setDisplay("");
-  
+    
+    if (!cleanedText) return;
+    
+    setDisplay("");
+    setIsTypingComplete(false);
+    
     const chars = Array.from(cleanedText);
     let i = 0;
     let currentDisplay = "";
@@ -25,6 +30,7 @@ const { t, ready } = useTranslation();
         setDisplay(currentDisplay);
         i++;
       } else {
+        setIsTypingComplete(true);
         clearInterval(interval);
       }
     }, 100);
@@ -34,27 +40,36 @@ const { t, ready } = useTranslation();
 
   if (!ready) return null;
 
-return (
-  <header className="header headerDisplay">
-    {/* Title */}
-    <h1>{display}</h1>
+  return (
+    <header className={`header ${darkMode ? "dark" : ""}`}>
+      <div className="headerDisplay">
+        {/* Enhanced Title with Typing Effect */}
+        <h1 className={isTypingComplete ? "typing-complete" : ""}>
+          {display}
+        </h1>
 
-    {/* Controls: Language switcher and dark mode toggle */}
-    <div className="header-controls">
-      <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
-      <LanguageSwitcher />
-      <button
-        className="mode-toggle toggleTransition"
-        onClick={toggleDarkMode}
-        aria-label="Toggle dark mode"
-      >
-        {darkMode ? t("header.lightMode") : t("header.darkMode")}
-      </button>
-      
-    </div>
-  </header>
-);
-
+        {/* Enhanced Controls */}
+        <div className="header-controls">
+          <NotificationSettings 
+            habitList={editableHabits} 
+            darkMode={darkMode} 
+          />
+          
+          <LanguageSwitcher />
+          
+          <button
+            className="mode-toggle"
+            onClick={toggleDarkMode}
+            aria-label="Toggle dark mode"
+            title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
+          >
+            {darkMode ? "☀️ " : "🌙 "}
+            {darkMode ? t("header.lightMode") : t("header.darkMode")}
+          </button>
+        </div>
+      </div>
+    </header>
+  );
 }
 
 export default Header;

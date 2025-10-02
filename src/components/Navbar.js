@@ -3,18 +3,30 @@ import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 const handleReset = () => {
-  if (window.confirm("Are you sure you want to reset everything?")) {
+  if (window.confirm("⚠️ Are you sure you want to reset everything? This action cannot be undone.")) {
     window.location.reload();
   }
 };
 
-const Navbar = ({darkMode}) => {
+const Navbar = ({ darkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMenuOpen && !event.target.closest('.navbar')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,29 +39,37 @@ const Navbar = ({darkMode}) => {
     };
   }, []);
 
-  return (
-    <nav className={`navbar  ${darkMode ? "dark" : ""}`}>
-      <div className="nav-logo">
-        <NavLink to="/">Habit Tracker</NavLink>
-      </div>
-      <div className={`hamburger ${isMenuOpen ? "active" : ""}`} onClick={toggleMenu}>
-        <span className="bar"></span>
-        <span className="bar"></span>
-        <span className="bar"></span>
-      </div>
-      <ul className={isMenuOpen ? "nav-links active" : "nav-links"}>
-        <li><NavLink to="/login" exact onClick={toggleMenu}>Login</NavLink></li>
-        <li><NavLink to="/signup" exact onClick={toggleMenu}>Signup</NavLink></li>
-        <li><NavLink to="/" exact onClick={toggleMenu}>Home</NavLink></li>
-        <li><NavLink to="/dashboard" onClick={toggleMenu}>Dashboard</NavLink></li>
-        <li><NavLink to="/summary" onClick={toggleMenu}>Monthly Summary</NavLink></li>
-        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
-        <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
-        <li><NavLink to="/contact" onClick={toggleMenu}>Contact Us</NavLink></li>
+  return (
+    <nav className={`navbar ${scrolled ? "scrolled" : ""} ${darkMode ? "dark" : ""}`}>
+      <div className="nav-logo">
+        <NavLink to="/" onClick={closeMenu}>✨ Habit Tracker</NavLink>
+      </div>
+      
+      <div 
+        className={`hamburger ${isMenuOpen ? "active" : ""}`} 
+        onClick={toggleMenu}
+        aria-label="Toggle navigation menu"
+      >
+        <span className="bar"></span>
+        <span className="bar"></span>
+        <span className="bar"></span>
+      </div>
+      
+      <ul className={isMenuOpen ? "nav-links active" : "nav-links"}>
+        <li><NavLink to="/" exact onClick={closeMenu}>🏠 Home</NavLink></li>
+        <li><NavLink to="/dashboard" onClick={closeMenu}>📊 Dashboard</NavLink></li>
+        <li><NavLink to="/summary" onClick={closeMenu}>📅 Summary</NavLink></li>
+        <li><NavLink to="/About" onClick={closeMenu}>ℹ️ About</NavLink></li>
+        <li><NavLink to="/contact" onClick={closeMenu}>📧 Contact</NavLink></li>
+        <li><NavLink to="/login" onClick={closeMenu}>🔐 Login</NavLink></li>
+        <li><NavLink to="/signup" onClick={closeMenu}>✍️ Signup</NavLink></li>
         <li>
-          <button onClick={handleReset} className="reset-btn">
-            Reset Page
+          <button onClick={() => { handleReset(); closeMenu(); }} className="reset-btn">
+            🔄 Reset
           </button>
         </li>
       </ul>
