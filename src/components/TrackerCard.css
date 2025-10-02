@@ -38,6 +38,18 @@
 
 .dark .TrackerCard {
   background-color: #222;
+  border-color: #444;}
+/* Dark mode version */
+.dark .tracker-card {
+  background-color: #1f1f1f;
+  border-color: #333;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+}
+
+.dark .tracker-card:hover {
+  background: linear-gradient(145deg, #222, #1a1a1a);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
+
   border-color: #444;
   color: #e0e0e0;
 }
@@ -117,6 +129,45 @@ input[type="checkbox"]:checked {
   margin-bottom: 15px;
   font-size: 1.2rem;
   color: var(--text-color);
+}
+
+/* Edit-btn */
+.edit-btn {
+  padding: 4px 16px;
+  margin-left: 0.5rem;
+    background: linear-gradient(90deg, #ff4081 20%, #f499b7 100%); 
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0px 2px 10px rgba(107, 70, 193, 0.17);
+  cursor: pointer;
+  transition: background 0.28s, box-shadow 0.28s, transform 0.19s;
+}
+
+.edit-btn:hover {
+  background: linear-gradient(90deg, #ff4081 20%, #f4c2d3 100%); 
+  box-shadow: 0px 3px 16px rgba(255, 64, 129, 0.21);
+  transform: translateY(-2px) scale(1.04);
+}
+
+.edit-btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0px 2px 8px rgba(107, 70, 193, 0.14);
+}
+
+/* Dark mode for Edit button */
+.app-container.dark .edit-btn {
+  /* background: linear-gradient(90deg, #ff4081 30%, #232526 97%); */
+  background: linear-gradient(90deg, #232526 0%, #414345 100%);
+  color: #fff;
+  box-shadow: 0px 2px 8px rgba(255, 64, 129, 0.12);
+  border: 1px solid #ff4081;
+}
+.app-container.dark .edit-btn:hover {
+  background: linear-gradient(90deg, #232526 20%, #ff4081 100%);
+  box-shadow: 0px 3px 16px rgba(255, 64, 129, 0.28);
 }
 
 .days-row {

@@ -2,8 +2,9 @@ import React, { useEffect, useState} from "react";
 import { useTranslation } from "react-i18next";
 import LanguageSwitcher from "./LanguageSwitcher";
 import "./Header.css";
+import NotificationSettings from "./NotificationSettings";
 
-function Header({ toggleDarkMode, darkMode }) {
+function Header({ toggleDarkMode, darkMode ,habitList: editableHabits}) {
 const { t, ready } = useTranslation();
   const [display, setDisplay] = useState("");
 
@@ -40,6 +41,7 @@ return (
 
     {/* Controls: Language switcher and dark mode toggle */}
     <div className="header-controls">
+      <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
       <LanguageSwitcher />
       <button
         className="mode-toggle toggleTransition"

@@ -15,7 +15,7 @@ import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
-
+import Home  from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/login";
 
@@ -56,6 +56,7 @@ const habitEmojis = {
   skincare: "🧴",
 };
 
+
 function App() {
   const { t } = useTranslation();
 
@@ -80,6 +81,7 @@ function App() {
     const saved = localStorage.getItem("completedHabits");
     return saved ? JSON.parse(saved) : {};
   });
+  console.log("Completed state:", completed);
 
   // Toggle dark mode
   const toggleDarkMode = () => setDarkMode((prev) => !prev);
@@ -201,123 +203,34 @@ function App() {
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
-        <Header toggleDarkMode={toggleDarkMode} darkMode={darkMode} />
-        <Navbar />
-
-        <NotificationSettings habitList={editableHabits} darkMode={darkMode} />
+        <Header 
+          toggleDarkMode={toggleDarkMode} 
+          darkMode={darkMode} 
+          habitList={editableHabits}
+        />
+        <Navbar  darkMode={darkMode} />
+        {/* <NotificationSettings habitList={editableHabits} darkMode={darkMode} /> */}
 
         <main>
           <Routes>
             <Route
               path="/"
               element={
-                <div>
-                  <div
-                    className="summary-section"
-                    style={{
-                      padding: "1rem",
-                      marginBottom: "2rem",
-                      textAlign: "center",
-                      backgroundColor: darkMode ? "#1f2937" : "#f9fafb",
-                      borderRadius: "1rem",
-                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-                    }}
-                  >
-                    <h2
-                      style={{ marginBottom: "0.5rem", fontSize: "1.5rem" }}
-                    >
-                      Weekly Progress: {totalCompleted}/
-                      {editableHabits.length * 7} completed
-                    </h2>
-                    <p
-                      style={{
-                        color: darkMode ? "#d1d5db" : "#6b7280",
-                        fontSize: "1rem",
-                        marginBottom: "1rem",
-                      }}
-                    >
-                      Today: {todayCompleted}/{editableHabits.length} habits (
-                      {todayPercent}%)
-                    </p>
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        gap: "1rem",
-                        alignItems: "center",
-                      }}
-                    >
-                      <div
-                        style={{
-                          padding: "0.5rem 1rem",
-                          backgroundColor: darkMode ? "#065f46" : "#ecfdf5",
-                          borderRadius: "0.5rem",
-                          fontSize: "0.875rem",
-                        }}
-                      >
-                        Week:{" "}
-                        {Math.round(
-                          (totalCompleted / (editableHabits.length * 7)) * 100
-                        )}
-                        %
-                      </div>
-                      <button
-                        onClick={handleReset}
-                        style={{
-                          padding: "0.5rem 1rem",
-                          backgroundColor: "#ef4444",
-                          color: "white",
-                          border: "none",
-                          borderRadius: "0.5rem",
-                          cursor: "pointer",
-                          fontSize: "0.875rem",
-                        }}
-                      >
-                        Reset Week
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="week-header mb-4 text-center">
-                    <p
-                      style={{
-                        fontSize: "0.875rem",
-                        color: darkMode ? "#d1d5db" : "#6b7280",
-                      }}
-                    >
-                      Week of{" "}
-                      {new Date(getWeekDates()[0]).toLocaleDateString()} -{" "}
-                      {new Date(getWeekDates()[6]).toLocaleDateString()}
-                    </p>
-                  </div>
-
-                  <div className="trackers">
-                    {editableHabits.map((habit, idx) => (
-                      <TrackerCard
-                        key={idx}
-                        habit={habit}
-                        habitKey={habit.key}
-                        completedDays={completed[habit.key] || {}}
-                        onCheck={(dateString) =>
-                          handleCompletion(habit.key, dateString)
-                        }
-                        weekDates={getWeekDates()}
-                        emoji={habitEmojis[habit.key]}
-                        onEdit={(newLabel) =>
-                          handleHabitEdit(habit.key, newLabel)
-                        }
-                        darkMode={darkMode}
-                      />
-                    ))}
-                  </div>
-                  <TreeGrowth
-                    completedHabits={completed}
-                    habitKeys={editableHabits.map(h => h.key)}
-                    darkMode={darkMode}
-                  />
-                </div>
+                <Home
+                  editableHabits={editableHabits}
+                  completed={completed}
+                  handleCompletion={handleCompletion}
+                  handleHabitEdit={handleHabitEdit}
+                  habitEmojis={habitEmojis}
+                  darkMode={darkMode}
+                  totalCompleted={totalCompleted}
+                  getWeekDates={getWeekDates}
+                  todayCompleted={todayCompleted}
+                  todayPercent={todayPercent}
+                  handleReset={handleReset}
+                />
               }
-            />
+              />
             <Route
               path="/summary"
               element={
@@ -338,10 +251,12 @@ function App() {
               }
             />
             <Route path="/About" element={<About />} />
+            <Route path="/About" element={<About  darkMode = {darkMode}/>} />
+            
             <Route path="/contact" element={<Contact />} />
 
 
-              <Route path="/contact" element={<Contact darkMode={darkMode} />} />
+            <Route path="/contact" element={<Contact darkMode={darkMode} />} />
 
             <Route path="/login" element={<Login /> } />
 
