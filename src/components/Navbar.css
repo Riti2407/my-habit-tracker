@@ -64,9 +64,11 @@
   padding: 0;
   gap: 0.5rem;
 }
+
 .nav-links li {
   margin: 0;
 }
+
 .nav-links a {
   text-decoration: none;
   color: #1f2937;
@@ -93,10 +95,7 @@
 .nav-links a:hover::before {
   opacity: 1;
 }
-.nav-links a:focus {
-  outline: 2px solid #6b46c1;
-  border-radius: 4px;
-}
+
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -109,10 +108,12 @@
   border-radius: 2px;
   transition: width 0.3s ease;
 }
+
 .nav-links a:hover::after,
 .nav-links a.active::after {
   width: 60%;
 }
+
 .nav-links a.active {
   color: #6b46c1;
   font-weight: 700;
@@ -168,7 +169,7 @@
   box-shadow: 0 4px 12px rgba(237, 14, 107, 0.3);
 }
 
-/* Hamburger Menu */
+/* Hamburger Menu Icon */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -179,6 +180,7 @@
   z-index: 101;
   position: relative;
 }
+
 .hamburger .bar {
   width: 100%;
   height: 3px;
@@ -206,7 +208,6 @@
     padding: 0;
     margin: 0;
     max-height: 0;
-    opacity: 0;
     overflow: hidden;
     transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
@@ -238,10 +239,12 @@
   .hamburger.active .bar:nth-child(1) {
     transform: translateY(10px) rotate(45deg);
   }
+
   .hamburger.active .bar:nth-child(2) {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-10px) rotate(-45deg);
   }
@@ -289,12 +292,15 @@
 .app-container.dark .nav-links a::after {
   background: linear-gradient(90deg, #ff4081, #fbbf24);
 }
+
 .app-container.dark .nav-links a.active {
   color: #ff4081;
 }
-.app-container.dark .nav-links a::after {
-  background-color: #ff4081 !important;
+
+.app-container.dark .nav-links a:hover {
+  color: #fbbf24;
 }
+
 .app-container.dark .hamburger .bar {
   background: linear-gradient(90deg, #ff4081, #fbbf24);
   box-shadow: 0 2px 4px rgba(255, 64, 129, 0.4);
@@ -315,6 +321,7 @@
   background: linear-gradient(135deg, #ff4081, #ed0e6b);
   box-shadow: 0 4px 12px rgba(255, 64, 129, 0.4);
 }
+
 .app-container.dark .reset-btn:hover {
   background: linear-gradient(135deg, #ff73b3, #ff4081);
   box-shadow: 0 6px 20px rgba(255, 64, 129, 0.5);
