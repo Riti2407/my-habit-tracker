@@ -3,6 +3,18 @@
 .notification-toggle {
   animation: pulse 2s infinite;
   position: relative;
+
+  display: flex;               /* ✅ ensures icon stays centered */
+  align-items: center;         /* ✅ vertical alignment */
+  justify-content: center;     /* ✅ horizontal alignment */
+
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .notification-toggle:hover {
@@ -17,15 +29,9 @@
 }
 
 @keyframes pulse {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .notification-settings-overlay {
@@ -56,8 +62,6 @@
   }
   
   .notification-toggle {
-    top: 15px !important;
-    right: 15px !important;
     width: 45px !important;
     height: 45px !important;
     font-size: 18px !important;
