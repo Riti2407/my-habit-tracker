@@ -4,7 +4,7 @@ import "./TrackerCard.css";
 
 function computeStreaks(dates) {
   if (!dates || dates.length === 0)
-    return { currentStreak: 0, bestStreak: 0, streakDates: new Set() };
+    return { currentStreak: 0, bestStreak: 0, bestStreakDates: new Set() };
   const sorted = [...dates].sort();
   let currentStreak = 1;
   let bestStreak = 1;
@@ -30,7 +30,7 @@ function computeStreaks(dates) {
     bestStreak = currentStreak;
     bestStreakDates = [...streakDates];
   }
-  return { currentStreak, bestStreak, streakDates: new Set(bestStreakDates) };
+  return { currentStreak, bestStreak, bestStreakDates: new Set(bestStreakDates) };
 }
 
 function TrackerCard({
@@ -51,8 +51,8 @@ function TrackerCard({
   const completedDates = Object.keys(completedDays || {}).filter(
     (d) => completedDays[d]
   );
-  const { currentStreak, bestStreak, streakDates: streakDateSet } =
-    computeStreaks(completedDates);
+ const { currentStreak, bestStreak, bestStreakDates } = computeStreaks(completedDates);
+
 
   if (!ready) return null;
 
@@ -64,125 +64,95 @@ function TrackerCard({
   };
 
   return (
-    <div
-      style={{
-        padding: "1.25rem",
-        borderRadius: "1rem",
-        boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
-        transition: "transform 0.3s",
-        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
-        color: darkMode ? "#f9fafb" : "#111827",
-        cursor: "pointer",
-      }}
-      onMouseEnter={(e) =>
-        (e.currentTarget.style.transform = "translateY(-8px)")
-      }
-      onMouseLeave={(e) =>
-        (e.currentTarget.style.transform = "translateY(0)")
-      }
-    >
-      {/* Habit name with edit option */}
-      <h3
-        style={{
-          fontSize: "1.125rem",
-          fontWeight: 600,
-          marginBottom: "0.75rem",
-        }}
-      >
-        {emoji}{" "}
-        {isEditing ? (
-          <>
-            <input
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-            />
-            <button
-              onClick={() => {
-                onEdit(inputValue);
-                setIsEditing(false);
-              }}
-            >
-              Save
-            </button>
-            <button onClick={() => setIsEditing(false)}>Cancel</button>
-          </>
-        ) : (
-          <>
-            {habit?.label || habit}{" "}
-            {onEdit && (
-              <button
-                className="edit-btn"
-                onClick={() => setIsEditing(true)}
-                style={{ marginLeft: "0.5rem" }}
-              >
-                Edit
-              </button>
-            )}
-          </>
-        )}
-      </h3>
-
-      {/* Streak badges */}
-      <div style={{ display: "flex", gap: "0.5rem", marginBottom: "1rem" }}>
-        <span className="streak-badge">
-          🔥 {t("Current Streak")}: {currentStreak}
-        </span>
-        <span className="best-streak-badge">
-          🏆 {t("Best Streak")}: {bestStreak}
-        </span>
+    <div className={`tracker-card ${darkMode ? "dark" : ""}`}>
+      {/* Card Header */}
+      <div className="card-header">
+        <div className="habit-name-section">
+          <span className="habit-emoji">{emoji}</span>
+          {isEditing ? (
+            <div className="edit-mode">
+              <input
+                className="habit-input"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                autoFocus
+              />
+              <div className="edit-buttons">
+                <button
+                  className="save-btn"
+                  onClick={() => {
+                    onEdit(inputValue);
+                    setIsEditing(false);
+                  }}
+                >
+                  ✓
+                </button>
+                <button
+                  className="cancel-btn"
+                  onClick={() => setIsEditing(false)}
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <h3 className="habit-name">{habit?.label || habit}</h3>
+              {onEdit && (
+                <button
+                  className="edit-icon-btn"
+                  onClick={() => setIsEditing(true)}
+                  title="Edit habit name"
+                >
+                  ✏️
+                </button>
+              )}
+            </>
+          )}
+        </div>
       </div>
 
-      {/* Days checkboxes with streak highlight & today's highlight */}
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "0.5rem",
-          marginBottom: "1rem",
-        }}
-      >
+      {/* Streak Badges */}
+      <div className="streak-container">
+        <div className="streak-badge current">
+          <span className="badge-icon">🔥</span>
+          <div className="badge-content">
+            <span className="badge-label">{t("Current Streak")}</span>
+            <span className="badge-value">{currentStreak}</span>
+          </div>
+        </div>
+        <div className="streak-badge best">
+          <span className="badge-icon">🏆</span>
+          <div className="badge-content">
+            <span className="badge-label">{t("Best Streak")}</span>
+            <span className="badge-value">{bestStreak}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Days Grid */}
+      <div className="days-grid">
         {(weekDates || []).map((dateString) => {
           const label = getDayLabel(dateString);
           const isDone = !!completedDays[dateString];
-          const inStreak = streakDateSet.has(dateString);
+     const inStreak = bestStreakDates?.has(dateString);
+
           const isToday = dateString === todayString;
+          
           return (
             <label
               key={dateString}
-              className={`card-day-label${isToday ? " today" : ""}${inStreak ? " streak" : ""}`}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.25rem",
-                cursor: "pointer",
-                fontWeight: isToday ? "bold" : "normal",
-                color: isToday ? "#ff4081" : undefined,
-                borderBottom: isToday ? "2px solid #ff4081" : "",
-              }}
+              className={`day-checkbox ${isDone ? "checked" : ""} ${isToday ? "today" : ""} ${inStreak ? "in-streak" : ""}`}
             >
               <input
                 type="checkbox"
                 checked={isDone}
                 onChange={() => onCheck(dateString)}
-                style={{
-                  width: "1.25rem",
-                  height: "1.25rem",
-                  borderRadius: "0.25rem",
-                  border: "1px solid",
-                  borderColor: isDone ? "#22c55e" : "#d1d5db",
-                  backgroundColor: isDone ? "#22c55e" : "#e5e7eb",
-                  outline: inStreak ? "2px solid tomato" : "none",
-                  transition: "all 0.2s",
-                }}
               />
-              <span style={{
-                fontSize: "0.875rem",
-                userSelect: "none",
-                fontWeight: isToday ? "bold" : undefined,
-                color: isToday ? "#ff4081" : undefined
-              }}>
-                {label}
-              </span>
+              <div className="checkbox-custom">
+                {isDone && <span className="checkmark">✓</span>}
+              </div>
+              <span className="day-label">{label}</span>
             </label>
           );
         })}
