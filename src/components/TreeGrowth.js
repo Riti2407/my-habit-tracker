@@ -10,9 +10,10 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (ready && completedHabits && habitKeys) {
+    if (ready && completedHabits && habitKeys && habitKeys.length > 0) {
       const newData = calculateStreaks(completedHabits, habitKeys);
       
+      // Check for stage change before updating data
       if (data && newData.growthStage !== data.growthStage) {
         if (getLevel(newData.growthStage) > getLevel(data.growthStage)) {
           setMessage(getCongrats(newData.growthStage, newData.currentStreak));
@@ -24,14 +25,28 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
       setData(newData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [completedHabits, habitKeys, ready]);
+  }, [completedHabits, habitKeys, ready]); // Removed data from dependencies to prevent loop
   const getLevel = (stage) => {
     const levels = { empty: 0, seed: 1, sprout: 2, tree: 3, blossom: 4 };
     return levels[stage] || 0;
   };
 
   if (!ready || !data) {
-    return null;
+    return (
+      <div style={{
+        marginTop: "2rem",
+        padding: "1.5rem",
+        textAlign: "center",
+        backgroundColor: darkMode ? "#1f2937" : "#ffffff",
+        borderRadius: "1rem",
+        boxShadow: darkMode ? "0 4px 12px rgba(255,255,255,0.05)" : "0 4px 12px rgba(0,0,0,0.1)"
+      }}>
+        <div style={{ fontSize: "2rem", marginBottom: "1rem" }}>🌱</div>
+        <p style={{ color: darkMode ? "#d1d5db" : "#6b7280" }}>
+          Loading your habit tree...
+        </p>
+      </div>
+    );
   }
 
   const info = data.stageInfo;
@@ -104,15 +119,16 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
       </h2>
 
       <motion.div
-        key={data.growthStage}
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ 
-          type: "spring",
-          stiffness: 200,
-          damping: 20,
-          duration: 0.6 
+        animate={{ 
+          scale: [0.8, 1.1, 1],
+          opacity: [0, 1, 1]
         }}
+        transition={{ 
+          duration: 0.8,
+          ease: "easeOut",
+          times: [0, 0.6, 1]
+        }}
+        key={`tree-${data.growthStage}`}
         style={{
           fontSize: "4rem",
           marginBottom: "1rem",
@@ -122,9 +138,9 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
         {info.emoji}
       </motion.div>
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.5 }}
       >
         <h3 
           style={{ 
@@ -147,7 +163,12 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
         </p>
       </motion.div>
 
-      <div style={{ marginBottom: "1rem" }}>
+      <motion.div 
+        style={{ marginBottom: "1rem" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.6, duration: 0.5 }}
+      >
         <div 
           style={{ 
             display: "flex", 
@@ -186,7 +207,7 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
             Next: {info.requirement}
           </p>
         )}
-      </div>
+      </motion.div>
       <div
         style={{
           height: "0.6rem",
@@ -198,9 +219,9 @@ function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
         }}
       >
         <motion.div
-          initial={{ width: 0 }}
+          initial={{ width: "0%" }}
           animate={{ width: getProgressPercentage(data.currentStreak, data.growthStage) }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
           style={{
             height: "100%",
             background: `linear-gradient(90deg, ${info.color}, ${info.color}aa)`,
