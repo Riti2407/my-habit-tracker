@@ -173,7 +173,11 @@ useEffect(() => {
           />
         ))}
       </div>
-      <TreeGrowth completedCount={totalCompleted} darkMode={darkMode} />
+      <TreeGrowth 
+        completedHabits={completed} 
+        habitKeys={editableHabits.map(h => h.key)}
+        darkMode={darkMode} 
+      />
     </div>
   );
 };

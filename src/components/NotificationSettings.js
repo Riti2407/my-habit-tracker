@@ -5,7 +5,7 @@ import notificationManager from "./NotificationManager";
 import "./NotificationSettings.css";
 
 const NotificationSettings = ({ habitList, darkMode }) => {
-  const { t, ready } = useTranslation();
+  const { ready } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [permission, setPermission] = useState('default');
   const [habitSettings, setHabitSettings] = useState({});
@@ -136,20 +136,23 @@ const NotificationSettings = ({ habitList, darkMode }) => {
         onClick={() => setIsOpen(!isOpen)}
         title={isBlocked ? "Notifications Blocked - Click for help" : "Notification Settings"}
         style={{
-            width: '40px',
-            height: '40px',
-            borderRadius: '50%',
-            border: 'none',
-            backgroundColor: isBlocked
-              ? '#ef4444'
-              : (darkMode ? '#374151' : '#f3f4f6'),
-            color: darkMode ? '#f9fafb' : '#111827',
-            fontSize: '20px',
-            cursor: 'pointer',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-            transition: 'all 0.3s ease',
-          }}
-
+          position: 'fixed',
+          top: '70px',
+          right: '20px',
+          width: '40px',
+          height: '40px',
+          borderRadius: '50%',
+          border: 'none',
+          backgroundColor: isBlocked 
+            ? '#ef4444' 
+            : (darkMode ? '#374151' : '#f3f4f6'),
+          color: darkMode ? '#f9fafb' : '#111827',
+          fontSize: '20px',
+          cursor: 'pointer',
+          boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+          zIndex: 999,
+          transition: 'all 0.3s ease',
+        }}
       >
         {isBlocked ? '🔔❌' : '🔔'}
       </button>

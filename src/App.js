@@ -3,17 +3,13 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import Header from "./components/Header";
-import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
 import Dashboard from "./components/Dashboard";
-import Footer from "./components/Footer";
 import About from "./components/About";
 import Foot from "./components/Foot";
-import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
-import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
 import Home  from "./components/Home";
 import Signup from "./components/Signup";
@@ -214,23 +210,22 @@ function App() {
         <main>
           <Routes>
             <Route
-                path="/"
-                element={
-                  <Home
-                    editableHabits={editableHabits}
-                    completed={completed}
-                    handleCompletion={handleCompletion}
-                    handleHabitEdit={handleHabitEdit}
-                    habitEmojis={habitEmojis}
-                    darkMode={darkMode}
-                    totalCompleted={totalCompleted}
-                    getWeekDates={getWeekDates}
-                    todayCompleted={todayCompleted}
-                    todayPercent={todayPercent}
-                    handleReset={handleReset}
-                    
-                  />
-                }
+              path="/"
+              element={
+                <Home
+                  editableHabits={editableHabits}
+                  completed={completed}
+                  handleCompletion={handleCompletion}
+                  handleHabitEdit={handleHabitEdit}
+                  habitEmojis={habitEmojis}
+                  darkMode={darkMode}
+                  totalCompleted={totalCompleted}
+                  getWeekDates={getWeekDates}
+                  todayCompleted={todayCompleted}
+                  todayPercent={todayPercent}
+                  handleReset={handleReset}
+                />
+              }
               />
             <Route
               path="/summary"
