@@ -81,79 +81,130 @@ const Home = ({
   const allDates = getAllTrackedDates(completed); // ["YYYY-MM-DD", ...] covering all history
   const overallStreak = getOverallStreak(completed, editableHabits, allDates);
 
-  //const dailyStreak = getDailyStreak(completed, weekDates, editableHabits);
-
   // Show encouragement/notification when all or no habits done today
-useEffect(() => {
-  const todayKey = new Date().toISOString().split("T")[0];
+  useEffect(() => {
+    const todayKey = new Date().toISOString().split("T")[0];
 
-  // Keys for today’s alerts
-  const startedKey = `startedAlert-${todayKey}`;
-  const finishedKey = `finishedAlert-${todayKey}`;
+    // Keys for today's alerts
+    const startedKey = `startedAlert-${todayKey}`;
+    const finishedKey = `finishedAlert-${todayKey}`;
 
-  if (
-    todayCompletedCount === editableHabits.length &&
-    editableHabits.length > 0 &&
-    !localStorage.getItem(finishedKey)
-  ) {
-    alert("Awesome! You finished all habits today! 🎉");
-    localStorage.setItem(finishedKey, "true");
-  } else if (
-    todayCompletedCount === 0 &&
-    editableHabits.length > 0 &&
-    !localStorage.getItem(startedKey)
-  ) {
-    alert("Let's start a habit today! 🚀");
-    localStorage.setItem(startedKey, "true");
-  }
-}, [todayCompletedCount, editableHabits.length]);
+    if (
+      todayCompletedCount === editableHabits.length &&
+      editableHabits.length > 0 &&
+      !localStorage.getItem(finishedKey)
+    ) {
+      alert("Awesome! You finished all habits today! 🎉");
+      localStorage.setItem(finishedKey, "true");
+    } else if (
+      todayCompletedCount === 0 &&
+      editableHabits.length > 0 &&
+      !localStorage.getItem(startedKey)
+    ) {
+      alert("Let's start a habit today! 🚀");
+      localStorage.setItem(startedKey, "true");
+    }
+  }, [todayCompletedCount, editableHabits.length]);
 
   return (
-    <div>
-      {/* Daily Completed Habits + Progress Bar */}
-      <div className={`summary-section ${darkMode ? " dark" : ""}`}>
-        <h2 className="summary-title">
-          You completed {todayCompletedCount}/{editableHabits.length} habits today!
-        </h2>
-        <div className="summary-progress-bar">
-          <div
-            className="summary-progress"
-            style={{ width: `${todayPercent}%` }}
-          ></div>
+    <div className="home-container">
+      {/* Hero Section with Daily Progress */}
+      <div className={`hero-section ${darkMode ? "dark" : ""}`}>
+        <div className="hero-content">
+          <div className="progress-circle-container">
+            <svg className="progress-ring" width="180" height="180">
+              <circle
+                className="progress-ring-bg"
+                cx="90"
+                cy="90"
+                r="75"
+              />
+              <circle
+                className="progress-ring-fill"
+                cx="90"
+                cy="90"
+                r="75"
+                style={{
+                  strokeDasharray: `${2 * Math.PI * 75}`,
+                  strokeDashoffset: `${2 * Math.PI * 75 * (1 - todayPercent / 100)}`
+                }}
+              />
+              <text x="90" y="85" className="progress-text-number">
+                {todayPercent}%
+              </text>
+              <text x="90" y="105" className="progress-text-label">
+                Today
+              </text>
+            </svg>
+          </div>
+          
+          <div className="hero-info">
+            <h1 className="hero-title">
+              {todayCompletedCount === editableHabits.length && editableHabits.length > 0 
+                ? "🎉 Perfect Day!" 
+                : todayCompletedCount === 0 && editableHabits.length > 0
+                ? "🚀 Let's Begin!"
+                : "Keep Going!"}
+            </h1>
+            <p className="hero-subtitle">
+              {todayCompletedCount} of {editableHabits.length} habits completed
+            </p>
+            
+            {/* Streak Badge */}
+            {overallStreak > 0 && (
+              <div className="hero-streak">
+                <span className="streak-number">{overallStreak}</span>
+                <span className="streak-label">Day Streak</span>
+                <span className="streak-flame">🔥</span>
+              </div>
+            )}
+          </div>
         </div>
-        <div style={{ marginTop: "0.75rem" }}>
-          {todayCompletedCount === editableHabits.length && editableHabits.length > 0 ? (
-            <span className="motivation-message">
-              Awesome! You finished all habits today! 🎉
+
+        {/* Week Stats Bar */}
+        <div className="week-stats-bar">
+          <div className="week-stat-item">
+            <span className="stat-label">Week Progress</span>
+            <span className="stat-value">
+              {Math.round((totalCompleted / (editableHabits.length * 7)) * 100)}%
             </span>
-          ) : todayCompletedCount === 0 && editableHabits.length > 0 ? (
-            <span className="motivation-message">
-              Let's start a habit today! 🚀
+          </div>
+          <div className="week-stat-divider"></div>
+          <div className="week-stat-item">
+            <span className="stat-label">Week Range</span>
+            <span className="stat-value week-dates">
+              {new Date(weekDates[0]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(weekDates[6]).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
             </span>
-          ) : null}
-        </div>
-        <div >
-          <span className="daily-streak-badge">
-            <b>Streak:</b> {overallStreak}
-            { overallStreak > 0 && <span className="flame">🔥</span>}
-          </span>
-        </div>
-        <div className="summary-stats">
-          <div className="summary-week-box">
-            Week: {Math.round((totalCompleted / (editableHabits.length * 7)) * 100)}%
           </div>
           <button className="reset-week-btn" onClick={handleReset}>
+            <span className="reset-icon">↻</span>
             Reset Week
           </button>
         </div>
       </div>
 
-      {/* Week range */}
-      <div className="week-header mb-4 text-center">
-        <p className="week-range">
-          Week of {new Date(weekDates[0]).toLocaleDateString()} -{" "}
-          {new Date(weekDates[6]).toLocaleDateString()}
-        </p>
+      {/* Habits Grid */}
+      <div className="habits-section">
+        <h2 className="section-title">
+          <span className="title-icon">📋</span>
+          Your Habits
+        </h2>
+        <div className="trackers">
+          {editableHabits.map((habit, idx) => (
+            <TrackerCard
+              key={idx}
+              habit={habit}
+              habitKey={habit.key}
+              completedDays={completed[habit.key] || {}}
+              onCheck={dateString => handleCompletion(habit.key, dateString)}
+              weekDates={weekDates}
+              emoji={habitEmojis[habit.key]}
+              onEdit={newLabel => handleHabitEdit(habit.key, newLabel)}
+              darkMode={darkMode}
+              todayString={todayString}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Tracker cards, pass todayString for highlight */}
@@ -173,6 +224,7 @@ useEffect(() => {
           />
         ))}
       </div>
+      {/* Tree Growth Section with enhanced functionality */}
       <TreeGrowth 
         completedHabits={completed} 
         habitKeys={editableHabits.map(h => h.key)}

@@ -1,229 +1,387 @@
-.TrackerCard {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 16px; /* slightly more rounded */
-  padding: 1.25rem;
-  margin: 0.5rem;
-  width: 280px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.TrackerCard {
-  /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.3s ease;
-  cursor: pointer;
-
-}
-
-.TrackerCard:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: linear-gradient(145deg, #fefefe, #f0f0f0);
-}
-
-
-.dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;}
-/* Dark mode version */
-.dark .tracker-card {
-  background-color: #1f1f1f;
-  border-color: #333;
-  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
-}
-
-.dark .tracker-card:hover {
-  background: linear-gradient(145deg, #222, #1a1a1a);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);}
-
-.dark .TrackerCard {
-  background-color: #222;
-  border-color: #444;}
-/* Dark mode version */
-.dark .tracker-card {
-  background-color: #1f1f1f;
-  border-color: #333;
-  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
-}
-
-.dark .tracker-card:hover {
-  background: linear-gradient(145deg, #222, #1a1a1a);
-  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.1);
-
-  border-color: #444;
-  color: #e0e0e0;
-}
-
-.dark .TrackerCard h3 {
-  color: #e0e0e0;
-}
-
-.dark .days-row span {
-  color: #b0b0b0;
-}
-
-.days-row {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-}
-
-.days-row label {
-  width: 30%;
-  display: flex;
-  align-items: center;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
-  transition: color 0.3s;
-}
-
-.dark .days-row label {
-  color: #e5e5e5;
-}
-
-input[type="checkbox"] {
-  accent-color: #4caf50; /* Subtle green check */
-  margin-right: 5px;
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-  transition: transform 0.15s ease;
-}
-
-input[type="checkbox"]:checked {
-  transform: scale(1.1); /* small pop effect */
-}
-
-/* Progress bar container */
-.progress {
-  height: 0.5rem;
-  width: 100%;
-  background-color: #e0e0e0;
-  border-radius: 9999px;
+.tracker-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
   overflow: hidden;
-  margin-top: 0.75rem;
 }
 
-.dark .progress {
-  background-color: #333;
+.tracker-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-/* Progress indicator */
-.progress > div {
-  height: 100%;
-  background-color: #4caf50;
-  transition: width 0.3s ease;
-}
-.TrackerCard {
-  background-color: var(--card-bg);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--border-color);
-  margin-bottom: 20px;
+.tracker-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(102, 126, 234, 0.2);
 }
 
-.TrackerCard h3 {
-  margin-top: 0;
-  margin-bottom: 15px;
-  font-size: 1.2rem;
-  color: var(--text-color);
+.tracker-card:hover::before {
+  opacity: 1;
 }
 
-/* Edit-btn */
-.edit-btn {
-  padding: 4px 16px;
-  margin-left: 0.5rem;
-    background: linear-gradient(90deg, #ff4081 20%, #f499b7 100%); 
-  color: #fff;
-  font-weight: 600;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0px 2px 10px rgba(107, 70, 193, 0.17);
-  cursor: pointer;
-  transition: background 0.28s, box-shadow 0.28s, transform 0.19s;
+.tracker-card.dark {
+  background: #1f2937;
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-.edit-btn:hover {
-  background: linear-gradient(90deg, #ff4081 20%, #f4c2d3 100%); 
-  box-shadow: 0px 3px 16px rgba(255, 64, 129, 0.21);
-  transform: translateY(-2px) scale(1.04);
+.tracker-card.dark:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
 }
 
-.edit-btn:active {
-  transform: translateY(0) scale(0.98);
-  box-shadow: 0px 2px 8px rgba(107, 70, 193, 0.14);
+/* ==================== CARD HEADER ==================== */
+.card-header {
+  margin-bottom: 1.5rem;
 }
 
-/* Dark mode for Edit button */
-.app-container.dark .edit-btn {
-  /* background: linear-gradient(90deg, #ff4081 30%, #232526 97%); */
-  background: linear-gradient(90deg, #232526 0%, #414345 100%);
-  color: #fff;
-  box-shadow: 0px 2px 8px rgba(255, 64, 129, 0.12);
-  border: 1px solid #ff4081;
-}
-.app-container.dark .edit-btn:hover {
-  background: linear-gradient(90deg, #232526 20%, #ff4081 100%);
-  box-shadow: 0px 3px 16px rgba(255, 64, 129, 0.28);
-}
-
-.days-row {
+.habit-name-section {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  gap: 0.75rem;
 }
 
-.days-row label {
+.habit-emoji {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.habit-name {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  flex: 1;
+  line-height: 1.3;
+}
+
+.tracker-card.dark .habit-name {
+  color: #f9fafb;
+}
+
+.edit-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  padding: 0.25rem;
+  opacity: 0.6;
+  transition: all 0.3s ease;
+  border-radius: 0.5rem;
+}
+
+.edit-icon-btn:hover {
+  opacity: 1;
+  transform: scale(1.1);
+  background: rgba(102, 126, 234, 0.1);
+}
+
+/* Edit Mode */
+.edit-mode {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.habit-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #667eea;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.habit-input:focus {
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.tracker-card.dark .habit-input {
+  background: #374151;
+  color: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.edit-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.save-btn,
+.cancel-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.save-btn {
+  background: #10b981;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #059669;
+  transform: scale(1.1);
+}
+
+.cancel-btn {
+  background: #ef4444;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* ==================== STREAK BADGES ==================== */
+.streak-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.streak-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+}
+
+.streak-badge.current {
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border: 2px solid #fbbf24;
+}
+
+.streak-badge.best {
+  background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+  border: 2px solid #60a5fa;
+}
+
+.tracker-card.dark .streak-badge.current {
+  background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+  border-color: #fbbf24;
+}
+
+.tracker-card.dark .streak-badge.best {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  border-color: #60a5fa;
+}
+
+.badge-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.badge-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #6b7280;
+}
+
+.tracker-card.dark .badge-label {
+  color: #d1d5db;
+}
+
+.badge-value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #1f2937;
+}
+
+.tracker-card.dark .badge-value {
+  color: #f9fafb;
+}
+
+/* ==================== DAYS GRID ==================== */
+.days-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 0.75rem;
+}
+
+.day-checkbox {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 0.5rem;
   cursor: pointer;
-  font-size: 0.9rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  background: #f9fafb;
+  border: 2px solid transparent;
+  position: relative;
 }
 
-/* Styling for the day label text (e.g., "Mon") */
-.days-row span {
-  margin-top: 5px;
-  color: var(--text-secondary);
-  font-weight: 500;
+.tracker-card.dark .day-checkbox {
+  background: #374151;
 }
 
-/* Custom checkbox styles */
-.days-row input[type="checkbox"] {
-  -webkit-appearance: none;
-  appearance: none;
-  background-color: var(--bg-color);
-  margin: 0;
-  font: inherit;
-  color: currentColor;
-  width: 2em;
-  height: 2em;
-  border: 2px solid var(--border-color);
-  border-radius: 50%; /* Make it circular */
-  transform: translateY(0);
-  display: grid;
-  place-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+.day-checkbox:hover {
+  background: #f3f4f6;
+  transform: translateY(-2px);
 }
 
-.days-row input[type="checkbox"]::before {
-  content: "";
-  width: 1em;
-  height: 1em;
+.tracker-card.dark .day-checkbox:hover {
+  background: #4b5563;
+}
+
+.day-checkbox.today {
+  background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+  border-color: #ec4899;
+}
+
+.tracker-card.dark .day-checkbox.today {
+  background: linear-gradient(135deg, #831843 0%, #9f1239 100%);
+  border-color: #f472b6;
+}
+
+.day-checkbox.in-streak {
+  border-color: #f97316;
+  box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1);
+}
+
+.day-checkbox input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.checkbox-custom {
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  transform: scale(0);
-  transition: 120ms transform ease-in-out;
-  box-shadow: inset 1em 1em var(--accent-color);
+  border: 3px solid #d1d5db;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
-.days-row input[type="checkbox"]:checked {
-  border-color: var(--accent-color);
+.tracker-card.dark .checkbox-custom {
+  background: #1f2937;
+  border-color: #6b7280;
 }
 
-.days-row input[type="checkbox"]:checked::before {
-  transform: scale(1);
+.day-checkbox.checked .checkbox-custom {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  border-color: #10b981;
+  transform: scale(1.1);
+}
+
+.checkmark {
+  color: white;
+  font-size: 1.25rem;
+  font-weight: bold;
+  animation: checkmarkPop 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes checkmarkPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.day-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tracker-card.dark .day-label {
+  color: #d1d5db;
+}
+
+.day-checkbox.today .day-label {
+  color: #ec4899;
+  font-weight: 700;
+}
+
+.day-checkbox.checked .day-label {
+  color: #10b981;
+}
+
+.tracker-card.dark .day-checkbox.checked .day-label {
+  color: #34d399;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .days-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  
+  .tracker-card {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .days-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .day-checkbox {
+    padding: 0.5rem 0.25rem;
+  }
+  
+  .checkbox-custom {
+    width: 28px;
+    height: 28px;
+  }
+  
+  .day-label {
+    font-size: 0.75rem;
+  }
+  
+  .streak-container {
+    grid-template-columns: 1fr;
+  }
 }

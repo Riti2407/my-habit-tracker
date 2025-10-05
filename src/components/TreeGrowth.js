@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { motion, AnimatePresence } from "framer-motion";
 import { calculateStreaks, getCongrats } from "../utils/streakCalculator";
+import "./TreeGrowth.css";
 
 function TreeGrowth({ completedHabits, habitKeys, darkMode }) {
   const { t, ready } = useTranslation();
