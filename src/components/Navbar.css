@@ -1,25 +1,22 @@
 /* General Navbar styles */
 .navbar {
-  position: relative;
-  overflow: visible;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  /* background-color:gainsboro; */
   background: linear-gradient(120deg, #89f7fe, #66a6ff);
-
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .navbar.scrolled {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Logo */
 .nav-logo {
   font-size: 1.8rem;
   font-weight: 700;
@@ -27,11 +24,11 @@
   text-decoration: none;
   transition: transform 0.3s ease;
 }
-
 .nav-logo:hover {
   transform: scale(1.05);
 }
 
+/* Links */
 .nav-links {
   display: flex;
   align-items: center;
@@ -39,21 +36,22 @@
   margin: 0;
   padding: 0;
 }
-
 .nav-links li {
-  margin-left: 2.5rem;
+  margin-left: 2rem;
 }
-
 .nav-links a {
   text-decoration: none;
   color: #343a40;
   font-size: 1rem;
   font-weight: 500;
-  padding: 0.5rem 0;
+  padding: 0.5rem 0.75rem;
   position: relative;
   transition: color 0.3s ease;
 }
-
+.nav-links a:focus {
+  outline: 2px solid #6b46c1;
+  border-radius: 4px;
+}
 .nav-links a::after {
   content: '';
   position: absolute;
@@ -64,18 +62,16 @@
   background-color: #6b46c1;
   transition: width 0.3s ease;
 }
-
 .nav-links a:hover::after,
 .nav-links a.active::after {
   width: 100%;
 }
-
 .nav-links a.active {
   color: #6b46c1;
   font-weight: 600;
 }
 
-/* Hamburger Menu Icon */
+/* Hamburger Menu */
 .hamburger {
   display: none;
   cursor: pointer;
@@ -84,7 +80,6 @@
   width: 28px;
   height: 22px;
 }
-
 .hamburger .bar {
   width: 100%;
   height: 3px;
@@ -100,20 +95,24 @@
     top: 100%;
     left: 0;
     width: 100%;
-    background-color: #fffbfb;
+    background-color: #ffffff;
     flex-direction: column;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 0;
     margin: 0;
     max-height: 0;
+    opacity: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    transform: translateY(-10px);
+    transition: max-height 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .nav-links.active {
-    max-height: 500px; /* Adjust as needed */
-    padding: 1.5rem 0;
+    max-height: 500px; /* expand */
+    opacity: 1;
+    transform: translateY(0);
+    padding: 1rem 0;
   }
 
   .nav-links li {
@@ -127,24 +126,23 @@
   .hamburger.active .bar:nth-child(1) {
     transform: translateY(8px) rotate(45deg);
   }
-
   .hamburger.active .bar:nth-child(2) {
     opacity: 0;
   }
-
   .hamburger.active .bar:nth-child(3) {
     transform: translateY(-8px) rotate(-45deg);
   }
 
   .nav-logo {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 
+/* Reset Button */
 .reset-btn {
   transition: all 0.3s ease;
   box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
-  background: linear-gradient( #ed0e6b);
+  background: linear-gradient(#ed0e6b, #ff4081);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -153,49 +151,51 @@
   font-weight: 500;
   cursor: pointer;
 }
-
 .reset-btn:hover {
-  background: linear-gradient(#ff73b3);
+  background: linear-gradient(#ff73b3, #ed0e6b);
   box-shadow: 0px 6px 15px rgba(168, 85, 247, 0.6);
   transform: translateY(-2px);
 }
-
 .reset-btn:active {
   transform: translateY(0);
   box-shadow: 0px 4px 10px rgba(168, 85, 247, 0.4);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* .navbar {
-  color: black;
-  background-color: white;
-} */
+/* Dark Mode */
+.app-container.dark .navbar {
+  background: linear-gradient(120deg, #232526, #414345);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+}
+.app-container.dark .navbar.scrolled {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.65);
+}
+.app-container.dark .nav-logo a {
+  color: #ff4081 !important;
+}
+.app-container.dark .nav-links a {
+  color: #e5d9f6 !important;
+}
+.app-container.dark .nav-links a.active {
+  color: #ff4081 !important;
+}
+.app-container.dark .nav-links a::after {
+  background-color: #ff4081 !important;
+}
+.app-container.dark .hamburger .bar {
+  background-color: #e5d9f6;
+}
+@media (max-width: 768px) {
+  .app-container.dark .nav-links {
+    background-color: #2d2f36;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  }
+}
+.app-container.dark .reset-btn {
+  background: linear-gradient(120deg, #ff4081, #232526);
+  color: #fff;
+  box-shadow: 0px 4px 15px rgba(255, 64, 129, 0.22);
+}
+.app-container.dark .reset-btn:hover {
+  background: linear-gradient(120deg, #ed0e6b, #414345);
+  box-shadow: 0px 6px 15px rgba(255, 64, 129, 0.35);
+}

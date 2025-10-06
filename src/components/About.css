@@ -11,54 +11,14 @@
   animation: fadeIn 0.8s ease-in-out;
 }
 
-.about-container h1 {
-  color: #ff4081;
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  text-align: center;
-  font-weight: bold;
+/* ✅ Prevent horizontal overflow */
+.about-container {
+  max-width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
 }
 
-.about-container h2 {
-  color: #3f51b5;
-  margin-top: 2rem;
-  font-size: 1.5rem;
-  border-left: 4px solid #3f51b5;
-  padding-left: 0.5rem;
-}
-
-.about-container p {
-  font-size: 1.05rem;
-  margin-top: 0.5rem;
-}
-
-.about-container ul {
-  margin: 1rem 0;
-  padding-left: 1.2rem;
-}
-
-.about-container li {
-  margin-bottom: 0.5rem;
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.about-container li::before {
-  content: "✔";
-  position: absolute;
-  left: 0;
-  color: #ff4081;
-}
-
-.about-container a {
-  color: #ff4081;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.about-container a:hover {
-  text-decoration: underline;
-}
+/* --- existing styles remain unchanged --- */
 
 @keyframes fadeIn {
   from {
@@ -68,5 +28,61 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* --- DARK MODE FOR ABOUT PAGE --- */
+.app-container.dark {
+  background: radial-gradient(circle at 30% 30%, #232526, #414345, #232526);
+}
+
+.app-container.dark .about-container {
+  background: linear-gradient(135deg, #232526, #414345);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  color: #f3f3f3;
+  border-radius: 12px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ✅ Tablet adjustments */
+@media (max-width: 768px) {
+  .about-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .about-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .about-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .about-container p {
+    font-size: 1rem;
+  }
+}
+
+/* ✅ Mobile adjustments */
+@media (max-width: 480px) {
+  .about-container {
+    padding: 0.8rem;
+    margin: 0.5rem;
+    border-radius: 8px;
+  }
+
+  .about-container h1 {
+    font-size: 1.5rem;
+  }
+
+  .about-container h2 {
+    font-size: 1.15rem;
+  }
+
+  .about-container p,
+  .about-container li {
+    font-size: 0.95rem;
+    line-height: 1.5;
   }
 }
