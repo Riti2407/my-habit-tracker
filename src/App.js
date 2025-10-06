@@ -6,16 +6,17 @@ import Header from "./components/Header";
 import TreeGrowth from "./components/TreeGrowth";
 import Navbar from "./components/Navbar";
 import MonthlySummary from "./components/MonthlySummary";
-import Dashboard from "./components/Dashboard";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Foot from "./components/Foot";
+// import withI18nReady from "./components/withI18nReady";
 import TrackerCard from "./components/TrackerCard";
+import "./App.css";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
-import Home  from "./components/Home";
+import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/login";
 
@@ -55,7 +56,6 @@ const habitEmojis = {
   goalSetting: "🎯",
   skincare: "🧴",
 };
-
 
 function App() {
   const { t } = useTranslation();
@@ -203,35 +203,34 @@ function App() {
   return (
     <Router>
       <div className={`app-container ${darkMode ? "dark" : ""}`}>
-        <Header 
-          toggleDarkMode={toggleDarkMode} 
-          darkMode={darkMode} 
+        <Header
+          toggleDarkMode={toggleDarkMode}
+          darkMode={darkMode}
           habitList={editableHabits}
         />
-        <Navbar  darkMode={darkMode} />
+        <Navbar darkMode={darkMode} />
         {/* <NotificationSettings habitList={editableHabits} darkMode={darkMode} /> */}
 
         <main>
           <Routes>
             <Route
-                path="/"
-                element={
-                  <Home
-                    editableHabits={editableHabits}
-                    completed={completed}
-                    handleCompletion={handleCompletion}
-                    handleHabitEdit={handleHabitEdit}
-                    habitEmojis={habitEmojis}
-                    darkMode={darkMode}
-                    totalCompleted={totalCompleted}
-                    getWeekDates={getWeekDates}
-                    todayCompleted={todayCompleted}
-                    todayPercent={todayPercent}
-                    handleReset={handleReset}
-                    
-                  />
-                }
-              />
+              path="/"
+              element={
+                <Home
+                  editableHabits={editableHabits}
+                  completed={completed}
+                  handleCompletion={handleCompletion}
+                  handleHabitEdit={handleHabitEdit}
+                  habitEmojis={habitEmojis}
+                  darkMode={darkMode}
+                  totalCompleted={totalCompleted}
+                  getWeekDates={getWeekDates}
+                  todayCompleted={todayCompleted}
+                  todayPercent={todayPercent}
+                  handleReset={handleReset}
+                />
+              }
+            />
             <Route
               path="/summary"
               element={
@@ -252,19 +251,17 @@ function App() {
               }
             />
             <Route path="/About" element={<About />} />
-            <Route path="/About" element={<About  darkMode = {darkMode}/>} />
-            
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/About" element={<About darkMode={darkMode} />} />
 
+            <Route path="/contact" element={<Contact />} />
 
             <Route path="/contact" element={<Contact darkMode={darkMode} />} />
 
-            <Route path="/login" element={<Login /> } />
+            <Route path="/login" element={<Login />} />
 
             <Route path="/login" element={<Login />} />
 
             <Route path="/signup" element={<Signup />} />
-
           </Routes>
         </main>
 

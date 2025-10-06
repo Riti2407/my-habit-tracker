@@ -244,18 +244,104 @@
 
 /* Animations */
 @keyframes spin {
-  0% { transform: rotate(0); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes pop {
-  0% { transform: scale(0); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* CSS FOR DARK MODE */
+
+.dark .contact-wrapper {
+  background: radial-gradient(circle at 20% 20%, #1a1a1a, #222222, #2b2b2b);
+}
+
+.dark .floating-ring {
+  border-color: rgba(255, 150, 180, 0.15); /* soft pinkish rings for energy */
+}
+
+.dark .contact-container {
+  background: rgba(35, 35, 35, 0.9);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 150, 180, 0.1);
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.65);
+  transition: all 0.3s ease;
+}
+
+.dark .contact-container h2 {
+  color: #ff9ab8; /* soft, energetic pink */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.dark .contact-container p {
+  color: #e0e0e0;
+}
+
+.dark .contact-form label {
+  color: #f2a3b5; /* soft pink for guidance */
+}
+
+.dark .contact-form input,
+.dark .contact-form textarea {
+  background: rgba(60, 60, 60, 0.75);
+  color: #f0f0f0 !important;
+  box-shadow: inset 0px 0px 6px rgba(255, 150, 180, 0.08);
+  transition: all 0.3s ease;
+}
+
+.dark .contact-form input:focus,
+.dark .contact-form textarea:focus {
+  background: rgba(85, 85, 85, 0.85);
+  color: #ffffff !important;
+  box-shadow: 0px 0px 15px rgba(255, 130, 170, 0.25); /* subtle pink glow */
+}
+
+.dark .contact-form input::placeholder,
+.dark .contact-form textarea::placeholder {
+  color: #dca4b8; /* gentle pinkish placeholder */
+}
+
+.dark .submit-btn {
+  background: linear-gradient(135deg, #ff7ca9, #ff5f91) !important;
+  color: #ffffff !important;
+  box-shadow: 0px 4px 18px rgba(255, 120, 170, 0.5) !important;
+  transition: all 0.3s ease;
+}
+
+.dark .submit-btn:hover {
+  background: linear-gradient(135deg, #ff8db4, #ff6c9e) !important;
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0px 6px 22px rgba(255, 120, 170, 0.6) !important;
+}
+
+.dark .success-message {
+  color: #ffc0d1; /* soft celebratory pink */
+}
+
+.dark .checkmark {
+  color: #ff9ab8;
 }
 /* Success message */
 .success-message {

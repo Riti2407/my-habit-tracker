@@ -1,5 +1,5 @@
 import React from "react";
-import "./About.css"; 
+import "./About.css";
 
 const About = ({darkMode}) => {
   return (
@@ -29,8 +29,10 @@ const About = ({darkMode}) => {
       <h2>Contact Us</h2>
       <p>
         Have questions, feedback, or suggestions ? Feel free to{" "}
-        <a href="/contact">reach out to us</a>. 
-        We’d love to hear from you..!!
+        <a href="/contact" style={{ textDecoration: "underline" }}>
+          reach out to us
+        </a>
+        . We’d love to hear from you..!!
       </p>
     </div>
   );
