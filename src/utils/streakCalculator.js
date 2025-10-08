@@ -79,9 +79,13 @@ export function calculateStreaks(habits, keys) {
 export function getStage(streak) {
   if (streak === 0) return 'empty';
   if (streak >= 1 && streak <= 2) return 'seed';
-  if (streak >= 3 && streak <= 4) return 'sprout';
-  if (streak >= 5 && streak <= 6) return 'tree';
-  if (streak >= 7) return 'blossom';
+  if (streak >= 3 && streak <= 6) return 'sprout';
+  if (streak >= 7 && streak <= 13) return 'sapling';
+  if (streak >= 14 && streak <= 20) return 'tree';
+  if (streak >= 21 && streak <= 29) return 'mature_tree';
+  if (streak >= 30 && streak <= 49) return 'flowering_tree';
+  if (streak >= 50 && streak <= 99) return 'fruit_tree';
+  if (streak >= 100) return 'ancient_tree';
   return 'empty';
 }
 
@@ -90,52 +94,101 @@ export function getStageInfo(stage) {
     empty: {
       emoji: '🕳️',
       name: 'Empty Plot',
-      description: 'Start your habit journey!',
+      description: 'Ready to plant your first habit',
       color: '#9ca3af',
       bgColor: '#f3f4f6',
       message: 'Plant your first seed by completing a habit!',
       nextStage: 'seed',
-      requirement: 'Complete 1 habit'
+      requirement: 'Complete 1 habit',
+      pot: null
     },
     seed: {
       emoji: '🌱',
       name: 'Seed',
-      description: 'A small beginning',
+      description: 'A small beginning with great potential',
       color: '#22c55e',
       bgColor: '#dcfce7',
       message: 'Great start! Keep going to see growth!',
       nextStage: 'sprout',
-      requirement: 'Maintain 3-day streak'
+      requirement: 'Maintain 3-day streak',
+      pot: '🏺'
     },
     sprout: {
       emoji: '🌿',
       name: 'Sprout',
-      description: 'Growing strong',
+      description: 'Young shoots reaching for the light',
       color: '#16a34a',
       bgColor: '#bbf7d0',
       message: 'Your habits are taking root!',
+      nextStage: 'sapling',
+      requirement: 'Maintain 7-day streak',
+      pot: '🪴'
+    },
+    sapling: {
+      emoji: '🌲',
+      name: 'Young Sapling',
+      description: 'Growing stronger each day',
+      color: '#15803d',
+      bgColor: '#86efac',
+      message: 'Excellent progress! You\'re building consistency!',
       nextStage: 'tree',
-      requirement: 'Maintain 5-day streak'
+      requirement: 'Maintain 14-day streak',
+      pot: '🏺'
     },
     tree: {
       emoji: '🌳',
-      name: 'Tree',
-      description: 'Well established',
-      color: '#15803d',
+      name: 'Healthy Tree',
+      description: 'Well established and thriving',
+      color: '#166534',
       bgColor: '#86efac',
-      message: 'Excellent consistency! You\'re thriving!',
-      nextStage: 'blossom',
-      requirement: 'Maintain 7-day streak'
+      message: 'Amazing consistency! You\'re truly thriving!',
+      nextStage: 'mature_tree',
+      requirement: 'Maintain 21-day streak',
+      pot: '🏺'
     },
-    blossom: {
+    mature_tree: {
+      emoji: '🌲',
+      name: 'Mature Tree',
+      description: 'Strong and resilient',
+      color: '#14532d',
+      bgColor: '#4ade80',
+      message: 'Incredible! Your habits are deeply rooted!',
+      nextStage: 'flowering_tree',
+      requirement: 'Maintain 30-day streak',
+      pot: '🏺'
+    },
+    flowering_tree: {
       emoji: '🌸',
-      name: 'Blossoming Tree',
-      description: 'Full bloom',
+      name: 'Flowering Tree',
+      description: 'Beautiful blooms of consistency',
       color: '#ec4899',
       bgColor: '#fce7f3',
-      message: 'Amazing! You\'ve mastered your habits!',
+      message: 'Spectacular! Your dedication is blooming!',
+      nextStage: 'fruit_tree',
+      requirement: 'Maintain 50-day streak',
+      pot: '🏺'
+    },
+    fruit_tree: {
+      emoji: '🌺',
+      name: 'Fruit-bearing Tree',
+      description: 'Harvesting the rewards of consistency',
+      color: '#dc2626',
+      bgColor: '#fef2f2',
+      message: 'Outstanding! You\'re reaping what you\'ve sown!',
+      nextStage: 'ancient_tree',
+      requirement: 'Maintain 100-day streak',
+      pot: '🏺'
+    },
+    ancient_tree: {
+      emoji: '🌳',
+      name: 'Ancient Wisdom Tree',
+      description: 'A living legend of consistency',
+      color: '#7c2d12',
+      bgColor: '#fed7aa',
+      message: 'LEGENDARY! You\'ve achieved habit mastery!',
       nextStage: null,
-      requirement: 'Habit master!'
+      requirement: 'Habit Legend!',
+      pot: '🏺'
     }
   };
   
@@ -145,8 +198,12 @@ export function getCongrats(stage, streak) {
   const messages = {
     seed: `🎉 You planted your first seed! ${streak}-day streak!`,
     sprout: `🌱 Your habits are sprouting! ${streak}-day streak!`,
-    tree: `🌳 You've grown into a strong tree! ${streak}-day streak!`,
-    blossom: `🌸 Magnificent! Your habits are in full bloom! ${streak}-day streak!`
+    sapling: `🌲 Growing into a strong sapling! ${streak}-day streak!`,
+    tree: `🌳 You've grown into a mighty tree! ${streak}-day streak!`,
+    mature_tree: `🌲 Your tree has matured beautifully! ${streak}-day streak!`,
+    flowering_tree: `🌸 Magnificent blooms of consistency! ${streak}-day streak!`,
+    fruit_tree: `🌺 Your tree bears the fruits of dedication! ${streak}-day streak!`,
+    ancient_tree: `🌳 LEGENDARY! An ancient tree of wisdom! ${streak}-day streak!`
   };
   
   return messages[stage] || `Great job! ${streak}-day streak!`;

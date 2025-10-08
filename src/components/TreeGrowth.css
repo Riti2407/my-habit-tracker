@@ -85,6 +85,29 @@
 .blossom-glow {
   animation: glow 2s ease-in-out infinite;
 }
+
+@keyframes ancient-glow {
+  0%, 100% { 
+    filter: drop-shadow(0 0 15px rgba(124, 45, 18, 0.4));
+  }
+  50% { 
+    filter: drop-shadow(0 0 25px rgba(124, 45, 18, 0.7));
+  }
+}
+
+.ancient-glow {
+  animation: ancient-glow 3s ease-in-out infinite;
+}
+
+@keyframes pot-bounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+.tree-pot {
+  animation: pot-bounce 2s ease-in-out infinite;
+}
+
 .tree-tooltip {
   position: relative;
   cursor: help;
@@ -122,6 +145,73 @@
   border-top-color: rgba(0, 0, 0, 0.9);
 }
 
+.stats-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+}
+
+.stats-toggle:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.achievement-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  animation: badge-pulse 2s ease-in-out infinite;
+}
+
+@keyframes badge-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+  }
+  50% { 
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.5);
+  }
+}
+
+.weekly-progress {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.25rem;
+  margin-top: 0.5rem;
+}
+
+.weekly-day {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  background-color: #e5e7eb;
+}
+
+.weekly-day.completed {
+  background-color: #22c55e;
+}
+
+.tree-stage-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  font-size: 0.7rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 @media (max-width: 640px) {
   .tree {
     font-size: 3rem;
@@ -136,5 +226,17 @@
   .congratulations-popup {
     top: -3rem;
     font-size: 0.8rem;
+  }
+  
+  .achievement-badge {
+    top: 5px;
+    right: 5px;
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+  
+  .tree-stage-legend {
+    font-size: 0.6rem;
   }
 }
