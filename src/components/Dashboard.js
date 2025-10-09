@@ -61,7 +61,7 @@ const Dashboard = ({ habitList, completedData, habitEmojis }) => {
       stats: calculateHabitStats(habit.key),
       emoji: habitEmojis[habit.key] || '📊'
     }));
-  }, [habitList, completedData, habitEmojis, calculateHabitStats]);
+  }, [habitList, completedData, habitEmojis]);
 
   // Prepare line chart data for selected habit
   const getLineChartData = () => {
