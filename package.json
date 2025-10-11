@@ -10,6 +10,7 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "bootstrap-icons": "^1.13.1",
+    "chart.js": "^4.5.0",
     "i18next": "^23.0.0",
     "i18next-browser-languagedetector": "^7.0.0",
     "mime": "^4.0.7",
