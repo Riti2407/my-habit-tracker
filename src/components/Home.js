@@ -207,8 +207,29 @@ const Home = ({
         </div>
       </div>
 
-      {/* Tree Growth Section */}
-      <TreeGrowth completedCount={totalCompleted} darkMode={darkMode} />
+      {/* Tracker cards, pass todayString for highlight */}
+      <div className="trackers">
+        {editableHabits.map((habit, idx) => (
+          <TrackerCard
+            key={idx}
+            habit={habit}
+            habitKey={habit.key}
+            completedDays={completed[habit.key] || {}}
+            onCheck={dateString => handleCompletion(habit.key, dateString)}
+            weekDates={weekDates}
+            emoji={habitEmojis[habit.key]}
+            onEdit={newLabel => handleHabitEdit(habit.key, newLabel)}
+            darkMode={darkMode}
+            todayString={todayString}
+          />
+        ))}
+      </div>
+      {/* Tree Growth Section with enhanced functionality */}
+      <TreeGrowth 
+        completedHabits={completed} 
+        habitKeys={editableHabits.map(h => h.key)}
+        darkMode={darkMode} 
+      />
     </div>
   );
 };
