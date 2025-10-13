@@ -144,11 +144,11 @@
 
   font-size: 2rem;
   margin-bottom: 10px;
-  color: var(--text-color);
+  color: black;
 }
 
 .contact-container p {
-  color: var(--text-color);
+  color: rgb(168, 37, 65);
   margin-bottom: 25px;
   font-size: 1rem;
 }
@@ -163,7 +163,7 @@
   display: block;
   font-weight: 600;
   margin-bottom: 8px;
-  color: var(--text-color);
+  color: black;
 }
 
 /* Inputs & textarea */
@@ -175,7 +175,7 @@
   border-radius: 12px;
   font-size: 14px;
   outline: none;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255,0.5);
   color: rgb(73, 66, 66);
   box-shadow: inset 0px 0px 5px rgba(255, 255, 255, 0.3);
   transition: all 0.3s ease;
