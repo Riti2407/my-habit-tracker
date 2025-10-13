@@ -68,7 +68,7 @@
   color: #ff4081;
 }
 :root{
-  --text-color: #ff4081;
+  --text-color: #551a8b;
 
   --text-color2: #511010;
 }
@@ -141,7 +141,6 @@
 
 /* Heading */
 .contact-container h2 {
-
   font-size: 2rem;
   margin-bottom: 10px;
   color: var(--text-color);
