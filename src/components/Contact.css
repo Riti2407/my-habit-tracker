@@ -69,17 +69,15 @@
 }
 :root{
   --text-color: #ff4081;
-
   --text-color2: #511010;
+  --light-bg: #ff9a9e;
+  --dark-bg: #232526;
+  --shadow-color: rgba(0, 0, 0, 0.3);
 }
 /* Background animation */
 .contact-wrapper {
   min-height: 100vh;
   background: radial-gradient(circle at 20% 20%, #ff9a9e, #fad0c4, #a6c1ee);
-/* DARK MODE STYLES: Place at end for proper override */
-.app-container.dark .contact-wrapper {
-  background: radial-gradient(circle at 20% 20%, #232526, #414345, #232526);
-}
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,6 +85,12 @@
   position: relative;
   overflow: hidden;
 }
+  
+/* DARK MODE STYLES: Place at end for proper override */
+.app-container.dark .contact-wrapper {
+  background: radial-gradient(circle at 20% 20%, #232526, #414345, #232526);
+}
+
 
 /* Floating rings */
 .floating-ring {
@@ -121,36 +125,54 @@
 
 /* Contact card with glass effect */
 .contact-container {
-  width: 100%;
-  max-width: 600px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  padding: 35px;
-  padding-right: 65px;
-  border-radius: 20px;
-  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.05); /* transparent glass-like bg */
+  backdrop-filter: blur(8px);            /* adds frosted effect */
+  border-radius: 15px;
+  padding: 30px;
   text-align: center;
-  transform-style: preserve-3d;
-  transition: transform 0.3s ease;
+  box-shadow: 
+    0 0 25px rgba(255, 64, 129, 0.35),  /* bright pink glow */
+    0 0 50px rgba(255, 64, 129, 0.25),  /* softer spread */
+    0 0 40px rgba(0, 0, 0, 0.5);        /* depth shadow */
+  border: 1px solid rgba(255, 64, 129, 0.3);
+  transition: all 0.3s ease;
 }
 
 .contact-container:hover {
   transform: rotateX(5deg) rotateY(-5deg);
+  transform: scale(1.02);
 }
 
 /* Heading */
 .contact-container h2 {
+  font-size: 2.4rem;
+  letter-spacing: 1px;
+  text-align: center;
+  color: #ff4081;
+  text-shadow: 0 0 15px rgba(255, 64, 129, 0.6), 0 0 30px rgba(255, 64, 129, 0.3);
+  margin-bottom: 20px;
+  position: relative;
+  text-shadow: 0 0 25px rgba(255, 64, 129, 0.9);
+  transition: all 0.3s ease-in-out;
+}
 
-  font-size: 2rem;
-  margin-bottom: 10px;
-  color: var(--text-color);
+.contact-container h2::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #ff4081, #ff6fa5);
+  margin: 10px auto 0;
+  border-radius: 10px;
 }
 
 .contact-container p {
-  color: var(--text-color);
-  margin-bottom: 25px;
-  font-size: 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+  text-shadow: 0 0 5px rgba(255, 64, 129, 0.3);
+  margin-bottom: 30px;
 }
 
 /* Form styling */
