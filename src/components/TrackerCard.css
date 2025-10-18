@@ -1,14 +1,22 @@
+/* Added soft pink-blue gradient and hover effect to dashboard cards for a consistent look with tracker cards */
+
 .tracker-card {
-  background: white;
-  border-radius: 1.5rem;
-  padding: 1.75rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  position: relative;
-  overflow: hidden;
+  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  padding: 22px;
+  color: #2f2f2f;
+  transition: all 0.35s ease;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.tracker-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 10px 25px rgba(255, 182, 193, 0.4);
+}
+
+/* ......................issue 193 ...................................... */
 .tracker-card::before {
   content: '';
   position: absolute;
