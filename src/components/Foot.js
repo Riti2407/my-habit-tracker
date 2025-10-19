@@ -14,7 +14,7 @@ const Foot = () => {
         <nav style={{ marginBottom: '15px' }}>
           <Link to="/" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Home</Link>
           <Link to="/about" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>About</Link>
-          <Link to="/add-habit" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Contact</Link>
+          <Link to="/contact" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }} onClick={()=>window.scrollTo({top:0,behavior:"smooth"})}>Contact</Link>
           {/* <Link to="/privacy" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Privacy Policy</Link>
           <Link to="/terms" style={{ color: '#ccc', margin: '0 10px', textDecoration: 'none' }}>Terms</Link> */}
         </nav>
