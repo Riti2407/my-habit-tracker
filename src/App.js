@@ -18,6 +18,7 @@ import notificationManager from "./components/NotificationManager";
 import Home  from "./components/Home";
 import Signup from "./components/Signup";
 import Login from "./components/login";
+import Chatbot from "./components/Chatbot/Chatbot";
 
 // --- HABIT KEYS + EMOJIS ---
 const habitKeys = [
@@ -261,6 +262,7 @@ function App() {
 
         <Foot />
         <BackToTop />
+        <Chatbot />
       </div>
     </Router>
   );
