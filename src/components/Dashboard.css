@@ -189,6 +189,13 @@
   padding: 1rem;
   background: var(--bg-light, #f8f9fa);
   border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.weekly-habit:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .habit-emoji {
@@ -241,6 +248,13 @@
   padding: 1rem;
   background: var(--bg-light, #f8f9fa);
   border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.period-habit:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .period-habit-header {
@@ -308,6 +322,13 @@
   border-radius: 12px;
   text-align: center;
   box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 .insight-card h3 {

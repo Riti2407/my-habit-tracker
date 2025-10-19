@@ -68,7 +68,7 @@
   color: #ff4081;
 }
 :root{
-  --text-color: #ff4081;
+  --text-color: #551A8B;
   --text-color2: #511010;
   --light-bg: #ff9a9e;
   --dark-bg: #232526;
@@ -145,27 +145,10 @@
 
 /* Heading */
 .contact-container h2 {
-  font-size: 2.4rem;
-  letter-spacing: 1px;
-  text-align: center;
-  color: #ff4081;
-  text-shadow: 0 0 15px rgba(255, 64, 129, 0.6), 0 0 30px rgba(255, 64, 129, 0.3);
-  margin-bottom: 20px;
-  position: relative;
-  text-shadow: 0 0 25px rgba(255, 64, 129, 0.9);
-  transition: all 0.3s ease-in-out;
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
 }
-
-.contact-container h2::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 3px;
-  background: linear-gradient(90deg, #ff4081, #ff6fa5);
-  margin: 10px auto 0;
-  border-radius: 10px;
-}
-
 .contact-container p {
   text-align: center;
   font-size: 1.1rem;
