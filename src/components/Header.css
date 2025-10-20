@@ -16,6 +16,21 @@
 .dark .header {
   background-color: #444;
   border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 2px 12px rgba(255, 182, 193, 0.08); /* Subtle separation */
+}
+.dark .header a {
+  color: #f3f3f3;
+  transition: color 0.2s;
+}
+
+.dark .header a:hover {
+  color: #ff6ec4;
+  text-decoration: underline;
+}
+
+.dark .header .reset-btn {
+  box-shadow: 0 0 8px #ff6ec4;
+  border: none;
 }
 
 /* ===== HEADER FLEX LAYOUT ===== */
@@ -41,7 +56,8 @@
 }
 
 .dark .header h1 {
-  color: #f0f0f0;
+  color: #ffd6fa; /* Brighter accent for title */
+  text-shadow: 0 2px 8px rgba(255, 182, 193, 0.15); /* Soft glow */
   transition: color 0.3s ease;
 }
 

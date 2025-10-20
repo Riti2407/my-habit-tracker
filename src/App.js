@@ -266,12 +266,10 @@ function App() {
             <Route path="/profile" element={<Profile />} />
 
 
+
+            <Route path="/About" element={<About darkMode={darkMode} />} />
             <Route path="/contact" element={<Contact darkMode={darkMode} />} />
-
-            <Route path="/login" element={<Login /> } />
-
             <Route path="/login" element={<Login />} />
-
             <Route path="/signup" element={<Signup />} />
 
 

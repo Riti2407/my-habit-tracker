@@ -47,6 +47,7 @@ const Navbar = ({darkMode}) => {
         <li><NavLink to="/about" onClick={toggleMenu}>About</NavLink></li>
 
         <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
+
         <li><NavLink to="/About" onClick={toggleMenu}>About</NavLink></li>
 
 

@@ -20,9 +20,11 @@
 .nav-logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #6b46c1;
-  text-decoration: none;
-  transition: transform 0.3s ease;
+  color: #ff4081;
+  text-decoration: none; /* No underline */
+  display: flex;
+  align-items: center;
+  letter-spacing: 1px;
 }
 .nav-logo:hover {
   transform: scale(1.05);
@@ -32,12 +34,14 @@
 .nav-links {
   display: flex;
   align-items: center;
+  justify-content: space-evenly; /* Equally spaced */
   list-style: none;
+  flex: 1;
   margin: 0;
   padding: 0;
 }
 .nav-links li {
-  margin-left: 2rem;
+  margin-left: 0; /* Remove extra margin */
 }
 .nav-links a {
   text-decoration: none;

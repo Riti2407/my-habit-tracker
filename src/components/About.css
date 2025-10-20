@@ -35,11 +35,15 @@
 .app-container.dark {
   background: radial-gradient(circle at 30% 30%, #232526, #414345, #232526);
 }
+.app-container.dark .about-container h1,
+.app-container.dark .about-container h2 {
+  color: #ff6ec4; /* Pink/purple accent for headings */
+}
 
 .app-container.dark .about-container {
   background: linear-gradient(135deg, #232526, #414345);
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  color: #f3f3f3;
+  color: #f3f3f3; /* High-contrast, light text for dark backgrounds */
   border-radius: 12px;
   animation: fadeIn 0.8s ease-in-out;
 }
