@@ -13,9 +13,13 @@ import Foot from "./components/Foot";
 import TrackerCard from "./components/TrackerCard";
 import Contact from "./components/Contact";
 import BackToTop from "./components/BackToTop";
+
+import Profile from "./components/Profile"; // Import the Profile component
 import NotificationSettings from "./components/NotificationSettings";
 import notificationManager from "./components/NotificationManager";
+
 import Home  from "./components/Home";
+
 import Signup from "./components/Signup";
 import Login from "./components/login";
 
@@ -251,10 +255,23 @@ function App() {
                 />
               }
             />
+
+            <Route path="/about" element={<About />} />
+            
+            <Route path="/About" element={<About />} />
+            <Route path="/About" element={<About  darkMode = {darkMode}/>} />
+            
+            <Route path="/contact" element={<Contact />} />
+
+            <Route path="/profile" element={<Profile />} />
+
+
+
             <Route path="/About" element={<About darkMode={darkMode} />} />
             <Route path="/contact" element={<Contact darkMode={darkMode} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+
 
           </Routes>
         </main>
